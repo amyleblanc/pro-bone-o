@@ -25,3 +25,4 @@
 - As a sitter I can pay for 'Pro' with Google Pay
 - As an owner I can pay for services
 - As a user I can log in with my google account or Facebook login
+- As a dog sitter I can auto-accept bookings

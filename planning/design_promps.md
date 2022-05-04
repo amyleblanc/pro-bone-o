@@ -15,3 +15,10 @@
 
 !["Figma wireframe"](docs/figma_wireframe.png)
 > Mobile figma wireframe
+
+# What do we still need for MVP: 
+- Homepage with login/register ✅
+- My profile page (inc. map & my bookings/my listings) 
+- Create listing page - Bryson
+- Display all listings page - Amy
+- Booking page (displaying booking info) - Bryson

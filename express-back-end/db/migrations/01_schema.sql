@@ -15,7 +15,6 @@ CREATE TABLE "listing" (
   "id" SERIAL PRIMARY KEY,
   "sitter_listing" boolean,
   "user_id" int,
-  "listing_pets" int,
   "start_time" timestamp,
   "end_time" timestamp,
   "accepted" boolean,
@@ -39,44 +38,10 @@ CREATE TABLE "booking" (
   "rating" int(5)
 );
 
-CREATE TABLE "listing_pets" (
-  "id" SERIAL PRIMARY KEY,
-  "pet_id" int,
-  "listing_id" int
-);
-
-CREATE TABLE "favourited_pets" (
-  "id" SERIAL PRIMARY KEY,
-  "pet_id" int,
-  "user_id" int
-);
-
-CREATE TABLE "favourited_sitters" (
-  "id" SERIAL PRIMARY KEY,
-  "pet_id" int,
-  "user_id" int
-);
-
 ALTER TABLE "listing" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
-
-ALTER TABLE "listing" ADD FOREIGN KEY ("listing_pets") REFERENCES "listing_pets" ("id");
 
 ALTER TABLE "pets" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
 
 ALTER TABLE "booking" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
 
 ALTER TABLE "booking" ADD FOREIGN KEY ("listing_id") REFERENCES "listing" ("id");
-
-ALTER TABLE "listing_pets" ADD FOREIGN KEY ("pet_id") REFERENCES "pets" ("id");
-
-ALTER TABLE "listing_pets" ADD FOREIGN KEY ("listing_id") REFERENCES "listing" ("id");
-
-ALTER TABLE "favourited_pets" ADD FOREIGN KEY ("pet_id") REFERENCES "pets" ("id");
-
-ALTER TABLE "favourited_pets" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
-
-ALTER TABLE "favourited_sitters" ADD FOREIGN KEY ("pet_id") REFERENCES "pets" ("id");
-
-ALTER TABLE "favourited_sitters" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
-
-ALTER TABLE "users" ADD FOREIGN KEY ("password") REFERENCES "users" ("last_name");

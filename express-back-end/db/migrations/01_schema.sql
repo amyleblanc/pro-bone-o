@@ -39,6 +39,7 @@ CREATE TABLE "booking" (
   "user_id" int,
   "listing_id" int,
   "rating" int(5)
+  "review" varchar(500),
 );
 
 ALTER TABLE "listing" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");

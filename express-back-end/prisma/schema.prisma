@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model booking {
+  id         Int      @id @default(autoincrement())
+  user_id    Int?
+  listing_id Int?
+  rating     Int?
+  review     String?  @db.VarChar(500)
+  listing    listing? @relation(fields: [listing_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users      users?   @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model listing {
+  id                 Int       @id @default(autoincrement())
+  sitter_listing     Boolean?
+  user_id            Int?
+  activity_type      String?   @db.VarChar(100)
+  additional_details String?   @db.VarChar(200)
+  postal_code        String?   @db.VarChar(6)
+  start_time         DateTime? @db.Timestamp(6)
+  end_time           DateTime? @db.Timestamp(6)
+  accepted           Boolean?
+  archived           Boolean?
+  users              users?    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  booking            booking[]
+}
+
+model pets {
+  id          Int     @id @default(autoincrement())
+  user_id     Int?
+  name        String? @db.VarChar(250)
+  photo_url   String? @db.VarChar(500)
+  breed       String? @db.VarChar(250)
+  description String? @db.VarChar(500)
+  difficulty  Int?
+  users       users?  @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model users {
+  id            Int       @id @default(autoincrement())
+  first_name    String?   @db.VarChar(250)
+  last_name     String?   @db.VarChar(250)
+  password      String?   @db.VarChar(250)
+  email_address String?   @db.VarChar(250)
+  postal_code   String?   @db.VarChar(6)
+  photo_url     String?   @db.VarChar(500)
+  phone_number  BigInt?
+  rating        Int?
+  is_dog_owner  Boolean?
+  booking       booking[]
+  listing       listing[]
+  pets          pets[]
+}

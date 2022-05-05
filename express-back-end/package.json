@@ -16,6 +16,7 @@
   ],
   "license": "MIT",
   "scripts": {
+    "start": "react-scripts start",
     "go": "nodemon server.js"
   },
   "dependencies": {

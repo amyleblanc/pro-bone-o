@@ -2,11 +2,11 @@ CREATE TABLE "users" (
   "id" SERIAL PRIMARY KEY,
   "first_name" varchar(250),
   "last_name" varchar(250),
-  "password" varchar(250),
   "email_address" varchar(250),
+  "password" varchar(250),
+  "phone_number" bigint,
   "postal_code" varchar(6),
   "photo_url" varchar(500),
-  "phone_number" bigint,
   "rating" int(5),
   "is_dog_owner" boolean
 );

@@ -1,8 +1,8 @@
 INSERT INTO listing (sitter_listing, user_id, activity_type, additional_details, postal_code, start_time, end_time, accepted, archived) VALUES
-(FALSE, 1, 'Walkies!', 'Looking for a a walker to take Alfie and Winston out for a few hours! They have been couped up all day', 'V6Y1M8', '4pm', '6pm', FALSE, FALSE),
-(FALSE, 2, 'Dog Sitting', 'My puppies need a guardian while me and my partner have a date night tomorrow evening', 'V5Y1P5', '7pm', '10pm', FALSE, FALSE),
-(FALSE, 3, 'Walkies!', 'Help me get some peace and quiet!', 'V6B2N4', '1pm', '2pm', FALSE, FALSE),
-(FALSE, 4, 'Walkies!', 'No time to walk the dog, any help appreciated', 'V6Z1Y7', '8am', '10am', FALSE, FALSE),
+(FALSE, 1, 'Walkies!', 'Looking for a a walker to take Alfie and Winston out for a few hours! They have been couped up all day', 'V6Y1M8', '4pm', '6pm', TRUE, FALSE),
+(FALSE, 2, 'Dog Sitting', 'My puppies need a guardian while me and my partner have a date night tomorrow evening', 'V5Y1P5', '7pm', '10pm', TRUE, FALSE),
+(FALSE, 3, 'Walkies!', 'Help me get some peace and quiet!', 'V6B2N4', '1pm', '2pm', TRUE, FALSE),
+(FALSE, 4, 'Walkies!', 'No time to walk the dog, any help appreciated', 'V6Z1Y7', '8am', '10am', TRUE, FALSE),
 (FALSE, 5, 'Dog Sitting', 'Looking for somebody to look after my dog for a while, he is super cute!', 'V6G2M7', '11am', '1pm', FALSE, FALSE),
 (FALSE, 6, 'Dog Sitting', 'Thanks for your interest!', 'V6G2L9', '10am', '1pm', FALSE, FALSE),
 (TRUE, 7, 'Dog Sitting', 'Available to sit this weekend anytime', 'V6A1T8', '9am', '10pm', FALSE, FALSE),

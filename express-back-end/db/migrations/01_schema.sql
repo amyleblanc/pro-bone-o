@@ -16,10 +16,10 @@ CREATE TABLE "listing" (
   "sitter_listing" boolean,
   "user_id" int,
   "activity_type" varchar(100),
-  "additional_details" varchar(200),
+  "additional_details" varchar(500),
   "postal_code" varchar(6),
-  "start_time" timestamp,
-  "end_time" timestamp,
+  "start_time" varchar(100),
+  "end_time" varchar(100),
   "accepted" boolean,
   "archived" boolean
 );

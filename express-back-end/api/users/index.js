@@ -7,6 +7,8 @@ export default async function allUsers() {
   return users;
 };
 
+module.exports = {allUsers};
+
 // GET dog owners only
 // Required fields in body: none
 export default async function allOwners() {

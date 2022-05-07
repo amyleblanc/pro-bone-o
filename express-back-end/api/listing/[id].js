@@ -1,32 +1,50 @@
-import prisma from '../../../lib/prisma'
+import prisma from "../prisma";
 
-export default async function handle(req, res) {
-  const postId = req.query.id
-
-  if (req.method === 'GET') {
-    handleGET(postId, res)
-  } else if (req.method === 'DELETE') {
-    handleDELETE(postId, res)
-  } else {
-    throw new Error(
-      `The HTTP ${req.method} method is not supported at this route.`
-    )
-  }
+// GET a pet and all bookings and listings they have
+// Required fields in body: none
+export default async function getpetListings(petID) {
+  const pet = await prisma.pets.findUnique({
+    where: { id: Number(petID) },
+    include: { listing: true, booking: true },
+  });
+  return pet;
 }
 
-// GET /api/post/:id
-async function handleGET(postId, res) {
-  const post = await prisma.post.findUnique({
-    where: { id: Number(postId) },
-    include: { author: true },
-  })
-  res.json(post)
+// GET a pet and all listings they've created
+// Required fields in body: none
+export default async function getpetListings(petID) {
+  const pet = await prisma.pets.findUnique({
+    where: { id: Number(petID) },
+    include: { listing: true },
+  });
+  return pet;
 }
 
-// DELETE /api/post/:id
-async function handleDELETE(postId, res) {
-  const post = await prisma.post.delete({
-    where: { id: Number(postId) },
-  })
-  res.json(post)
+// GET a pet and all bookings they've accepted
+// Required fields in body: none
+export default async function getpetListings(petID) {
+  const pet = await prisma.pets.findUnique({
+    where: { id: Number(petID) },
+    include: { booking: true },
+  });
+  return pet;
+}
+
+
+// GET a pet and their specific listings
+// Required fields in body: 'false' for owner or 'true' for sitter
+export default async function getpetListingsByType(petID, type) {
+  const pet = await prisma.pets.findUnique({
+    where: {
+      id: Number(petID),
+    },
+    include: {
+      listing: {
+        where: {
+          sitter_listing: type,
+        },
+      },
+    },
+  });
+  return pet;
 }

@@ -1,46 +1,34 @@
 import prisma from "../prisma";
 
-// GET all users
+// GET all pets
 // Required fields in body: none
-export default async function allUsers(req, res) {
-  const users = await prisma.users.findMany();
-  res.json(users);
-}
+export default async function allPets() {
+  const pets = await prisma.pets.findMany();
+  return pets;
+};
 
-// GET dog owners only
-// Required fields in body: none
-export default async function allOwners(req, res) {
-  const users = await prisma.users.findMany({
-    where: { is_dog_owner: true }
+// GET all pets of a certain breed
+// Required fields in body: breed
+export default async function certainBreeds(breed) {
+  const pets = await prisma.pets.findMany({
+    where: {breed: breed}
   });
-  res.json(users);
-}
+  return pets;
+};
 
-// GET dog sitters only
-// Required fields in body: none
-export default async function allSitters(req, res) {
-  const users = await prisma.users.findMany({
-    where: { is_dog_owner: false }
-  });
-  res.json(users);
-}
-
-
-
-// GET users above a certain rating (should be duplicated and modified for either dog sitters or owners)
-// Required fields in body: rating
-export default async function allUsersRanked(req, res) {
-  //check logic on rating location
-  const rating = req.body.rating;
-  const users = await prisma.users.findMany({
+// GET pets above a certain difficulty rating
+// Required fields in body: difficulty
+export default async function allPetsRanked(difficulty) {
+  const pets = await prisma.pets.findMany({
     where: {
-       rating:{
-         gt: rating,
+       difficulty:{
+         gt: difficulty,
        },
     },
   });
-  res.json(users);
+  return pets;
 }
+
 
 
 

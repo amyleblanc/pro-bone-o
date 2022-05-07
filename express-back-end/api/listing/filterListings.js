@@ -1,8 +1,8 @@
-import prisma from '../../lib/prisma'
+import prisma from "../prisma";
 
-// GET /api/filterPosts?searchString=:searchString
+// GET /api/filterListings?searchString=:searchString
 export default async function handle(req, res) {
-  const { searchString } = req.query
+  const { searchString } = req.query;
   const resultPosts = await prisma.post.findMany({
     where: {
       OR: [
@@ -14,6 +14,6 @@ export default async function handle(req, res) {
         },
       ],
     },
-  })
-  res.json(resultPosts)
+  });
+  res.json(resultPosts);
 }

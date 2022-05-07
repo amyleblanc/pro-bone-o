@@ -6,20 +6,22 @@ const prisma = new PrismaClient();
 // run npx ts-node index.ts
 
 async function main() {
-  const userID = 1;
-  const users = await prisma.users.findUnique({
+  const userID = 6;
+  const type = false;
+  const user = await prisma.users.findUnique({
     where: { id: Number(userID) },
+    include: { booking: true, listing: true },
   });
   //return users;
-  console.log(users);
+  console.log(user);
 
-  const data = { email_address: "test@testmail.com" };
+  // const data = { email_address: "test@testmail.com" };
 
-  const newusers = await prisma.users.update({
-    where: { id: Number(userID) },
-    data: data,
-  });
-  console.log(newusers);
+  // const newusers = await prisma.users.update({
+  //   where: { id: Number(userID) },
+  //   data: data,
+  // });
+  // console.log(newusers);
   // ... you will write your Prisma Client queries here
 }
 

@@ -12,6 +12,6 @@ INSERT INTO pets (user_id, name, photo_url, breed, description, difficulty) VALU
 (11,'Lucy', 'https://images.dog.ceo/breeds/mountain-swiss/n02107574_1441.jpg', 'Swiss Mountain', 'Aloof, Clownish, Dignified, Independent, Happy', 2),
 (12,'Henry', 'https://images.dog.ceo/breeds/redbone/n02090379_3881.jpg', 'Red Bone', 'Amiable, Even Tempered, Excitable, Determined, Gentle, Intelligent', 1),
 (13,'Rooney', 'https://images.dog.ceo/breeds/hound-plott/hhh-23456.jpeg', 'Plott Hound', 'Trainable, Friendly, Affectionate, Playful, Quiet, Faithful', 2),
-(14,'Bobby', 'https://images.dog.ceo/breeds/saluki/n02091831_2245.jpg', 'Saluki', 'Spirited, Agile, Loyal, Gentle, Active, Courageous', 5)
+(14,'Bobby', 'https://images.dog.ceo/breeds/saluki/n02091831_2245.jpg', 'Saluki', 'Spirited, Agile, Loyal, Gentle, Active, Courageous', 5);
 
 

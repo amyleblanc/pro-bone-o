@@ -10,4 +10,4 @@ INSERT INTO users (first_name, last_name, email_address, password, phone_number,
 ('Ash', 'Mason', 'ashleh157@mail.com', '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.', 7783586873, 'V4T7H7', 'https://randomuser.me/api/portraits/men/59.jpg', 2.2, FALSE),
 ('Josh', 'Williams', 'josh1354@mail.com', '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.', 7783586873, 'V4T7T3', 'https://randomuser.me/api/portraits/men/11.jpg', 3.6, FALSE),
 ('Robert', 'Booth', 'rob4275@mail.com', '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.', 7783586873, 'V5T0B6', 'https://randomuser.me/api/portraits/men/52.jpg', 4.0, FALSE),
-('Thomas', 'Dunn', 'tom422@mail.com', '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.', 7783586873, 'V3T8Y6', 'https://randomuser.me/api/portraits/men/34.jpg', 3.8, FALSE)
+('Thomas', 'Dunn', 'tom422@mail.com', '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.', 7783586873, 'V3T8Y6', 'https://randomuser.me/api/portraits/men/34.jpg', 3.8, FALSE);

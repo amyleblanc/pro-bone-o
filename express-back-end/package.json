@@ -16,7 +16,7 @@
   ],
   "license": "MIT",
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node server.js",
     "go": "nodemon server.js"
   },
   "prisma": {

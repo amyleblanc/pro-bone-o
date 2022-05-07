@@ -13,7 +13,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 // import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import useStyles from "./styles/ApplicationStyles";
-import "./Application.css";
 
 export default function Application() {
   const styles = useStyles();

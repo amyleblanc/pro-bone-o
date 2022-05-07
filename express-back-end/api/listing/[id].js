@@ -1,5 +1,25 @@
 import prisma from "../prisma";
 
+// POST Create a new listing
+//requires data object for listing information
+//ex: {sitter_listing: true, start_time: "2022-05-06T08:00:00.000Z"}
+export default async function createlisting(listingData) {
+  const listing = await prisma.listing.create({
+    data: listingData,
+  });
+  return listing;
+}
+
+// GET listing and included booking and users object from listing id
+//requires listingID
+export default async function getListing(listingID) {
+  const listing = await prisma.listing.findUnique({
+    where: { id: Number(listingID) },
+    include: { booking: { include: { users: true } } },
+  });
+  return listing;
+}
+
 // GET a pet and all bookings and listings they have
 // Required fields in body: none
 export default async function getpetListings(petID) {
@@ -47,4 +67,16 @@ export default async function getpetListingsByType(petID, type) {
     },
   });
   return pet;
+}
+
+// PUT updates a listing with new information
+// can be used to archive a listing
+//requires listingID and data as an object
+// ex data = {activity_type: 'walkies'}
+export default async function updateListing(listingID, data) {
+  const listing = await prisma.listing.delete({
+    where: { id: Number(listingID) },
+    data: data,
+  });
+  return listing;
 }

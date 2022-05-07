@@ -1,33 +1,32 @@
 import prisma from "../prisma";
 
-//handles requests for individual bookings
-export default async function bookings(req, res) {
-  const bookingId = req.query.id;
-
-  if (req.method === "GET") {
-    handleGET(bookingId, res);
-  } else if (req.method === "DELETE") {
-    handleDELETE(bookingId, res);
-  } else {
-    throw new Error(
-      `The HTTP ${req.method} method is not supported at this route.`
-    );
-  }
+// POST Create a new booking
+//requires data object for booking information
+//ex: {sitter_booking: true, start_time: "2022-05-06T08:00:00.000Z"}
+export default async function createbooking(bookingData) {
+  const booking = await prisma.booking.create({
+    data: bookingData,
+  });
+  return booking;
 }
 
-// GET /api/booking/:id
-async function handleGET(postId, res) {
-  const post = await prisma.bookings.findUnique({
-    where: { id: Number(postId) },
-    include: { author: true },
+// GET booking and included user from booking id
+//requires bookingID
+export default async function getBooking(bookingID) {
+  const booking = await prisma.booking.findUnique({
+    where: { id: Number(bookingID) },
+    include: { users: true },
   });
-  res.json(post);
+  return booking;
 }
 
-// DELETE /api/booking/:id
-async function handleDELETE(bookingId, res) {
-  const post = await prisma.bookings.delete({
-    where: { id: Number(postId) },
+// GET all bookings for a specific user, optionally by open or closed
+//requires userID; optional completed {boolean}
+export default async function getBooking(userID,completed) {
+  const isComplete = completed ? completed : false;
+  const booking = await prisma.booking.findMany({
+    where: { user_id: Number(userID) },
+    include: { listing: {where: {archived:isComplete }} },
   });
-  res.json(post);
+  return booking;
 }

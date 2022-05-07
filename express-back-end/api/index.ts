@@ -6,14 +6,20 @@ const prisma = new PrismaClient();
 // run npx ts-node index.ts
 
 async function main() {
-  const userID = 6;
-  const type = false;
-  const user = await prisma.users.findUnique({
-    where: { id: Number(userID) },
-    include: { booking: true, listing: true },
+  const listingID = 6;
+  const startTime = null;
+  const endTime = null;
+  const start = startTime ? startTime : "2010-02-12T08:00:00.000Z";
+  const end = endTime ? endTime : "2010-02-12T08:00:00.000Z";
+  const sitterListing = true;
+  const searchString = "sitting";
+  const isSitterListing = sitterListing ? sitterListing : false;
+  const listing = await prisma.listing.findUnique({
+    where: { id: Number(listingID) },
+    include: { booking: true },
   });
   //return users;
-  console.log(user);
+  console.log(listing);
 
   // const data = { email_address: "test@testmail.com" };
 

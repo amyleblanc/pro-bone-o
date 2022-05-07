@@ -1,16 +1,18 @@
 import prisma from "../prisma";
 
-// POST /api/post
-// Required fields in body: title, authorEmail
-// Optional fields in body: content
-export default async function handle(req, res) {
-  const { title, content, authorEmail } = req.body;
-  const result = await prisma.post.create({
-    data: {
-      title: title,
-      content: content,
-      author: { connect: { email: authorEmail } },
-    },
+// GET all bookings
+// Required fields in body: none
+export default async function allbookings(isSitterListing) {
+  const booking = await prisma.booking.findMany();
+  return booking;
+};
+
+// GET all bookings with typefilter (sitter or non-sitter)
+// Required fields in body: none; optional: isSitterListing {boolean}
+export default async function allbookings(isSitterListing) {
+  const isSitterListing = sitterListing ? sitterListing : false;
+  const booking = await prisma.booking.findMany({
+    include: { listing: {where: {sitter_booking: isSitterListing }} },
   });
-  res.json(result);
+  return booking;
 }

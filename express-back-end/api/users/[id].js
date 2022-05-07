@@ -1,5 +1,15 @@
 import prisma from "../prisma";
 
+// POST Create a new user
+//requires data object for user information
+//ex: {first_name: 'steve', last_name:}
+export default async function createUser(userData) {
+  const user = await prisma.users.create({
+    data: userData,
+  });
+  return user;
+}
+
 // GET /api/users/:id
 //get single user from id
 //requires id

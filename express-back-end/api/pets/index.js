@@ -38,15 +38,15 @@ export default async function allPetsRanked(difficulty) {
 /*
 
 
-// GET users based on location
+// GET pets based on location
 // Required fields in body: location
 export default async function handle(req, res) {
-  const users = await prisma.users.findMany({
+  const pets = await prisma.pets.findMany({
     where: { postal_code:{
 
     }}
   })
-  res.json(posts)
+  return pets;
 }
 
  */

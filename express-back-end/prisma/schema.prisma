@@ -52,7 +52,7 @@ model users {
   postal_code   String?   @db.VarChar(6)
   photo_url     String?   @db.VarChar(500)
   phone_number  BigInt?
-  rating        Int?
+  rating        Float?
   is_dog_owner  Boolean?
   booking       booking[]
   listing       listing[]

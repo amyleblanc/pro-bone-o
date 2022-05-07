@@ -2,36 +2,32 @@ import prisma from "../prisma";
 
 // GET all users
 // Required fields in body: none
-export default async function allUsers(req, res) {
+export default async function allUsers() {
   const users = await prisma.users.findMany();
-  res.json(users);
-}
+  return users;
+};
 
 // GET dog owners only
 // Required fields in body: none
-export default async function allOwners(req, res) {
+export default async function allOwners() {
   const users = await prisma.users.findMany({
     where: { is_dog_owner: true }
   });
-  res.json(users);
+  return users;
 }
 
 // GET dog sitters only
 // Required fields in body: none
-export default async function allSitters(req, res) {
+export default async function allSitters() {
   const users = await prisma.users.findMany({
     where: { is_dog_owner: false }
   });
-  res.json(users);
+  return users;
 }
 
-
-
 // GET users above a certain rating (should be duplicated and modified for either dog sitters or owners)
-// Required fields in body: rating
-export default async function allUsersRanked(req, res) {
-  //check logic on rating location
-  const rating = req.body.rating;
+// Required field: rating
+export default async function allUsersRanked(rating) {
   const users = await prisma.users.findMany({
     where: {
        rating:{
@@ -39,11 +35,11 @@ export default async function allUsersRanked(req, res) {
        },
     },
   });
-  res.json(users);
+  return users;
 }
 
 
-
+//module.exports = {allUsers};
 
 //STRETCH
 

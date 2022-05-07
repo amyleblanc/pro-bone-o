@@ -6,15 +6,20 @@ const prisma = new PrismaClient();
 // run npx ts-node index.ts
 
 async function main() {
-  const rating = 3;
-  const users = await prisma.users.findMany({
-    where: {
-      rating: {
-        gt: rating,
-      },
-    },
+  const userID = 1;
+  const users = await prisma.users.findUnique({
+    where: { id: Number(userID) },
   });
+  //return users;
   console.log(users);
+
+  const data = { email_address: "test@testmail.com" };
+
+  const newusers = await prisma.users.update({
+    where: { id: Number(userID) },
+    data: data,
+  });
+  console.log(newusers);
   // ... you will write your Prisma Client queries here
 }
 

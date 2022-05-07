@@ -1,4 +1,5 @@
 import React from "react";
+import Listing from "./components/listing";
 
 export default function Application() {
   return (
@@ -6,6 +7,9 @@ export default function Application() {
       <section>
         <div>
           <h1>Pro-Bone-O</h1>
+        </div>
+        <div>
+          <Listing />
         </div>
       </section>
     </main>

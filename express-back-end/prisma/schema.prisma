@@ -51,7 +51,7 @@ model users {
   email_address String?   @db.VarChar(250)
   postal_code   String?   @db.VarChar(6)
   photo_url     String?   @db.VarChar(500)
-  phone_number  BigInt?
+  phone_number  String?   @db.VarChar(11)
   rating        Float?
   is_dog_owner  Boolean?
   booking       booking[]

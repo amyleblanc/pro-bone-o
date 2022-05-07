@@ -26,7 +26,7 @@ async function main() {
         email_address: each.email_address,
         postal_code: each.postal_code,
         photo_url: each.photo_url,
-        phone_number: each.phone_number,
+        phone_number: String(each.phone_number),
         rating: each.rating,
         is_dog_owner: Math.random() < 0.5,
         pets: {
@@ -83,7 +83,7 @@ async function main() {
         email_address: randEmail(),
         postal_code: postal,
         photo_url: randAvatar(),
-        phone_number: randNumber({ min: 1111111111, max: 9999999999 }),
+        phone_number: String(randNumber({ min: 1111111111, max: 9999999999 })),
         rating: randNumber({ min: 0, max: 5 }),
         is_dog_owner: Math.random() < 0.5,
         pets: {

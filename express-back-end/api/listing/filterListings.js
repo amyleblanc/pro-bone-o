@@ -1,9 +1,16 @@
-import prisma from "../prisma";
+const { prisma } = require("../prisma");
 
 //Super Filter for All Options (to be updated with postal_code search)
 // GET ONLY open listings with input searchString in additional details or activity type; can search either sitter listings or dog availability
-//Required fields in body: none optional (all): searchString {string}, sitterListing {boolean}, startTime(dateTime), endTime(dateTime), accepted {boolean}, archived {boolean}, 
-export default async function allFiltersListings(searchString, sitterListing, startTime, endTime, accepted, archived, ) {
+//Required fields in body: none optional (all): searchString {string}, sitterListing {boolean}, startTime(dateTime), endTime(dateTime), accepted {boolean}, archived {boolean},
+async function allFiltersListings(
+  searchString,
+  sitterListing,
+  startTime,
+  endTime,
+  accepted,
+  archived
+) {
   const isSitterListing = sitterListing ? sitterListing : false;
   const start = startTime ? startTime : "2010-02-12T08:00:00.000Z";
   const end = endTime ? endTime : "2010-02-12T08:00:00.000Z";
@@ -35,7 +42,7 @@ export default async function allFiltersListings(searchString, sitterListing, st
 
 // GET ONLY open listings with input searchString in additional details or activity type; can search either sitter listings or dog availability
 //Required fields in body: searchString {string}; optional: sitterListing {boolean}
-export default async function filterSitterListings(searchString, sitterListing) {
+async function filterSitterListings(searchString, sitterListing) {
   const isSitterListing = sitterListing ? sitterListing : false;
   const listings = await prisma.listing.findMany({
     where: {
@@ -57,7 +64,7 @@ export default async function filterSitterListings(searchString, sitterListing) 
 
 // GET ONLY OPEN listings requesting a sitter or dog's availaibility posting where start time and/or end time matches selected range
 // Required fields in body: none; optional: startTime {dateTime}, endTime {dateTime}, sitterListing {boolean}
-export default async function openRequestsForSitter(startTime, endTime, sitterListing) {
+async function openRequestsForSitter(startTime, endTime, sitterListing) {
   const start = startTime ? startTime : "2010-02-12T08:00:00.000Z";
   const end = endTime ? endTime : "2010-02-12T08:00:00.000Z";
   const isSitterListing = sitterListing ? sitterListing : false;
@@ -77,3 +84,8 @@ export default async function openRequestsForSitter(startTime, endTime, sitterLi
   return listings;
 }
 
+module.exports = {
+  allFiltersListings,
+  openRequestsForSitter,
+  filterSitterListings,
+};

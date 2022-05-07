@@ -1,37 +1,35 @@
-import prisma from "../prisma";
+const { prisma } = require("../prisma");
 
 // GET all pets
 // Required fields in body: none
-export default async function allPets() {
+async function allPets() {
   const pets = await prisma.pets.findMany();
   return pets;
-};
+}
 
 // GET all pets of a certain breed
 // Required fields in body: breed
-export default async function certainBreeds(breed) {
+async function certainBreeds(breed) {
   const pets = await prisma.pets.findMany({
-    where: {breed: breed}
+    where: { breed: breed },
   });
   return pets;
-};
+}
 
 // GET pets above a certain difficulty rating
 // Required fields in body: difficulty
-export default async function allPetsRanked(difficulty) {
+async function allPetsRanked(difficulty) {
   const pets = await prisma.pets.findMany({
     where: {
-       difficulty:{
-         gt: difficulty,
-       },
+      difficulty: {
+        gt: difficulty,
+      },
     },
   });
   return pets;
 }
 
-
-
-
+module.exports = { allPets, certainBreeds, allPetsRanked };
 
 //STRETCH
 

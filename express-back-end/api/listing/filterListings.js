@@ -64,7 +64,7 @@ async function filterSitterListings(searchString, sitterListing) {
 
 // GET ONLY OPEN listings requesting a sitter or dog's availaibility posting where start time and/or end time matches selected range
 // Required fields in body: none; optional: startTime {dateTime}, endTime {dateTime}, sitterListing {boolean}
-async function openRequestsForSitter(startTime, endTime, sitterListing) {
+async function openRequestsForSitterFilter(startTime, endTime, sitterListing) {
   const start = startTime ? startTime : "2010-02-12T08:00:00.000Z";
   const end = endTime ? endTime : "2010-02-12T08:00:00.000Z";
   const isSitterListing = sitterListing ? sitterListing : false;
@@ -86,6 +86,6 @@ async function openRequestsForSitter(startTime, endTime, sitterListing) {
 
 module.exports = {
   allFiltersListings,
-  openRequestsForSitter,
+  openRequestsForSitterFilter,
   filterSitterListings,
 };

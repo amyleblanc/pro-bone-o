@@ -8,6 +8,8 @@ const petsID = require("./pets/[id]");
 const bookingID = require("./booking/[id]");
 const listingID = require("./listing/[id]");
 
+const listingFilter = require("./listing/filterListings");
+
 module.exports = {
   users,
   userID,
@@ -17,6 +19,5 @@ module.exports = {
   bookingID,
   listing,
   listingID,
+  listingFilter,
 };
-
-//module.exports = { users, pets, booking, listing };

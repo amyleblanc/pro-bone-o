@@ -1,14 +1,16 @@
 import React from "react";
-import { 
+import {
   AppBar,
   Button,
   Grid,
   Toolbar,
   Typography,
-  Container
+  Container,
 } from "@material-ui/core";
 
-import CssBaseline from '@mui/material/CssBaseline';
+import ListingForm from "./components/form";
+
+import CssBaseline from "@mui/material/CssBaseline";
 
 // import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -21,16 +23,26 @@ export default function Application() {
       <CssBaseline />
       <AppBar position="relative">
         <Toolbar>
-          <img src="/images/pro-bone-o_logo.png" className={styles.icon}/>
+          <img src="/images/pro-bone-o_logo.png" className={styles.icon} />
         </Toolbar>
       </AppBar>
       <main>
         <div className={styles.container}>
-          <Container maxWidth="sm" style={{ marginTop: '100px'}}>
-            <Typography variant="h2" align="center" color="textPrimary" gutterBottom>
+          <Container maxWidth="sm" style={{ marginTop: "100px" }}>
+            <Typography
+              variant="h2"
+              align="center"
+              color="textPrimary"
+              gutterBottom
+            >
               Pro-Bone-O
             </Typography>
-            <Typography variant="h5" align="center" color="textSecondary" paragraph>
+            <Typography
+              variant="h5"
+              align="center"
+              color="textSecondary"
+              paragraph
+            >
               Find free dog walkers & sitters in your area!
             </Typography>
             <div className={styles.buttonContainer}>
@@ -41,10 +53,11 @@ export default function Application() {
                   </Button>
                 </Grid>
                 <Grid item>
-                  <Button className={styles.registerButton}  variant="outlined">
+                  <Button className={styles.registerButton} variant="outlined">
                     Register
                   </Button>
                 </Grid>
+                <ListingForm></ListingForm>
               </Grid>
             </div>
           </Container>

@@ -25,6 +25,18 @@ app.get("/api/data", (req, res) => {
     });
 });
 
+app.get("/api/listing", (req, res) => {
+  dataqueries.listing
+    .allListings()
+    .then((listing) => {
+      res.json(listing);
+    })
+    .catch((err) => {
+      console.log(err.message);
+      return null;
+    });
+});
+
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
   console.log(

@@ -12,8 +12,6 @@ import ListingForm from "./components/form";
 
 import CssBaseline from "@mui/material/CssBaseline";
 
-// import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
 import useStyles from "./styles/ApplicationStyles";
 
 export default function Application() {
@@ -23,7 +21,11 @@ export default function Application() {
       <CssBaseline />
       <AppBar position="relative">
         <Toolbar>
-          <img src="/images/pro-bone-o_logo.png" className={styles.icon} />
+          <img
+            src="/images/pro-bone-o_logo.png"
+            alt="pro-bone-o logo"
+            className={styles.icon}
+          />
         </Toolbar>
       </AppBar>
       <main>
@@ -62,6 +64,11 @@ export default function Application() {
             </div>
           </Container>
         </div>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/listing" element={<Listing />} />
+          </Routes>
+        </BrowserRouter>
       </main>
     </>
   );

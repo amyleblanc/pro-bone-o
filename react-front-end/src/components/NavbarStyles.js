@@ -9,9 +9,10 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: "10px",
     paddingBottom: "10px",
     width: "150px",
-    display: { 
-      xs: 'none', md: 'flex' 
-    }, 
+    display: {
+      xs: "none",
+      md: "flex",
+    },
     mr: 1,
   },
   responsiveLogo: {
@@ -19,9 +20,10 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: "10px",
     paddingBottom: "10px",
     width: "150px",
-    display: { 
-      xs: 'flex', md: 'none' 
-    }, 
+    display: {
+      xs: "flex",
+      md: "none",
+    },
     mr: 1,
   },
 }));

@@ -1,24 +1,27 @@
 import React from "react";
 import Listing from "./components/Listing";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Button, Grid, Typography, Container } from "@material-ui/core";
+//import { Button, Grid, Typography, Container } from "@material-ui/core";
+
+import { Button, Grid, Typography, Container } from "@mui/material";
 
 import ListingForm from "./components/form";
 
 import CssBaseline from "@mui/material/CssBaseline";
 
-import useStyles from "./styles/ApplicationStyles";
+//import useStyles from "./styles/ApplicationStyles";
 
 import ResponsiveAppBar from "./components/Navbar";
 
 export default function Application() {
-  const styles = useStyles();
+  //const styles = useStyles();
   return (
     <>
       <CssBaseline />
-      <ResponsiveAppBar />
+      {/* <ResponsiveAppBar /> */}
       <main>
-        <div className={styles.container}>
+        <div>
+          {/* <div className={styles.container}> */}
           <Container maxWidth="sm" style={{ marginTop: "100px" }}>
             <Typography
               variant="h2"
@@ -36,17 +39,16 @@ export default function Application() {
             >
               Find free dog walkers & sitters in your area!
             </Typography>
-            <div className={styles.buttonContainer}>
+            <div>
+              {/* <div className={styles.buttonContainer}> */}
               <Grid container spacing={2} justifyContent="center">
                 <Grid item>
-                  <Button className={styles.loginButton} variant="contained">
-                    Login
-                  </Button>
+                  {/* <Button className={styles.loginButton} variant="contained"> */}
+                  <Button>Login</Button>
                 </Grid>
                 <Grid item>
-                  <Button className={styles.registerButton} variant="outlined">
-                    Register
-                  </Button>
+                  {/* <Button className={styles.registerButton} variant="outlined"> */}
+                  <Button>Register</Button>
                 </Grid>
               </Grid>
             </div>

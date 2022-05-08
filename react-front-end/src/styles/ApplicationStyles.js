@@ -4,7 +4,7 @@ const background = "#BBDEE7";
 const useStyles = makeStyles((theme) => ({
   container: {
     backgroundColor: "#FDDA5E",
-    padding: theme.spacing(8, 0, 60)
+    padding: theme.spacing(8, 0, 60),
   },
   buttonContainer: {
     marginTop: "40px",
@@ -13,14 +13,14 @@ const useStyles = makeStyles((theme) => ({
   loginButton: {
     backgroundColor: primary,
     color: "white",
-    '&:hover': {
+    "&:hover": {
       background: background,
       color: "black",
     },
   },
   registerButton: {
     outlineColor: primary,
-    '&:hover': {
+    "&:hover": {
       background: background,
     },
   },

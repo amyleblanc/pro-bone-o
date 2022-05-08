@@ -18,6 +18,7 @@ const prisma = new PrismaClient();
 
 async function main() {
   for (let each of usersArray) {
+    const dog = randDog();
     await prisma.users.create({
       data: {
         first_name: each.first_name,
@@ -33,8 +34,8 @@ async function main() {
           create: [
             {
               name: randFirstName(),
-              photo_url: "https://dog.ceo/api/breeds/image/random",
-              breed: randDog(),
+              photo_url: `https://dog.ceo/api/breed/${dog}/images/random`,
+              breed: dog,
               description: randSentence(),
               difficulty: randNumber({ min: 0, max: 5 }),
             },
@@ -75,6 +76,7 @@ async function main() {
       randNumber({ min: 0, max: 9 }) +
       randAlpha() +
       randNumber({ min: 0, max: 9 });
+    const dog = randDog();
     await prisma.users.create({
       data: {
         first_name: randFirstName(),
@@ -90,8 +92,8 @@ async function main() {
           create: [
             {
               name: randFirstName(),
-              photo_url: "https://dog.ceo/api/breeds/image/random",
-              breed: randDog(),
+              photo_url: `https://dog.ceo/api/breed/${dog}/images/random`,
+              breed: dog,
               description: randSentence(),
               difficulty: randNumber({ min: 0, max: 5 }),
             },

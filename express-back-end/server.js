@@ -38,7 +38,7 @@ app.get("/api/listing", (req, res) => {
 });
 
 app.get("/listings", (req, res) => {
-    console.log(res);
+  console.log(res);
 });
 
 app.listen(PORT, () => {

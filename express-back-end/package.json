@@ -17,7 +17,9 @@
   "license": "MIT",
   "scripts": {
     "start": "node server.js",
-    "go": "nodemon server.js"
+    "go": "nodemon server.js",
+    "schema": "npx prisma migrate dev --name init",
+    "seed": "npx prisma migrate reset"
   },
   "prisma": {
     "seed": "ts-node ./prisma/seed.ts"

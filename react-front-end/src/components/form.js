@@ -4,9 +4,10 @@ import React, { useEffect, useState, useReducer } from "react";
 const formReducer = (state, event) => {
   if (event.reset) {
     return {
-      apple: "",
-      count: 0,
-      name: "",
+      pet: "",
+      activity: "",
+      start: "",
+      end: "",
       "gift-wrap": false,
     };
   }
@@ -49,7 +50,7 @@ export default function ListingForm() {
 
   return (
     <div className="create-form">
-      <h1>How About Them Apples</h1>
+      <h1>Create a Listing</h1>
       {submitting && (
         <div>
           You are submitting the following:
@@ -65,27 +66,43 @@ export default function ListingForm() {
       <form onSubmit={handleSubmit} disabled={submitting}>
         <fieldset>
           <label>
-            <p>Name</p>
-            <input
-              name="name"
+            <p>Select Pet(s)</p>
+            <select
+              name="pet"
               onChange={handleChange}
-              value={formData.name || ""}
-            />
+              value={formData.pet || ""}
+            >
+              <option value="">--Please choose an option--</option>
+              <option value="steve">Steve</option>
+              <option value="bobby">Bobby</option>
+              <option value="john">John</option>
+            </select>
+          </label>
+          <label>
+            <p>Select Activity Requested</p>
+            <select
+              name="activity"
+              onChange={handleChange}
+              value={formData.activity || ""}
+            >
+              <option value="">--Please choose an option--</option>
+              <option value="walkies">Walk</option>
+              <option value="sitting">Sitting</option>
+              <option value="doggy-date">Doggy Date</option>
+            </select>
           </label>
         </fieldset>
         <fieldset disabled={submitting}>
           <label>
-            <p>Apples</p>
-            <select
-              name="apple"
+            <p>Start Date</p>
+            <input
+              type="datetime-local"
+              id="meeting-time"
+              name="start-time"
+              min="2022-05-07T00:00"
               onChange={handleChange}
-              value={formData.apple || ""}
-            >
-              <option value="">--Please choose an option--</option>
-              <option value="fuji">Fuji</option>
-              <option value="jonathan">Jonathan</option>
-              <option value="honey-crisp">Honey Crisp</option>
-            </select>
+              value={formData.start || ""}
+            ></input>
           </label>
           <label>
             <p>Count</p>

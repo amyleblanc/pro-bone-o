@@ -1,4 +1,6 @@
 import React from "react";
+import Listing from "./components/listing";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import {
   AppBar,
   Button,
@@ -59,7 +61,6 @@ export default function Application() {
                     Register
                   </Button>
                 </Grid>
-                <ListingForm></ListingForm>
               </Grid>
             </div>
           </Container>
@@ -67,6 +68,7 @@ export default function Application() {
         <BrowserRouter>
           <Routes>
             <Route path="/listing" element={<Listing />} />
+            <Route path="/create" element={<ListingForm />} />
           </Routes>
         </BrowserRouter>
       </main>

@@ -1,14 +1,7 @@
 import React from "react";
 import Listing from "./components/listing";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import {
-  AppBar,
-  Button,
-  Grid,
-  Toolbar,
-  Typography,
-  Container,
-} from "@material-ui/core";
+import { Button, Grid, Typography, Container } from "@material-ui/core";
 
 import ListingForm from "./components/form";
 
@@ -16,20 +9,14 @@ import CssBaseline from "@mui/material/CssBaseline";
 
 import useStyles from "./styles/ApplicationStyles";
 
+import ResponsiveAppBar from "./components/Navbar";
+
 export default function Application() {
   const styles = useStyles();
   return (
     <>
       <CssBaseline />
-      <AppBar position="relative">
-        <Toolbar>
-          <img
-            src="/images/pro-bone-o_logo.png"
-            alt="pro-bone-o logo"
-            className={styles.icon}
-          />
-        </Toolbar>
-      </AppBar>
+      <ResponsiveAppBar />
       <main>
         <div className={styles.container}>
           <Container maxWidth="sm" style={{ marginTop: "100px" }}>

@@ -6,10 +6,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#FDDA5E",
     padding: theme.spacing(8, 0, 60)
   },
-  icon: {
-    marginRight: "20px",
-    width: "15%",
-  },
   buttonContainer: {
     marginTop: "40px",
     color: "white",
@@ -27,20 +23,6 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       background: background,
     },
-  },
-  cardGrid: {
-    padding: "20px 0",
-  },
-  card: {
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
-  },
-  cardMedia: {
-    paddingTop: "56.25%" // 16:9
-  },
-  cardContent: {
-    flexGrow: 1,
   },
 }));
 

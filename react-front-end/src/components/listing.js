@@ -1,26 +1,34 @@
 import React, { useEffect, useState } from 'react';
+const axios = require('axios').default;
+
 
 export default function Listing() {
-  const [listing, setListing] = useState();
+  const [listing, setListing] = useState([]);
 
   useEffect(() => {
-    fetch('/api/data')
-      .then(res => res.json())
-      .then(users => {
-        setListing(users)
-      });
+    const listings = async () => {
+      const res = await axios('/api/listing')
+      setListing(res.data)
+    };
+    listings();
   }, []);
+
+  const useListing = listing.map((listing)=>{
+    return <div key={listing.id}>
+                <h3>{listing.id}</h3>
+                <h4>{listing.activity_type}</h4>
+                <p>{listing.additional_details}</p>
+              </div> 
+    })
 
   return (
     <main>
       <section>
         <div>
           <h1>Current Listings</h1>
-          <ul>
-            {listing.map(listing =>
-              <li key={listing.id}>{listing.activity_type}</li>
-              )}
-          </ul>
+          <div className="container">
+          {listing && useListing}
+      </div>
         </div>
       </section>
     </main>

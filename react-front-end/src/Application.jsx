@@ -11,10 +11,10 @@ import Splash from "./pages/splash";
 export default function Application() {
   return (
     <>
-      <CssBaseline />
-      <ResponsiveAppBar />
       <main>
         <BrowserRouter>
+            <CssBaseline />
+            <ResponsiveAppBar />
           <Routes>
             <Route path="/" element={<Splash />} />
             <Route path="/listing" element={<Listing />} />

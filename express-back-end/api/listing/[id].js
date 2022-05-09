@@ -2,10 +2,15 @@ const { prisma } = require("../prisma");
 
 // POST Create a new listing
 //requires data object for listing information
+//requires userID to know who the posting is for
 //ex: {sitter_listing: true, start_time: "2022-05-06T08:00:00.000Z"}
-async function createlisting(listingData) {
+async function createlisting(userID, listingData) {
+  const dataSet = listingData;
+  dataSet["user_id"] = userID;
+  dataSet["accepted"] = false;
+  dataSet["archived"] = false;
   const listing = await prisma.listing.create({
-    data: listingData,
+    data: dataSet,
   });
   return listing;
 }

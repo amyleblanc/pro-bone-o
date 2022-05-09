@@ -1,5 +1,5 @@
 import React from "react";
-import Listing from "./components/listing";
+import Listing from "./components/Listing";
 import ListingForm from "./components/form";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 

@@ -1,44 +1,45 @@
-import React, { useEffect, useState } from 'react';
-import './Listing.css'
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-const axios = require('axios').default;
-
+import React, { useEffect, useState } from "react";
+import "./Listing.css";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+const axios = require("axios").default;
 
 export default function Listing() {
   const [listing, setListing] = useState([]);
 
   useEffect(() => {
     const listings = async () => {
-      const res = await axios('/api/listing')
-      setListing(res.data)
+      const res = await axios("/api/listing");
+      setListing(res.data);
     };
     const listingUser = async () => {
-      const params = listings.id
-      const res = await axios.get('/api/users/', { params })
-      setListing(res.data)
+      const params = listings.id;
+      const res = await axios.get("/api/users/", { params });
+      setListing(res.data);
     };
     listings();
     console.log(listingUser());
   }, []);
 
-  const useListing = listing.map((listing)=>{
+  const useListing = listing.map((listing) => {
     console.log(listing);
     return (
-      <Card sx={{ 
-      bgcolor: 'background.paper',
-      boxShadow: 1,
-      borderRadius: 2,
-      p: 2,
-      minWidth: 300,
-      maxWidth: 345,
-      ml: 30,
-      mt: 5
-      }}>
+      <Card
+        sx={{
+          bgcolor: "background.paper",
+          boxShadow: 1,
+          borderRadius: 2,
+          p: 2,
+          minWidth: 300,
+          maxWidth: 345,
+          ml: 30,
+          mt: 5,
+        }}
+      >
         <CardMedia
           component="img"
           height="140"
@@ -58,16 +59,14 @@ export default function Listing() {
         </CardActions>
       </Card>
     );
-    })
+  });
 
   return (
     <main>
       <section>
         <div>
           <h1>Current Listings</h1>
-          <div className="container">
-          {listing && useListing}
-      </div>
+          <div className="container">{listing && useListing}</div>
         </div>
       </section>
     </main>

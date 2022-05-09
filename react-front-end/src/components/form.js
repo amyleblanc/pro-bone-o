@@ -63,9 +63,14 @@ const createNewListing = async (formData) => {
 };
 
 const dateFormatter = (date) => {
+  // const offset = yourDate.getTimezoneOffset();
+  // yourDate = new Date(yourDate.getTime() - offset * 60 * 1000);
+  //return yourDate.toISOString().split("T")[0];
   //sql 2018-02-12T08:00:00.000Z
   //browser Thu May 19 2022 21:09:01 GMT-0700 (Pacific Daylight Time)
-  const newDate = date.toLocaleString();
+  //const newDate = date.toLocaleString();
+  const newDate = date.toISOString(); //.split("T")[0];
+  console.log(newDate);
   return newDate;
 };
 
@@ -86,29 +91,35 @@ export default function ListingForm() {
     if (!formData["pets"]) {
       const type = formData["type"] ? true : false;
       const newData = {
-        activity: formData["activity"],
-        details: formData["details"] ? formData["details"] : "",
-        start: dateFormatter(
+        activity_type: formData["activity"],
+        additional_details: formData["details"] ? formData["details"] : "",
+        start_time: dateFormatter(
           formData["start"] ? formData["start"] : new Date()
         ),
-        end: dateFormatter(formData["end"] ? formData["end"] : new Date()),
-        postal: formData["postal"],
-        type: type,
+        end_time: dateFormatter(formData["end"] ? formData["end"] : new Date()),
+        postal_code: formData["postal"],
+        sitter_listing: type,
       };
       createNewListing(newData);
     } else {
-      for (let each of formData["pets"]) {
+      let count = formData["pets"];
+      count = count.length;
+      for (let i = 0; i < count; i++) {
+        //update when have pet object data
+        //for (let each of formData["pets"]) {
         const type = formData["type"] ? true : false;
         const newData = {
-          activity: formData["activity"],
-          details: formData["details"] ? formData["details"] : "",
-          start: dateFormatter(
+          activity_type: formData["activity"],
+          additional_details: formData["details"] ? formData["details"] : "",
+          start_time: dateFormatter(
             formData["start"] ? formData["start"] : new Date()
           ),
-          end: dateFormatter(formData["end"] ? formData["end"] : new Date()),
-          postal: formData["postal"],
-          type: type,
-          pets: each,
+          end_time: dateFormatter(
+            formData["end"] ? formData["end"] : new Date()
+          ),
+          postal_code: formData["postal"],
+          sitter_listing: type,
+          pet_id: i + 1, //each
         };
         createNewListing(newData);
       }

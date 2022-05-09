@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useReducer } from "react";
-//const axios = require("axios").default;
+import axios from "axios";
 import TextField from "@mui/material/TextField";
 
 import { LocalizationProvider } from "@mui/x-date-pickers";
@@ -45,8 +45,9 @@ const formReducer = (state, event) => {
       activity: "",
       start: "",
       end: "",
-      "gift-wrap": false,
+      details: "",
       pets: [],
+      postal: "",
     };
   }
   return {
@@ -58,7 +59,13 @@ const formReducer = (state, event) => {
 const START_TIME = "start";
 const END_TIME = "end";
 const names = ["bobby", "rangers"];
-const PETS = [];
+
+const createNewListing = async (formData) => {
+  const processedForm = formData;
+  processedForm["type"] = formData["type"] ? true : false;
+  const resp = await axios.post(`/api/listings/`, processedForm);
+  console.log(resp.data);
+};
 
 export default function ListingForm() {
   const [formData, setFormData] = useReducer(formReducer, {});
@@ -68,34 +75,17 @@ export default function ListingForm() {
   const theme = useTheme();
   const [pets, setPets] = React.useState([]);
 
-  // const handleChange = (event) => {
-  //   console.log(event.type);
-  //   const {
-  //     target: { value },
-  //   } = event;
-  //   setPersonName(
-  //     // On autofill we get a stringified value.
-  //     typeof value === "string" ? value.split(",") : value
-  //   );
-  // };
-
-  // useEffect(() => {
-  //   const createListing = async () => {
-  //     const res = await axios("/api/listing/create");
-  //     setListing(res.data);
-  //   };
-  //   createListing();
-  // }, []);
-
   const [submitting, setSubmitting] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     setSubmitting(true);
+    createNewListing(formData);
     console.log(formData);
 
     setTimeout(() => {
       setSubmitting(false);
+      setPets([]);
       setFormData({ reset: true });
     }, 3000);
   };
@@ -250,23 +240,25 @@ export default function ListingForm() {
             </LocalizationProvider>
           </label>
           <label>
-            <p>Count</p>
+            <p>Postal Code</p>
             <input
-              type="number"
-              name="count"
+              type="text"
+              maxLength={6}
+              name="postal"
               onChange={handleChange}
-              step="1"
-              value={formData.count || ""}
+              placeholder="A1B2C3"
+              value={formData.postal || ""}
             />
           </label>
           <label>
-            <p>Gift Wrap</p>
+            <p>Additional Details</p>
             <input
-              type="checkbox"
-              name="gift-wrap"
+              type="text"
+              maxLength={199}
+              name="details"
               onChange={handleChange}
-              checked={formData["gift-wrap"] || false}
-              hidden={formData.type !== "fuji"}
+              placeholder="Tell us more!"
+              value={formData.details || ""}
             />
           </label>
         </fieldset>

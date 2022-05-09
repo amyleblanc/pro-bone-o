@@ -1,5 +1,6 @@
 import React from "react";
 import Listing from "./components/listing";
+import ListingForm from "./components/form";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import CssBaseline from "@mui/material/CssBaseline";
@@ -17,7 +18,7 @@ export default function Application() {
           <Routes>
             <Route path="/" element={<Splash />} />
             <Route path="/listing" element={<Listing />} />
-            {/* <Route path="/create" element={<ListingForm />} /> */}
+            <Route path="/create" element={<ListingForm />} />
           </Routes>
         </BrowserRouter>
       </main>

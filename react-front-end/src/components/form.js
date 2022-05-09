@@ -1,9 +1,12 @@
 import React, { useEffect, useState, useReducer } from "react";
 //const axios = require("axios").default;
-// import DateTimePicker from "@mui/x-date-pickers/DateTimePicker";
-// import TextField from "@mui/material/TextField";
-// import AdapterDateFns from "@mui/lab/AdapterDateFns";
-// import LocalizationProvider from "@mui/lab";
+import TextField from "@mui/material/TextField";
+
+import { LocalizationProvider } from "@mui/x-date-pickers";
+
+import { DateTimePicker } from "@mui/x-date-pickers";
+
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 const formReducer = (state, event) => {
   if (event.reset) {
@@ -23,7 +26,8 @@ const formReducer = (state, event) => {
 
 export default function ListingForm() {
   const [formData, setFormData] = useReducer(formReducer, {});
-  const [value, setValue] = (useState < Date) | (null > new Date());
+  const [value, setValue] = React.useState(new Date());
+  //const [value, setValue] = (useState < Date) | (null > new Date());
   // const [listing, setListing] = useState([]);
 
   // useEffect(() => {
@@ -101,7 +105,7 @@ export default function ListingForm() {
         <fieldset disabled={submitting}>
           <label>
             <p>Start Time</p>
-            {/* <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DateTimePicker
                 renderInput={(props) => <TextField {...props} />}
                 label="DateTimePicker"
@@ -110,7 +114,7 @@ export default function ListingForm() {
                   setValue(newValue);
                 }}
               />
-            </LocalizationProvider> */}
+            </LocalizationProvider>
 
             {/* id="start-date"
               name="start-time"

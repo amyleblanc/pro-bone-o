@@ -16,6 +16,7 @@ async function allFiltersListings(
   const end = endTime ? endTime : "2010-02-12T08:00:00.000Z";
   const acceptedListing = accepted ? accepted : false;
   const archivedListing = archived ? archived : false;
+  const searchExists = searchString ? searchString : "";
   const listings = await prisma.listing.findMany({
     where: {
       sitter_listing: isSitterListing,
@@ -29,13 +30,14 @@ async function allFiltersListings(
       },
       OR: [
         {
-          activity_type: { contains: searchString },
+          activity_type: { contains: searchExists },
         },
         {
-          additional_details: { contains: searchString },
+          additional_details: { contains: searchExists },
         },
       ],
     },
+    include: { pets: true },
   });
   return listings;
 }

@@ -18,19 +18,28 @@ export default function Listing() {
       setListing(res.data)
     };
     const listingUser = async () => {
-      const res = await axios('/api/listing')
+      const params = listings.id
+      const res = await axios.get('/api/users/', { params })
       setListing(res.data)
     };
     listings();
-    listingUser();
+    console.log(listingUser());
   }, []);
 
   const useListing = listing.map((listing)=>{
     console.log(listing);
     return (
-      <Card class="card" sx={{ maxWidth: 345 }}>
+      <Card sx={{ 
+      bgcolor: 'background.paper',
+      boxShadow: 1,
+      borderRadius: 2,
+      p: 2,
+      minWidth: 300,
+      maxWidth: 345,
+      ml: 30,
+      mt: 5
+      }}>
         <CardMedia
-        class="card"
           component="img"
           height="140"
           image="/static/images/cards/contemplative-reptile.jpg"
@@ -44,7 +53,7 @@ export default function Listing() {
             {listing.additional_details}
           </Typography>
         </CardContent>
-        <CardActions class="card">
+        <CardActions>
           <Button size="small">Apply</Button>
         </CardActions>
       </Card>

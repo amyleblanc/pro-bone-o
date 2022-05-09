@@ -37,8 +37,17 @@ app.get("/api/listing", (req, res) => {
     });
 });
 
-app.get("/listings", (req, res) => {
-    console.log(res);
+app.get("/api/users/:id", (req, res) => {
+  const id = req.params.id; 
+  dataqueries.userID
+    .getUser(id)
+    .then((user) => {
+      res.json(user);
+    })
+    .catch((err) => {
+      console.log(err.message);
+      return null;
+    });
 });
 
 app.listen(PORT, () => {

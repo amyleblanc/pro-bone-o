@@ -14,8 +14,17 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 // import Link from "@mui/material/Link";
 
-const pages = [{page: "Browse Listings", link:"listing"}, {page:"Profile", link:"profile"}];
-const settings = ["Profile", "My Listings", "My Bookings", "Logout"];
+const pages = [{page: "Browse Listings", link:"listing"}, 
+               {page: "Create Listing", link:"createlisting"}];
+const settings = [
+  {page:"Profile", 
+  link:"profile"}, 
+  {page: "My Listings", 
+  link:"mylistings"}, 
+  {page:"My Bookings",
+  link:"mybookings"}, 
+  {page:"Logout",
+  link:"logout"}];
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -153,9 +162,11 @@ const ResponsiveAppBar = () => {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+              <Link style={{textDecoration: "none"}} to={`/${setting.link}`}>
+                <MenuItem key={setting.page} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">{setting.page}</Typography>
                 </MenuItem>
+              </Link>
               ))}
             </Menu>
           </Box>

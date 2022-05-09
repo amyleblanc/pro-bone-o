@@ -11,7 +11,8 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 const formReducer = (state, event) => {
   if (event.reset) {
     return {
-      pet: "",
+      type: "",
+      pet: [],
       activity: "",
       start: "",
       end: "",
@@ -24,9 +25,13 @@ const formReducer = (state, event) => {
   };
 };
 
+const START_TIME = "start";
+const END_TIME = "end";
+
 export default function ListingForm() {
   const [formData, setFormData] = useReducer(formReducer, {});
-  const [value, setValue] = React.useState(new Date());
+  const [startValue, setStartValue] = React.useState(new Date());
+  const [endValue, setEndValue] = React.useState(new Date());
   //const [value, setValue] = (useState < Date) | (null > new Date());
   // const [listing, setListing] = useState([]);
 
@@ -51,11 +56,23 @@ export default function ListingForm() {
 
   const handleChange = (event) => {
     const isCheckbox = event.target.type === "checkbox";
-    console.log(event);
+    console.log(event.target);
     setFormData({
       name: event.target.name,
       value: isCheckbox ? event.target.checked : event.target.value,
     });
+  };
+
+  const handleStartTimeRangePickerChange = (_value) => {
+    console.log(_value);
+    setStartValue(_value);
+    handleChange({ target: { name: START_TIME, value: _value } });
+  };
+
+  const handleEndTimeRangePickerChange = (_value) => {
+    console.log(_value);
+    setEndValue(_value);
+    handleChange({ target: { name: END_TIME, value: _value } });
   };
 
   return (
@@ -76,11 +93,26 @@ export default function ListingForm() {
       <form onSubmit={handleSubmit} disabled={submitting}>
         <fieldset>
           <label>
-            <p>Select Pet(s)</p>
+            <p>Listing Type</p>
+            <select
+              name="type"
+              onChange={handleChange}
+              value={formData.type || ""}
+            >
+              <option value="">--Please choose an option--</option>
+              <option value="sitter-request">Request For Sitter</option>
+              <option value="sitter-available">
+                Sitter Available for Activities
+              </option>
+            </select>
+          </label>
+          <label>
+            <p hidden={formData.type !== "sitter-request"}>Select Pet(s)</p>
             <select
               name="pet"
               onChange={handleChange}
-              value={formData.pet || ""}
+              value={formData.pet || []}
+              hidden={formData.type !== "sitter-request"}
             >
               <option value="">--Please choose an option--</option>
               <option value="steve">Steve</option>
@@ -96,6 +128,7 @@ export default function ListingForm() {
               value={formData.activity || ""}
             >
               <option value="">--Please choose an option--</option>
+              <option value="any-activity">Anything!</option>
               <option value="walkies">Walk</option>
               <option value="sitting">Sitting</option>
               <option value="doggy-date">Doggy Date</option>
@@ -109,16 +142,23 @@ export default function ListingForm() {
               <DateTimePicker
                 renderInput={(props) => <TextField {...props} />}
                 label="DateTimePicker"
-                value={value}
-                onChange={(newValue) => {
-                  setValue(newValue);
-                }}
+                name={START_TIME}
+                value={startValue}
+                onChange={handleStartTimeRangePickerChange}
               />
             </LocalizationProvider>
-
-            {/* id="start-date"
-              name="start-time"
-              onChange={handleChange} */}
+          </label>
+          <label>
+            <p>End Time</p>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DateTimePicker
+                renderInput={(props) => <TextField {...props} />}
+                label="DateTimePicker"
+                name={END_TIME}
+                value={endValue}
+                onChange={handleEndTimeRangePickerChange}
+              />
+            </LocalizationProvider>
           </label>
           <label>
             <p>Count</p>
@@ -137,7 +177,7 @@ export default function ListingForm() {
               name="gift-wrap"
               onChange={handleChange}
               checked={formData["gift-wrap"] || false}
-              hidden={formData.apple !== "fuji"}
+              hidden={formData.type !== "fuji"}
             />
           </label>
         </fieldset>

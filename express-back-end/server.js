@@ -52,7 +52,7 @@ app.get("/api/users/:id", (req, res) => {
 
 app.post("/api/listings/create", (req, res) => {
   const listingDetails = req.body;
-  console.log(req);
+  //console.log(req);
   //update later when id validation in place; number for testing
   //const id = req.session.user_id;
   //const id = 1;

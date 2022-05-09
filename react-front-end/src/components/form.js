@@ -1,13 +1,9 @@
 import React, { useEffect, useState, useReducer } from "react";
 import axios from "axios";
 import TextField from "@mui/material/TextField";
-
 import { LocalizationProvider } from "@mui/x-date-pickers";
-
 import { DateTimePicker } from "@mui/x-date-pickers";
-
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -62,9 +58,15 @@ const names = ["bobby", "rangers"];
 
 const createNewListing = async (formData) => {
   const processedForm = formData;
-  processedForm["type"] = formData["type"] ? true : false;
-  const resp = await axios.post(`/api/listings/`, processedForm);
+  const resp = await axios.post(`/api/listings/create`, processedForm);
   console.log(resp.data);
+};
+
+const dateFormatter = (date) => {
+  //sql 2018-02-12T08:00:00.000Z
+  //browser Thu May 19 2022 21:09:01 GMT-0700 (Pacific Daylight Time)
+  const newDate = date.toLocaleString();
+  return newDate;
 };
 
 export default function ListingForm() {
@@ -80,7 +82,37 @@ export default function ListingForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
     setSubmitting(true);
-    createNewListing(formData);
+    console.log(formData);
+    if (!formData["pets"]) {
+      const type = formData["type"] ? true : false;
+      const newData = {
+        activity: formData["activity"],
+        details: formData["details"] ? formData["details"] : "",
+        start: dateFormatter(
+          formData["start"] ? formData["start"] : new Date()
+        ),
+        end: dateFormatter(formData["end"] ? formData["end"] : new Date()),
+        postal: formData["postal"],
+        type: type,
+      };
+      createNewListing(newData);
+    } else {
+      for (let each of formData["pets"]) {
+        const type = formData["type"] ? true : false;
+        const newData = {
+          activity: formData["activity"],
+          details: formData["details"] ? formData["details"] : "",
+          start: dateFormatter(
+            formData["start"] ? formData["start"] : new Date()
+          ),
+          end: dateFormatter(formData["end"] ? formData["end"] : new Date()),
+          postal: formData["postal"],
+          type: type,
+          pets: each,
+        };
+        createNewListing(newData);
+      }
+    }
     console.log(formData);
 
     setTimeout(() => {
@@ -145,6 +177,7 @@ export default function ListingForm() {
             <select
               name="type"
               onChange={handleChange}
+              required
               value={formData.type || ""}
             >
               <option value="">--Please choose an option--</option>
@@ -154,56 +187,49 @@ export default function ListingForm() {
               </option>
             </select>
           </label>
-          <label>
-            <p hidden={formData.type !== "sitter-request"}>Select Pet(s)</p>
-            <select
-              name="pet"
-              onChange={handleChange}
-              value={formData.pet || []}
-              hidden={formData.type !== "sitter-request"}
-            >
-              <option value="">--Please choose an option--</option>
-              <option value="steve">Steve</option>
-              <option value="bobby">Bobby</option>
-              <option value="john">John</option>
-            </select>
-          </label>
           <div>
-            <FormControl sx={{ m: 1, width: 300 }}>
-              <InputLabel id="demo-multiple-chip-label">Chip</InputLabel>
-              <Select
-                labelId="demo-multiple-chip-label"
-                id="demo-multiple-chip"
-                multiple
-                value={pets}
-                onChange={handlePets}
-                input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-                renderValue={(selected) => (
-                  <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-                    {selected.map((value) => (
-                      <Chip key={value} label={value} />
-                    ))}
-                  </Box>
-                )}
-                MenuProps={MenuProps}
-              >
-                {names.map((name) => (
-                  <MenuItem
-                    key={name}
-                    value={name}
-                    style={getStyles(name, pets, theme)}
-                  >
-                    {name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+            <p hidden={formData.type !== "sitter-request"}>Select Pet(s)</p>
+            {formData.type === "sitter-request" && (
+              <FormControl sx={{ m: 1, width: 300 }}>
+                <InputLabel id="demo-multiple-chip-label"></InputLabel>
+                <Select
+                  labelId="demo-multiple-chip-label"
+                  id="demo-multiple-chip"
+                  multiple
+                  value={pets}
+                  required
+                  onChange={handlePets}
+                  input={
+                    <OutlinedInput id="select-multiple-chip" label="Chip" />
+                  }
+                  renderValue={(selected) => (
+                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                      {selected.map((value) => (
+                        <Chip key={value} label={value} />
+                      ))}
+                    </Box>
+                  )}
+                  MenuProps={MenuProps}
+                >
+                  {names.map((name) => (
+                    <MenuItem
+                      key={name}
+                      value={name}
+                      style={getStyles(name, pets, theme)}
+                    >
+                      {name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            )}
           </div>
           <label>
             <p>Select Activity Requested</p>
             <select
               name="activity"
               onChange={handleChange}
+              required
               value={formData.activity || ""}
             >
               <option value="">--Please choose an option--</option>
@@ -224,6 +250,7 @@ export default function ListingForm() {
                 name={START_TIME}
                 value={startValue}
                 onChange={handleStartTimeRangePickerChange}
+                required
               />
             </LocalizationProvider>
           </label>
@@ -236,6 +263,7 @@ export default function ListingForm() {
                 name={END_TIME}
                 value={endValue}
                 onChange={handleEndTimeRangePickerChange}
+                required
               />
             </LocalizationProvider>
           </label>
@@ -246,6 +274,7 @@ export default function ListingForm() {
               maxLength={6}
               name="postal"
               onChange={handleChange}
+              required
               placeholder="A1B2C3"
               value={formData.postal || ""}
             />

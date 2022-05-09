@@ -18,7 +18,7 @@ export default function Application() {
           <Routes>
             <Route path="/" element={<Splash />} />
             <Route path="/listing" element={<Listing />} />
-            <Route path="/create" element={<ListingForm />} />
+            <Route path="/createlisting" element={<ListingForm />} />
           </Routes>
         </BrowserRouter>
       </main>

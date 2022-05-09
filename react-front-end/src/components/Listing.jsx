@@ -43,7 +43,8 @@ export default function Listing() {
         <CardMedia
           component="img"
           height="140"
-          image="/static/images/cards/contemplative-reptile.jpg"
+          image={listing.pets.photo_url}
+          // "/static/images/cards/contemplative-reptile.jpg"
           alt="Sitter Or Dog"
         />
         <CardContent>

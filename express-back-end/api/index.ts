@@ -40,6 +40,7 @@ async function main() {
     include: { pets: true },
   });
   console.log(listings);
+
   // const listingID = 6;
   // const startTime = null;
   // const endTime = null;

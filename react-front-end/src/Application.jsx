@@ -1,6 +1,8 @@
 import React from "react";
 import Listing from "./components/Listing";
 import ListingForm from "./components/form";
+import Login from "./components/Login";
+import Logout from "./components/Logout";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import CssBaseline from "@mui/material/CssBaseline";
@@ -21,6 +23,8 @@ export default function Application() {
             <Route path="/listing" element={<Listing />} />
             <Route path="/createlisting" element={<ListingForm />} />
             <Route path="/registerPet" element={<RegisterPet />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/logout" element={<Logout />} />
           </Routes>
         </BrowserRouter>
       </main>

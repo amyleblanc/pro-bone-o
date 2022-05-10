@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useReducer } from "react";
+import React, { useState, useReducer } from "react";
 import axios from "axios";
 import { getSpecificDog } from "../helper/fetchdog";
 const dogList = [
@@ -166,10 +166,12 @@ const formReducer = (state, event) => {
 
 const registerNewPet = async (formData) => {
   const processedForm = formData;
-  const resp = await axios.post(`/api/users/:id/pet/`, processedForm);
+  processedForm["difficulty"] = Number(formData["difficulty"]);
+  const resp = await axios.post(`/api/user/pets/`, processedForm);
   console.log(resp.data);
 };
 
+//still need to add styling to image as well
 export default function RegisterPet() {
   const [formData, setFormData] = useReducer(formReducer, {});
   const [submitting, setSubmitting] = useState(false);
@@ -177,6 +179,7 @@ export default function RegisterPet() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    registerNewPet(formData);
     setSubmitting(true);
     console.log(formData);
     setTimeout(() => {
@@ -184,8 +187,6 @@ export default function RegisterPet() {
       setFormData({ reset: true });
     }, 3000);
   };
-
-  //useEffect((dogPic) => {}, dogPic);
 
   const handleChange = (event) => {
     const isCheckbox = event.target.type === "checkbox";
@@ -199,7 +200,6 @@ export default function RegisterPet() {
         });
       });
     }
-    //console.log(event.target.name);
     setFormData({
       name: event.target.name,
       value: isCheckbox ? event.target.checked : event.target.value,
@@ -253,7 +253,7 @@ export default function RegisterPet() {
             <div id="dog-photo">
               <img
                 src={formData.photo_url ? formData.photo_url : dogPic}
-                sx={{}}
+                alt="dog-photo"
               ></img>
               <p>Use Temporary Picture, or enter custom photo url below:</p>
             </div>

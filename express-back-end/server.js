@@ -67,6 +67,19 @@ app.post("/api/listings/create", (req, res) => {
     });
 });
 
+app.post("/api/user/pets/", (req, res) => {
+  const petRegistrationDetails = req.body;
+  dataqueries.petsID
+    .createpet(1, petRegistrationDetails)
+    .then((petInfo) => {
+      res.json(petInfo);
+    })
+    .catch((err) => {
+      console.log(err.message);
+      return null;
+    });
+});
+
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
   console.log(

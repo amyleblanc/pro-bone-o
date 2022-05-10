@@ -7,6 +7,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+// import initMap from "./Map";
 const axios = require("axios").default;
 
 export default function Listing() {
@@ -39,7 +40,7 @@ export default function Listing() {
           minWidth: 300,
           maxWidth: 345,
           // ml: 30,
-          // mt: 5,
+          mt: 5,
         }}
       >
         <CardMedia
@@ -51,7 +52,7 @@ export default function Listing() {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            {listing.activity_type}
+            {listing.activity_type} - {listing.pets.name}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             {listing.additional_details}
@@ -61,6 +62,7 @@ export default function Listing() {
           <Button size="small">Apply</Button>
         </CardActions>
       </Card>
+      {/* <initMap /> */}
       </Grid>
     );
   });

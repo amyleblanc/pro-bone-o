@@ -1,20 +1,18 @@
 import * as React from 'react';
-import Cookies from 'js-cookie'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-// import { user } from 'pg/lib/defaults';
+const axios = require("axios").default;
 
 
 export default function Login() {
-    const handleSubmit = (e) => {
-        console.log(e);
-        Cookies.set('id', {e})
-    };
-    
-    const [name, setName] = React.useState('');
+    const [id, setID] = React.useState('');
     const handleChange = (event) => {
-        setName(event.target.value);
+        setID(event.target.value);
     };
+    const handleSubmit = (event)=> {
+        event.preventDefault()
+        axios.get(`/login/${id}`);
+    }
 
     return (
         <>
@@ -30,7 +28,7 @@ export default function Login() {
              <TextField
                 id="outlined-name"
                 label="UserID"
-                value={name}
+                value={id}
                 onChange={handleChange}
             />
             </Box>

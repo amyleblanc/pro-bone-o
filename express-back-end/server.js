@@ -66,6 +66,7 @@ app.get("/login/:id", (req, res) => {
     .then((user) => {
       req.session.user_id = user.id;
       res.json(user);
+      
     })
     .catch((err) => {
       console.log(err.message);

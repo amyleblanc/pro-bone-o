@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Grid, Typography, Container } from "@mui/material/";
+import { Link } from 'react-router-dom';
 
 export default function Splash() {
   return (
@@ -19,10 +20,14 @@ export default function Splash() {
         <div>
           <Grid container spacing={2} justifyContent="center">
             <Grid item>
-              <Button variant="contained">Login</Button>
+              <Link style={{textDecoration: "none"}} to={`/login`}>
+                <Button variant="contained">Login</Button>
+              </Link>
             </Grid>
             <Grid item>
-              <Button variant="outlined">Register</Button>
+              <Link style={{textDecoration: "none"}} to={`/register`}>
+                <Button variant="outlined">Register</Button>
+              </Link>
             </Grid>
           </Grid>
         </div>

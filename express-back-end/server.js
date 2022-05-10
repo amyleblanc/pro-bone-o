@@ -76,6 +76,8 @@ app.get("/login/:id", (req, res) => {
 
 app.get("/logout", (req, res) => {
   res.clearCookie('session');
+  res.clearCookie('session.sig');
+  res.redirect("/");
 });
 
 app.post("/api/listings/create", (req, res) => {

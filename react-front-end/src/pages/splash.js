@@ -24,10 +24,11 @@ export default function Splash() {
             <Link style={{textDecoration: "none"}} to={'/login'}>
               <Button variant="contained">Login</Button>
             </Link>
-
             </Grid>
             <Grid item>
+            <Link style={{textDecoration: "none"}} to={'/register'}>
               <Button variant="outlined">Register</Button>
+            </Link>
             </Grid>
           </Grid>
         </div>

@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const BodyParser = require("body-parser");
 const PORT = 8080;
+const morgan = require("morgan");
+const cookieSession = require("cookie-session");
 
 const prisma = require("./api/prisma");
 //const { allUsers } = require("./api/users");
@@ -11,6 +13,13 @@ const dataqueries = require("./api/dataqueries");
 app.use(BodyParser.urlencoded({ extended: false }));
 app.use(BodyParser.json());
 app.use(express.static("public"));
+app.use(morgan("dev"));
+app.use(
+  cookieSession({
+    name: "session",
+    keys: ["key1", "key2"],
+  })
+);
 
 // Sample GET route
 app.get("/api/data", (req, res) => {
@@ -48,6 +57,24 @@ app.get("/api/users/:id", (req, res) => {
       console.log(err.message);
       return null;
     });
+});
+
+app.get("/login/:id", (req, res) => {
+  const id = req.params.id;
+  dataqueries.userID
+    .getUser(id)
+    .then((user) => {
+      req.session.user_id = user.id;
+      res.json(user);
+    })
+    .catch((err) => {
+      console.log(err.message);
+      return null;
+    });
+});
+
+app.get("/logout", (req, res) => {
+  res.clearCookie('session');
 });
 
 app.post("/api/listings/create", (req, res) => {

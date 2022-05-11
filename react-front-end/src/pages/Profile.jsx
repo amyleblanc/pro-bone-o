@@ -1,21 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Avatar, Box, Button, Card, CardActions, CardContent, Typography, Container } from "@mui/material/";
 import NavTabs from "../components/Tabs";
+import axiosRequest from "../helper/axios";
 
-const axios = require("axios").default;
-
-
-export default function Profile() {
+export default function Profile(props) {
   const [user, setUser] = useState([]);
-  
+  const { url } = props;
+
   useEffect(() => {
-    const user = async () => {
-      const res = await axios("/api/users/2");
-      setUser(res.data);
-    };
-    user();
-    console.log("user-profile", user);
-  }, []);
+    axiosRequest(url, "GET").then((res) => setUser(res));
+  }, [url]);
 
   return (
     <div>

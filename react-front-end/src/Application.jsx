@@ -13,7 +13,7 @@ import Splash from "./pages/splash";
 const axios = require("axios").default;
 
 const userState = atom({
-  key: "user",
+  key: "userState",
   default: [],
 })
 
@@ -25,6 +25,7 @@ export default function Application() {
       const res = await axios.get(`/login/1`);
       setUser(res.data); 
     }
+    getUser()
   }, [])
 
   return (

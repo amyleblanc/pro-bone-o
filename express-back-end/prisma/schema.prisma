@@ -28,19 +28,22 @@ model listing {
   end_time           DateTime? @db.Timestamp(6)
   accepted           Boolean?
   archived           Boolean?
+  pet_id             Int?
+  pets               pets?     @relation(fields: [pet_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   users              users?    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   booking            booking[]
 }
 
 model pets {
-  id          Int     @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
   user_id     Int?
-  name        String? @db.VarChar(250)
-  photo_url   String? @db.VarChar(500)
-  breed       String? @db.VarChar(250)
-  description String? @db.VarChar(500)
+  name        String?   @db.VarChar(250)
+  photo_url   String?   @db.VarChar(500)
+  breed       String?   @db.VarChar(250)
+  description String?   @db.VarChar(500)
   difficulty  Int?
-  users       users?  @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users       users?    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  listing     listing[]
 }
 
 model users {

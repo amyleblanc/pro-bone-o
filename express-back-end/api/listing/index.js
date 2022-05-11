@@ -3,7 +3,9 @@ const { prisma } = require("../prisma");
 // GET all listings
 // Required fields in body: none
 async function allListings() {
-  const listing = await prisma.listing.findMany();
+  const listing = await prisma.listing.findMany({
+    include: { pets: true },
+  });
   return listing;
 }
 

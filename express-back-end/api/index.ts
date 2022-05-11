@@ -6,6 +6,41 @@ const prisma = new PrismaClient();
 // run npx ts-node index.ts
 
 async function main() {
+  const sitterListing = true;
+  const startTime = "2010-02-12T08:00:00.000Z";
+  const endTime = "2010-02-12T08:00:00.000Z";
+  const accepted = false;
+  const archived = false;
+  const isSitterListing = sitterListing ? sitterListing : false;
+  const start = startTime ? startTime : "2010-02-12T08:00:00.000Z";
+  const end = endTime ? endTime : "2010-02-12T08:00:00.000Z";
+  const acceptedListing = accepted ? accepted : false;
+  const archivedListing = archived ? archived : false;
+  const searchString = "";
+  const listings = await prisma.listing.findMany({
+    where: {
+      sitter_listing: isSitterListing,
+      accepted: acceptedListing,
+      archived: archivedListing,
+      start_time: {
+        gt: start,
+      },
+      end_time: {
+        gt: end,
+      },
+      OR: [
+        {
+          activity_type: { contains: searchString },
+        },
+        {
+          additional_details: { contains: searchString },
+        },
+      ],
+    },
+    include: { pets: true },
+  });
+  console.log(listings);
+
   // const listingID = 6;
   // const startTime = null;
   // const endTime = null;

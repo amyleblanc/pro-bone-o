@@ -1,54 +1,52 @@
-import React from "react";
-import { 
-  AppBar,
-  Button,
-  Grid,
-  Toolbar,
-  Typography,
-  Container
-} from "@material-ui/core";
+import React, { useEffect } from "react";
+import Listing from "./components/Listing";
+import ListingForm from "./components/form";
+import Login from "./components/Login";
+import Logout from "./components/Logout";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { atom, useRecoilState } from "recoil";
 
-import CssBaseline from '@mui/material/CssBaseline';
+import CssBaseline from "@mui/material/CssBaseline";
 
-// import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import ResponsiveAppBar from "./components/NavBar";
+import Splash from "./pages/splash";
+import RegisterPet from "./components/RegisterPet";
+import RegisterUser from "./components/RegisterUser";
 
-import useStyles from "./styles/ApplicationStyles";
+const axios = require("axios").default;
+
+const userState = atom({
+  key: "userState",
+  default: [],
+});
 
 export default function Application() {
-  const styles = useStyles();
+  const [user, setUser] = useRecoilState(userState);
+
+  useEffect(() => {
+    const getUser = async () => {
+      const res = await axios.get(`/login/1`);
+      setUser(res.data);
+    };
+    getUser();
+  }, []);
+
   return (
     <>
-      <CssBaseline />
-      <AppBar position="relative">
-        <Toolbar>
-          <img src="/images/pro-bone-o_logo.png" className={styles.icon}/>
-        </Toolbar>
-      </AppBar>
       <main>
-        <div className={styles.container}>
-          <Container maxWidth="sm" style={{ marginTop: '100px'}}>
-            <Typography variant="h2" align="center" color="textPrimary" gutterBottom>
-              Pro-Bone-O
-            </Typography>
-            <Typography variant="h5" align="center" color="textSecondary" paragraph>
-              Find free dog walkers & sitters in your area!
-            </Typography>
-            <div className={styles.buttonContainer}>
-              <Grid container spacing={2} justifyContent="center">
-                <Grid item>
-                  <Button className={styles.loginButton} variant="contained">
-                    Login
-                  </Button>
-                </Grid>
-                <Grid item>
-                  <Button className={styles.registerButton}  variant="outlined">
-                    Register
-                  </Button>
-                </Grid>
-              </Grid>
-            </div>
-          </Container>
-        </div>
+        <BrowserRouter>
+          <CssBaseline />
+          <ResponsiveAppBar />
+          <Routes>
+            <Route path="/" element={<Splash />} />
+            <Route path="/listing" element={<Listing url={"/api/listing"} />} />
+            <Route path="/createlisting" element={<ListingForm />} />
+            <Route path="/registerPet" element={<RegisterPet />} />
+            <Route path="/registerUser" element={<RegisterUser />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/logout" element={<Logout />} />
+          </Routes>
+        </BrowserRouter>
       </main>
     </>
   );

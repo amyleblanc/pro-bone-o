@@ -66,7 +66,6 @@ app.get("/login/:id", (req, res) => {
     .then((user) => {
       req.session.user_id = user.id;
       res.json(user);
-      
     })
     .catch((err) => {
       console.log(err.message);
@@ -75,8 +74,8 @@ app.get("/login/:id", (req, res) => {
 });
 
 app.get("/logout", (req, res) => {
-  res.clearCookie('session');
-  res.clearCookie('session.sig');
+  res.clearCookie("session");
+  res.clearCookie("session.sig");
   res.redirect("/");
 });
 
@@ -97,12 +96,35 @@ app.post("/api/listings/create", (req, res) => {
     });
 });
 
+//register a new  pet on a user (currently using placeholder userID param)
 app.post("/api/user/pets/", (req, res) => {
   const petRegistrationDetails = req.body;
   dataqueries.petsID
     .createpet(1, petRegistrationDetails)
     .then((petInfo) => {
       res.json(petInfo);
+    })
+    .catch((err) => {
+      console.log(err.message);
+      return null;
+    });
+});
+
+//to update with login routing?
+//register a new user //email checking for dupe not functional
+app.post("/api/user/", (req, res) => {
+  const userRegistrationDetails = req.body;
+  dataqueries.userID
+    .getUserByParam(userRegistrationDetails.email_address)
+    .then((userInfo) => {
+      if (userInfo) {
+        return null;
+      }
+    });
+  dataqueries.userID
+    .createUser(userRegistrationDetails)
+    .then((userInfo) => {
+      res.json(userInfo);
     })
     .catch((err) => {
       console.log(err.message);

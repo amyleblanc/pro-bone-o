@@ -20,6 +20,20 @@ async function getUser(userID) {
   return user;
 }
 
+// GET /api/users/:id
+//get single user from their email address
+//requires email address
+async function getUserByParam(param) {
+  const user = await prisma.users.findMany({
+    where: {
+      email_address: {
+        contains: param,
+      },
+    },
+  });
+  return user;
+}
+
 // GET a user and their specific pets
 // Required fields in body: none
 async function getUserPets(userID) {
@@ -108,4 +122,5 @@ module.exports = {
   getUserListingsByType,
   deleteUser,
   updateUser,
+  getUserByParam,
 };

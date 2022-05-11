@@ -10,12 +10,16 @@ import CssBaseline from "@mui/material/CssBaseline";
 
 import ResponsiveAppBar from "./components/NavBar";
 import Splash from "./pages/splash";
+<<<<<<< HEAD
 const axios = require("axios").default;
 
 const userState = atom({
   key: "userState",
   default: [],
 })
+=======
+import RegisterPet from "./components/RegisterPet";
+>>>>>>> 4b1e027384cf5777507e931af39bea074491591b
 
 export default function Application() {
   const [user, setUser] = useRecoilState(userState);
@@ -32,12 +36,13 @@ export default function Application() {
     <>
       <main>
         <BrowserRouter>
-            <CssBaseline />
-            <ResponsiveAppBar />
+          <CssBaseline />
+          <ResponsiveAppBar />
           <Routes>
             <Route path="/" element={<Splash />} />
             <Route path="/listing" element={<Listing />} />
             <Route path="/createlisting" element={<ListingForm />} />
+            <Route path="/registerPet" element={<RegisterPet />} />
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />} />
           </Routes>

@@ -27,7 +27,11 @@
   "dependencies": {
     "@prisma/client": "^3.13.0",
     "body-parser": "^1.19.1",
-    "express": "^4.17.1"
+    "cookie-session": "^1.4.0",
+    "dotenv": "^16.0.1",
+    "express": "^4.17.1",
+    "morgan": "^1.9.1",
+    "twilio": "^3.77.0"
   },
   "devDependencies": {
     "@ngneat/falso": "^5.1.0",

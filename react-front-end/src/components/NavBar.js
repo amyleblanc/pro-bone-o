@@ -14,17 +14,18 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 // import Link from "@mui/material/Link";
 
-const pages = [{page: "Browse Listings", link:"listing"}, 
-               {page: "Create Listing", link:"createlisting"}];
+const pages = [
+  { page: "Browse Listings", link: "listing" },
+  { page: "Create Listing", link: "createlisting" },
+  { page: "Register Pet", link: "registerPet" },
+  { page: "Register User", link: "registerUser" },
+];
 const settings = [
-  {page:"Profile", 
-  link:"profile"}, 
-  {page: "My Listings", 
-  link:"mylistings"}, 
-  {page:"My Bookings",
-  link:"mybookings"}, 
-  {page:"Logout",
-  link:"logout"}];
+  { page: "Profile", link: "profile" },
+  { page: "My Listings", link: "mylistings" },
+  { page: "My Bookings", link: "mybookings" },
+  { page: "Logout", link: "logout" },
+];
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -92,16 +93,16 @@ const ResponsiveAppBar = () => {
               }}
             >
               {pages.map((page) => (
-                <Link style={{textDecoration: "none"}} to={`/${page.link}`}>
-                <MenuItem key={page.page} onClick={handleCloseNavMenu}>
-                  <Typography
-                    textAlign="center"
-                    // containerElement={<Link to={page} />}
+                <Link style={{ textDecoration: "none" }} to={`/${page.link}`}>
+                  <MenuItem key={page.page} onClick={handleCloseNavMenu}>
+                    <Typography
+                      textAlign="center"
+                      // containerElement={<Link to={page} />}
                     >
-                    {page.page}
-                  </Typography>
-                </MenuItem>
-                </ Link>
+                      {page.page}
+                    </Typography>
+                  </MenuItem>
+                </Link>
               ))}
             </Menu>
           </Box>
@@ -126,15 +127,14 @@ const ResponsiveAppBar = () => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
-              <Link style={{textDecoration: "none"}} to={`/${page.link}`}>
-              <Button
-                key={page.page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-                
-              >
-                {page.page}
-              </Button>
+              <Link style={{ textDecoration: "none" }} to={`/${page.link}`}>
+                <Button
+                  key={page.page}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  {page.page}
+                </Button>
               </Link>
             ))}
           </Box>
@@ -162,11 +162,14 @@ const ResponsiveAppBar = () => {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-              <Link style={{textDecoration: "none"}} to={`/${setting.link}`}>
-                <MenuItem key={setting.page} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting.page}</Typography>
-                </MenuItem>
-              </Link>
+                <Link
+                  style={{ textDecoration: "none" }}
+                  to={`/${setting.link}`}
+                >
+                  <MenuItem key={setting.page} onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">{setting.page}</Typography>
+                  </MenuItem>
+                </Link>
               ))}
             </Menu>
           </Box>

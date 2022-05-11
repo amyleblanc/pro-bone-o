@@ -26,8 +26,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-<<<<<<< HEAD
-export default useStyles;
-=======
 export default useStyles;*/
->>>>>>> main

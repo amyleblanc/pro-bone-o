@@ -1,11 +1,13 @@
 const { prisma } = require("../prisma");
 
 // POST Create a new pet
-//requires data object for pet information
+//requires data object for pet information and userID
 //ex: {first_name: 'Mr.', last_name: 'Bojangles'}
-async function createpet(petData) {
+async function createpet(userID, petData) {
+  const dataSet = petData;
+  dataSet["user_id"] = userID;
   const pet = await prisma.pets.create({
-    data: petData,
+    data: dataSet,
   });
   return pet;
 }

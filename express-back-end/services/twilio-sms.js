@@ -32,4 +32,4 @@ const sendMessage = function (phoneNumber, message) {
 
 module.exports = { sendMessage };
 
-//console.log(sendMessage("7787891864", "Hello final testing!!"));
+//console.log(sendMessage("5555555555", "Hello final testing!!"));

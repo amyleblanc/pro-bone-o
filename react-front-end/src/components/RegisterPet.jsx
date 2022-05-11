@@ -1,6 +1,9 @@
 import React, { useState, useReducer } from "react";
 import axios from "axios";
 import { getSpecificDog } from "../helper/fetchdog";
+//import { axiosRequest } from "../helper/axios";
+import axiosRequest from "../helper/axios";
+
 const dogList = [
   "Affenpinscher",
   "African",
@@ -167,8 +170,9 @@ const formReducer = (state, event) => {
 const registerNewPet = async (formData) => {
   const processedForm = formData;
   processedForm["difficulty"] = Number(formData["difficulty"]);
-  const resp = await axios.post(`/api/user/pets/`, processedForm);
-  console.log(resp.data);
+  //const resp = await axios.post(`/api/user/pets/`, processedForm);
+  axiosRequest(`/api/user/pets/`, "POST", processedForm);
+  //console.log(resp.data);
 };
 
 //still need to add styling to image as well

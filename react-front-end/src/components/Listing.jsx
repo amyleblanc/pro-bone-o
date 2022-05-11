@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./Listing.css";
+import "./listing.css";
 import { Grid } from '@mui/material';
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";

@@ -1,36 +1,29 @@
 import React, { useEffect, useState } from "react";
 import "./Listing.css";
-import { Grid } from '@mui/material';
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-// import initMap from "./Map";
-const axios = require("axios").default;
+import axiosRequest from "../helper/axios";
 
-export default function Listing() {
+/**
+ *
+ * @param {Object} props object contains axios function details for listing type including url and payload
+ * @returns mapped listings object
+ */
+export default function Listing(props) {
   const [listing, setListing] = useState([]);
+  const { url } = props;
 
   useEffect(() => {
-    const listings = async () => {
-      const res = await axios("/api/listing");
-      setListing(res.data);
-    };
-    const listingUser = async () => {
-      const params = listings.id;
-      const res = await axios.get("/api/users/", { params });
-      setListing(res.data);
-    };
-    listings();
-    console.log(listingUser());
-  }, []);
+    axiosRequest(url, "GET").then((res) => setListing(res));
+  }, [url]);
 
   const useListing = listing.map((listing) => {
     console.log(listing);
     return (
-      <Grid container justifyContent="space-around">
       <Card
         sx={{
           bgcolor: "background.paper",
@@ -39,7 +32,7 @@ export default function Listing() {
           p: 2,
           minWidth: 300,
           maxWidth: 345,
-          // ml: 30,
+          ml: 30,
           mt: 5,
         }}
       >
@@ -52,7 +45,7 @@ export default function Listing() {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            {listing.activity_type} - {listing.pets.name}
+            {listing.activity_type}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             {listing.additional_details}
@@ -62,8 +55,6 @@ export default function Listing() {
           <Button size="small">Apply</Button>
         </CardActions>
       </Card>
-      {/* <initMap /> */}
-      </Grid>
     );
   });
 

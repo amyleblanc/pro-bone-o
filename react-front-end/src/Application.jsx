@@ -20,7 +20,7 @@ export default function Application() {
           <ResponsiveAppBar />
           <Routes>
             <Route path="/" element={<Splash />} />
-            <Route path="/listing" element={<Listing />} />
+            <Route path="/listing" element={<Listing url={"/api/listing"} />} />
             <Route path="/createlisting" element={<ListingForm />} />
             <Route path="/registerPet" element={<RegisterPet />} />
             <Route path="/login" element={<Login />} />

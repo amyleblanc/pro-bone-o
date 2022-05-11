@@ -24,7 +24,7 @@ export default async function axiosRequest(
   if (type === "GET") {
     const resp = await axios.get(url, payload);
     isHelper && helperFunction(resp.data);
-    return console.log(resp.data);
+    return resp.data;
   }
   if (type === "PUT") {
     const resp = await axios.put(url, payload);

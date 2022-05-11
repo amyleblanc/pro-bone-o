@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import "./Listing.css";
+import "./listing.css";
+import { Grid } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -24,37 +25,40 @@ export default function Listing(props) {
   const useListing = listing.map((listing) => {
     console.log(listing);
     return (
-      <Card
-        sx={{
-          bgcolor: "background.paper",
-          boxShadow: 1,
-          borderRadius: 2,
-          p: 2,
-          minWidth: 300,
-          maxWidth: 345,
-          ml: 30,
-          mt: 5,
-        }}
-      >
-        <CardMedia
-          component="img"
-          height="140"
-          image={listing.pets.photo_url}
-          // "/static/images/cards/contemplative-reptile.jpg"
-          alt="Sitter Or Dog"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {listing.activity_type}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {listing.additional_details}
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Button size="small">Apply</Button>
-        </CardActions>
-      </Card>
+      <Grid container justifyContent="space-around">
+        <Card
+          sx={{
+            bgcolor: "background.paper",
+            boxShadow: 1,
+            borderRadius: 2,
+            p: 2,
+            minWidth: 300,
+            maxWidth: 345,
+            // ml: 30,
+            mt: 5,
+          }}
+        >
+          <CardMedia
+            component="img"
+            height="140"
+            image={listing.pets.photo_url}
+            // "/static/images/cards/contemplative-reptile.jpg"
+            alt="Sitter Or Dog"
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              {listing.activity_type} - {listing.pets.name}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {listing.additional_details}
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button size="small">Apply</Button>
+          </CardActions>
+        </Card>
+        {/* <initMap /> */}
+      </Grid>
     );
   });
 

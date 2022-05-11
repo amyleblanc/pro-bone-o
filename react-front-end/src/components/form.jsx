@@ -12,6 +12,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Chip from "@mui/material/Chip";
+import axiosRequest from "../helper/axios";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -58,8 +59,7 @@ const names = ["bobby", "rangers"];
 
 const createNewListing = async (formData) => {
   const processedForm = formData;
-  const resp = await axios.post(`/api/listings/create`, processedForm);
-  console.log(resp.data);
+  axiosRequest("/api/listings/create", "POST", processedForm);
 };
 
 const dateFormatter = (date) => {

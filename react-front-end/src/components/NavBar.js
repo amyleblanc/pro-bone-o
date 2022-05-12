@@ -20,6 +20,7 @@ const pages = [
   { page: "Browse Listings", link: "listing" },
   { page: "Create Listing", link: "createlisting" },
   { page: "Register Pet", link: "registerPet" },
+  { page: "Register User", link: "registerUser" },
 ];
 const settings = [
   { page: "Profile", link: "profile" },

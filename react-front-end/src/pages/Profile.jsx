@@ -40,21 +40,34 @@ export default function Profile() {
             <Avatar
               src={user.photo_url}
               alt="user avatar"
-              sx={{ width: 150, height: 150 }}
+              sx={{ width: 150, height: 150, marginRight: 5 }}
             />
-            <CardContent>
-              <Typography gutterBottom variant="h4" component="div" sx={{paddingLeft: 5}}>
+            <CardContent sx={{width: 350}}>
+              <Typography gutterBottom variant="h4" component="div">
                 {user.first_name} {user.last_name}
               </Typography>
-              <Typography gutterBottom variant="p" component="div" sx={{paddingLeft: 5}}>
+              <Typography gutterBottom variant="p" component="div">
                 email: {user.email_address}
               </Typography>
-              <Typography gutterBottom variant="p" component="div" sx={{paddingLeft: 5}}>
+              <Typography gutterBottom variant="p" component="div">
                 phone: {user.phone_number}
               </Typography>
-              <Typography gutterBottom variant="h5" component="div" sx={{paddingLeft: 5, paddingTop: 3}}>
+              <Typography gutterBottom variant="h5" component="div" sx={{paddingTop: 3, paddingBottom: 2}}>
                 My Furry Friends:
               </Typography>
+              {user.pets.map(pet => (
+                <>
+                  <Avatar
+                    src={pet.photo_url}
+                    alt="pet avatar"
+                    sx={{ width: 70, height: 70 }}
+                    />
+                  <Typography gutterBottom variant="p" component="div" sx={{paddingTop: 1, paddingLeft: 2.5}}>
+                    {pet.name}
+                  </Typography>
+                </>
+                )
+              )}
             </CardContent>
           </Box>
           <CardActions sx={{width: 200}}>

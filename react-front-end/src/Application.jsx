@@ -30,7 +30,7 @@ export default function Application() {
             <Route path="/registerUser" element={<RegisterUser />} />
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />} />
-            <Route path="/profile" element={<Profile url={"/api/users/1"} />} /> {/* Hard-coded to user 1 */}
+            <Route path="/profile" element={<Profile />} />
           </Routes>
         </BrowserRouter>
       </main>

@@ -62,9 +62,10 @@ app.get("/api/users/:id", (req, res) => {
 app.get("/login/:id", (req, res) => {
   const id = req.params.id;
   dataqueries.userID
-    .getUser(id)
+    .getUserEverything(id)
     .then((user) => {
       req.session.user_id = user.id;
+      delete user["password"];
       res.json(user);
     })
     .catch((err) => {

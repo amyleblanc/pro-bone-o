@@ -6,11 +6,24 @@ import Button from "@mui/material/Button";
 
 function GuestGreeting() {
     return ( 
+        <>
         <Link style={{ textDecoration: "none" }} to={"Login"}>
-            <Button variant="contained" color="success">
+            <Button style={{
+                    borderRadius: 35,
+                    backgroundColor: "#32a85c",
+                }} variant="contained" color="success" sx={{mr: 2}}>
                 Login
             </Button>
         </Link>
+        <Link style={{ textDecoration: "none" }} to={"Login"}>
+            <Button style={{
+                    borderRadius: 35,
+                    backgroundColor: "#21b6ae",
+                }} variant="contained" color="error" sx={{mr: 2}}>
+                Register
+            </Button>
+        </Link>        
+        </>
      );
 }
 

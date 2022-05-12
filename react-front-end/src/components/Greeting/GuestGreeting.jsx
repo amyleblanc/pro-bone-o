@@ -15,7 +15,7 @@ function GuestGreeting() {
                 Login
             </Button>
         </Link>
-        <Link style={{ textDecoration: "none" }} to={"Login"}>
+        <Link style={{ textDecoration: "none" }} to={"registerUser"}>
             <Button style={{
                     borderRadius: 35,
                     backgroundColor: "#21b6ae",

@@ -17,7 +17,7 @@ export default function Splash() {
         <Typography variant="h5" align="center" color="textSecondary" paragraph>
           Find free dog walkers & sitters in your area!
         </Typography>
-        <div>
+        {/* <div>
           <Grid container spacing={2} justifyContent="center">
             <Grid item>
               <Link style={{ textDecoration: "none" }} to={"/login"}>
@@ -30,7 +30,7 @@ export default function Splash() {
               </Link>
             </Grid>
           </Grid>
-        </div>
+        </div> */}
       </Container>
     </div>
   );

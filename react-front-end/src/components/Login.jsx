@@ -1,8 +1,11 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
+import { Typography } from "@mui/material/";
+
 import { useRecoilState } from "recoil";
 import userState from "./atoms";
+import "./Login.css";
 const axios = require("axios").default;
 
 export default function Login() {
@@ -24,7 +27,10 @@ export default function Login() {
     setID(event.target.value);
   };
   return (
-    <>
+    <div className="login">
+        <Typography variant="h5" align="center" color="textSecondary" paragraph>
+            Login
+        </Typography>
       <form onSubmit={handleSubmit}>
         <Box
           component="form"
@@ -48,6 +54,6 @@ export default function Login() {
           Submit
         </button>
       </form>
-    </>
+    </div>
   );
 }

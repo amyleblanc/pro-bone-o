@@ -14,7 +14,7 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-// import Link from "@mui/material/Link";
+import Greeting from "./Greeting/Greeting";
 
 const pages = [
   { page: "Browse Listings", link: "listing" },
@@ -141,10 +141,8 @@ const ResponsiveAppBar = () => {
               </Link>
             ))}
           </Box>
-            <Box sx={{mr: 1}}>
-            Welcome {user.first_name}
-            </Box>
-            
+          
+          <Greeting />
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">

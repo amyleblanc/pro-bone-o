@@ -62,11 +62,12 @@ export default function Profile() {
               {user.pets.map(pet => (
                 <>
                   <Avatar
+                    key={pet.id} 
                     src={pet.photo_url}
                     alt="pet avatar"
                     sx={{ width: 70, height: 70 }}
                     />
-                  <Typography gutterBottom variant="p" component="div" sx={{paddingTop: 1, paddingLeft: 2.5}}>
+                  <Typography gutterBottom variant="p" component="div" sx={{paddingTop: 1, paddingLeft: 1.5}}>
                     {pet.name}
                   </Typography>
                 </>

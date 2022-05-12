@@ -1,5 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
+import { useRecoilValue } from 'recoil';
+import userState from "./atoms"
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -28,6 +30,7 @@ const settings = [
 ];
 
 const ResponsiveAppBar = () => {
+  const user = useRecoilValue(userState);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -138,6 +141,10 @@ const ResponsiveAppBar = () => {
               </Link>
             ))}
           </Box>
+            <Box sx={{mr: 1}}>
+            Welcome {user.first_name}
+            </Box>
+            
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">

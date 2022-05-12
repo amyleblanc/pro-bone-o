@@ -39,10 +39,10 @@ const ResponsiveAppBar = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
+          <Link style={{textDecoration: "none", padding: "10px"}} to={'/'}>
           <Typography
             noWrap
             component="a"
-            href="/"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -51,6 +51,7 @@ const ResponsiveAppBar = () => {
           >
             <img src="/images/pro-bone-o_logo.png" alt="logo" />
           </Typography>
+          </Link>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton

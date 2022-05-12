@@ -1,15 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useRecoilValue } from "recoil";
 import { Avatar, Box, Button, Card, CardActions, CardContent, Typography, Container } from "@mui/material/";
+import userState from "../components/atoms";
 import NavTabs from "../components/Tabs";
-import axiosRequest from "../helper/axios";
 
-export default function Profile(props) {
-  const [user, setUser] = useState([]);
-  const { url } = props;
-
-  useEffect(() => {
-    axiosRequest(url, "GET").then((res) => setUser(res));
-  }, [url]);
+export default function Profile() {
+  const user = useRecoilValue(userState);
 
   return (
     <div>

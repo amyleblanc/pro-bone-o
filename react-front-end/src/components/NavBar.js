@@ -16,8 +16,6 @@ import Greeting from "./Greeting/Greeting";
 
 const pages = [
   { page: "Browse Listings", link: "listing" },
-  { page: "Create Listing", link: "createlisting" },
-  { page: "Register Pet", link: "registerPet" },
 ];
 
 

@@ -7,6 +7,10 @@ import NavTabs from "../components/Tabs";
 export default function Profile() {
   const user = useRecoilValue(userState);
 
+  const phoneNumber = user.phone_number.split('');
+  phoneNumber.splice(3, 0, '-');
+  phoneNumber.splice(7, 0, '-');
+
   return (
     <div>
       <Container maxWidth="sm" style={{ marginTop: "100px" }}>
@@ -50,7 +54,7 @@ export default function Profile() {
                 email: {user.email_address}
               </Typography>
               <Typography gutterBottom variant="p" component="div">
-                phone: {user.phone_number}
+                phone: {phoneNumber}
               </Typography>
               <Typography gutterBottom variant="h5" component="div" sx={{paddingTop: 3, paddingBottom: 2}}>
                 My Furry Friends:

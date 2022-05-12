@@ -44,6 +44,16 @@ async function getUserPets(userID) {
   return user;
 }
 
+// GET a user and eveything about them
+// Required fields in body: userID
+async function getUserEverything(userID) {
+  const user = await prisma.users.findUnique({
+    where: { id: Number(userID) },
+    include: { pets: true, listing: true, booking: true },
+  });
+  return user;
+}
+
 // GET a user and all bookings and listings they have
 // Required fields in body: none
 async function getUserListings(userID) {
@@ -56,7 +66,7 @@ async function getUserListings(userID) {
 
 // GET a user and all listings they've created
 // Required fields in body: none
-async function getUserListings(userID) {
+async function getUserListingsOnly(userID) {
   const user = await prisma.users.findUnique({
     where: { id: Number(userID) },
     include: { listing: true },
@@ -66,7 +76,7 @@ async function getUserListings(userID) {
 
 // GET a user and all bookings they've accepted
 // Required fields in body: none
-async function getUserListings(userID) {
+async function getUserBookingsOnly(userID) {
   const user = await prisma.users.findUnique({
     where: { id: Number(userID) },
     include: { booking: true },
@@ -123,4 +133,7 @@ module.exports = {
   deleteUser,
   updateUser,
   getUserByParam,
+  getUserEverything,
+  getUserListingsOnly,
+  getUserBookingsOnly,
 };

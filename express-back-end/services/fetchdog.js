@@ -1,7 +1,10 @@
+const { default: axios } = require("axios");
+
 //calls the dog image api and returns a random dog image
 async function getDogUrl() {
-  const response = await fetch("https://dog.ceo/api/breeds/image/random");
-  const message = await response.json();
+  const response = await axios.get("https://dog.ceo/api/breeds/image/random");
+  //const response = await fetch("https://dog.ceo/api/breeds/image/random");
+  const message = response.data;
   const url = message["message"];
   return url;
 }

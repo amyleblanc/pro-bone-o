@@ -35,8 +35,10 @@ app.get("/api/data", (req, res) => {
 });
 
 app.get("/api/listing", (req, res) => {
-  dataqueries.listing
-    .allListings()
+  const params = req.body;
+  console.log(params);
+  dataqueries.listingFilter
+    .allFiltersListings()
     .then((listing) => {
       res.json(listing);
     })
@@ -82,12 +84,13 @@ app.get("/logout", (req, res) => {
 
 app.post("/api/listings/create", (req, res) => {
   const listingDetails = req.body;
+  const userID = req.body.user_id;
   //console.log(req);
   //update later when id validation in place; number for testing
   //const id = req.session.user_id;
   //const id = 1;
   dataqueries.listingID
-    .createlisting(1, listingDetails)
+    .createlisting(userID, listingDetails)
     .then((listingInfo) => {
       res.json(listingInfo);
     })

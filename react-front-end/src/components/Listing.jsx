@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./listing.css";
-import { Grid } from '@mui/material';
+import { Grid } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -18,9 +18,14 @@ export default function Listing(props) {
   const [listing, setListing] = useState([]);
   const { url } = props;
 
+  //searchString, sitterListing, startTime, endTime, accepted, archived;
+
   useEffect(() => {
-    axiosRequest(url, "GET").then((res) => setListing(res));
+    axiosRequest(url, "GET", {}).then((res) => setListing(res));
   }, [url]);
+  // useEffect(() => {
+  //   axiosRequest("/api/listing", "GET").then((res) => setListing(res));
+  // });
 
   const useListing = listing.map((listing) => {
     console.log(listing);
@@ -42,7 +47,6 @@ export default function Listing(props) {
             component="img"
             height="140"
             image={listing.pets.photo_url}
-            // "/static/images/cards/contemplative-reptile.jpg"
             alt="Sitter Or Dog"
           />
           <CardContent>

@@ -1,6 +1,8 @@
 import React, { useState, useReducer } from "react";
 import { getSpecificDog } from "../helper/fetchdog";
 import axiosRequest from "../helper/axios";
+import { useRecoilValue } from "recoil";
+import userState from "../components/atoms";
 
 const dogList = [
   "Affenpinscher",
@@ -176,6 +178,7 @@ export default function RegisterPet() {
   const [formData, setFormData] = useReducer(formReducer, {});
   const [submitting, setSubmitting] = useState(false);
   const [dogPic, setDogPic] = useState("");
+  const user = useRecoilValue(userState);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -221,89 +224,92 @@ export default function RegisterPet() {
           </ul>
         </div>
       )}
-      <form onSubmit={handleSubmit} disabled={submitting}>
-        <fieldset disabled={submitting}>
-          <label>
-            <p>Name:</p>
-            <input
-              type="text"
-              maxLength={249}
-              name="name"
-              onChange={handleChange}
-              placeholder="What is your Pet's Name?"
-              value={formData.name || ""}
-              required
-            />
-          </label>
-          <label>
-            <p>Breed:</p>
-            <input
-              type="text"
-              name="breed"
-              list="dogbreed"
-              onChange={handleChange}
-            />
-            <datalist id="dogbreed">
-              {dogList.map((item) => (
-                <option key={item} value={item} />
-              ))}
-            </datalist>
-          </label>
-          {dogPic && (
-            <div id="dog-photo">
-              <img
-                src={formData.photo_url ? formData.photo_url : dogPic}
-                alt="dog"
-              ></img>
-              <p>Use Temporary Picture, or enter custom photo url below:</p>
-            </div>
-          )}
+      {!user.id && <h1>Please Login or Register to Access This Page.</h1>}
+      {user.id && (
+        <form onSubmit={handleSubmit} disabled={submitting}>
+          <fieldset disabled={submitting}>
+            <label>
+              <p>Name:</p>
+              <input
+                type="text"
+                maxLength={249}
+                name="name"
+                onChange={handleChange}
+                placeholder="What is your Pet's Name?"
+                value={formData.name || ""}
+                required
+              />
+            </label>
+            <label>
+              <p>Breed:</p>
+              <input
+                type="text"
+                name="breed"
+                list="dogbreed"
+                onChange={handleChange}
+              />
+              <datalist id="dogbreed">
+                {dogList.map((item) => (
+                  <option key={item} value={item} />
+                ))}
+              </datalist>
+            </label>
+            {dogPic && (
+              <div id="dog-photo">
+                <img
+                  src={formData.photo_url ? formData.photo_url : dogPic}
+                  alt="dog"
+                ></img>
+                <p>Use Temporary Picture, or enter custom photo url below:</p>
+              </div>
+            )}
 
-          <label>
-            <p>Select a Photo:</p>
-            <input
-              type="url"
-              //type="search"
-              maxLength={499}
-              pattern="https://.*"
-              name="photo_url"
-              onChange={handleChange}
-              placeholder="What image would you like to use for the pet?"
-              value={formData.photo_url || ""}
-            />
-          </label>
-          <label>
-            <p>Description of your Pet:</p>
-            <input
-              type="text"
-              maxLength={499}
-              name="description"
-              onChange={handleChange}
-              placeholder="Please provide any additional details you'd like to inlude about your pet."
-              value={formData.description || ""}
-            />
-          </label>
-          <label>
-            <p>
-              Does your pet require more than the average care or attention?
-            </p>
-            <p>How would you rate how easily it is to care for your pet?</p>
-            <input
-              type="number"
-              max={5}
-              min={1}
-              name="difficulty"
-              onChange={handleChange}
-              placeholder="5 for very easy, 1 for has substantial additional care requirements."
-              value={formData.difficulty || ""}
-              required
-            />
-          </label>
-        </fieldset>
-        <button type="submit" disabled={submitting}>
-          Submit
-        </button>
-      </form>
+            <label>
+              <p>Select a Photo:</p>
+              <input
+                type="url"
+                //type="search"
+                maxLength={499}
+                pattern="https://.*"
+                name="photo_url"
+                onChange={handleChange}
+                placeholder="What image would you like to use for the pet?"
+                value={formData.photo_url || ""}
+              />
+            </label>
+            <label>
+              <p>Description of your Pet:</p>
+              <input
+                type="text"
+                maxLength={499}
+                name="description"
+                onChange={handleChange}
+                placeholder="Please provide any additional details you'd like to inlude about your pet."
+                value={formData.description || ""}
+              />
+            </label>
+            <label>
+              <p>
+                Does your pet require more than the average care or attention?
+              </p>
+              <p>How would you rate how easily it is to care for your pet?</p>
+              <input
+                type="number"
+                max={5}
+                min={1}
+                name="difficulty"
+                onChange={handleChange}
+                placeholder="5 for very easy, 1 for has substantial additional care requirements."
+                value={formData.difficulty || ""}
+                required
+              />
+            </label>
+          </fieldset>
+          <button type="submit" disabled={submitting}>
+            Submit
+          </button>
+        </form>
+      )}
     </div>
   );
 }

@@ -1,7 +1,8 @@
 import { PrismaClient } from "@prisma/client";
-const { usersArray, bookings } = require("./seeddata.js");
+const { usersArray, bookings, newUserArray } = require("./seeddata.js");
 
-const { getDogUrl, getSpecificDog } = require("../services/fetchdog");
+const { getDogUrl, getSpecificDog } = require("../services/fetchdog.js");
+
 const dogList = [
   "affenpinscher",
   "african",
@@ -149,6 +150,24 @@ const dogList = [
   "wolfhound/irish",
 ];
 
+function randomStart() {
+  const start = new Date(2022, 4, 25);
+  const end = new Date(2022, 4, 26);
+  const date = new Date(
+    start.getTime() + Math.random() * (end.getTime() - start.getTime())
+  );
+  return date.toISOString();
+}
+
+function randomEnd() {
+  const start = new Date(2022, 4, 26);
+  const end = new Date(2022, 4, 30);
+  const date = new Date(
+    start.getTime() + Math.random() * (end.getTime() - start.getTime())
+  );
+  return date.toISOString();
+}
+
 import {
   randEmail,
   randFirstName,
@@ -157,7 +176,6 @@ import {
   randAvatar,
   randAlpha,
   randNumber,
-  randDog,
   randSentence,
   randText,
 } from "@ngneat/falso";
@@ -165,7 +183,58 @@ import {
 const prisma = new PrismaClient();
 
 async function main() {
+  //loop of new users without dogs
+  for (let each of newUserArray) {
+    const start = randomStart();
+    const end = randomEnd();
+    const usersCreate = await prisma.users.create({
+      data: {
+        first_name: each.first_name,
+        last_name: each.last_name,
+        password: each.password,
+        email_address: each.email_address,
+        postal_code: each.postal_code,
+        photo_url: each.photo_url,
+        phone_number: String(each.phone_number),
+        rating: each.rating,
+        is_dog_owner: false,
+      },
+    });
+
+    const listingCreate = await prisma.listing.create({
+      data: {
+        sitter_listing: false,
+        activity_type: (Math.random() < 0.5 && "walkies") || "sitting",
+        additional_details: randText({ charCount: 20 }),
+        postal_code: each.postal_code,
+        start_time: start, //"2022-05-06T08:00:00.000Z",
+        end_time: end, //"2022-05-07T08:00:00.000Z",
+        accepted: Math.random() < 0.5,
+        archived: Math.random() < 0.5,
+        users: {
+          connect: { id: usersCreate.id },
+        },
+      },
+    });
+
+    await prisma.booking.create({
+      data: {
+        rating: randNumber({ min: 0, max: 5 }),
+        review: randText({ charCount: 20 }),
+        listing: {
+          connect: { id: listingCreate.id },
+        },
+        users: {
+          connect: { id: usersCreate.id },
+        },
+      },
+    });
+  }
+
+  //loop of users with dogs
   for (let each of usersArray) {
+    const start = randomStart();
+    const end = randomEnd();
     const randomDog = dogList[Math.floor(Math.random() * dogList.length)];
     const dogUrl = await getDogUrl(randomDog);
     const petsCreate = await prisma.pets.create({
@@ -188,7 +257,7 @@ async function main() {
         photo_url: each.photo_url,
         phone_number: String(each.phone_number),
         rating: each.rating,
-        is_dog_owner: Math.random() < 0.5,
+        is_dog_owner: true,
         pets: {
           connect: { id: petsCreate.id },
         },
@@ -201,8 +270,8 @@ async function main() {
         activity_type: (Math.random() < 0.5 && "walkies") || "sitting",
         additional_details: randText({ charCount: 20 }),
         postal_code: each.postal_code,
-        start_time: "2022-05-06T08:00:00.000Z",
-        end_time: "2022-05-07T08:00:00.000Z",
+        start_time: start, //"2022-05-06T08:00:00.000Z",
+        end_time: end, //"2022-05-07T08:00:00.000Z",
         accepted: Math.random() < 0.5,
         archived: Math.random() < 0.5,
         pets: {
@@ -228,14 +297,17 @@ async function main() {
     });
   }
 
+  //loop of completely random users. All are dog owners with one dog.
   const loopTotal = 20;
   for (let i = 3; i < loopTotal; i++) {
+    const start = randomStart();
+    const end = randomEnd();
     const postal =
       "V" +
       randNumber({ min: 5, max: 6 }) +
-      randAlpha() +
+      randAlpha().toUpperCase() +
       randNumber({ min: 0, max: 9 }) +
-      randAlpha() +
+      randAlpha().toUpperCase() +
       randNumber({ min: 0, max: 9 });
 
     const randomDog = dogList[Math.floor(Math.random() * dogList.length)];
@@ -261,7 +333,7 @@ async function main() {
         photo_url: randAvatar(),
         phone_number: String(randNumber({ min: 1111111111, max: 9999999999 })),
         rating: randNumber({ min: 0, max: 5 }),
-        is_dog_owner: Math.random() < 0.5,
+        is_dog_owner: true, //Math.random() < 0.5,
         pets: {
           connect: { id: petsCreate.id },
         },
@@ -274,8 +346,8 @@ async function main() {
         activity_type: (Math.random() < 0.5 && "walkies") || "sitting",
         additional_details: randText({ charCount: 20 }),
         postal_code: postal,
-        start_time: "2022-05-25T08:00:00.000Z",
-        end_time: "2022-05-25T10:00:00.000Z",
+        start_time: start, //"2022-05-25T08:00:00.000Z",
+        end_time: end, //"2022-05-25T10:00:00.000Z",
         accepted: Math.random() < 0.5,
         archived: Math.random() < 0.5,
         pets: {

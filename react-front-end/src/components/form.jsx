@@ -12,6 +12,8 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Chip from "@mui/material/Chip";
 import axiosRequest from "../helper/axios";
+import { useRecoilValue } from "recoil";
+import userState from "../components/atoms";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -54,29 +56,29 @@ const formReducer = (state, event) => {
 
 const START_TIME = "start";
 const END_TIME = "end";
-const names = ["bobby", "rangers"];
 
 const createNewListing = async (formData) => {
   const processedForm = formData;
   axiosRequest("/api/listings/create", "POST", processedForm);
 };
 
+//formats date in local time for backend - if moving globablly would update to render this on the front end instead
 const dateFormatter = (date) => {
-  // const offset = yourDate.getTimezoneOffset();
-  // yourDate = new Date(yourDate.getTime() - offset * 60 * 1000);
-  //return yourDate.toISOString().split("T")[0];
-  //sql 2018-02-12T08:00:00.000Z
-  //browser Thu May 19 2022 21:09:01 GMT-0700 (Pacific Daylight Time)
-  //const newDate = date.toLocaleString();
-  const newDate = date.toISOString(); //.split("T")[0];
-  console.log(newDate);
-  return newDate;
+  //const newDate = date.toISOString();
+  const yourDate = new Date();
+  const offset = yourDate.getTimezoneOffset();
+  const tempDate = date.toDate();
+  const modDate = new Date(tempDate.getTime() - offset * 60 * 1000); //.split("T")[0];
+  const isoAgain = modDate.toISOString();
+  //return newDate;
+  return isoAgain;
 };
 
 export default function ListingForm() {
   const [formData, setFormData] = useReducer(formReducer, {});
   const [startValue, setStartValue] = React.useState(new Date());
   const [endValue, setEndValue] = React.useState(new Date());
+  const user = useRecoilValue(userState);
 
   const theme = useTheme();
   const [pets, setPets] = React.useState([]);
@@ -98,14 +100,19 @@ export default function ListingForm() {
         end_time: dateFormatter(formData["end"] ? formData["end"] : new Date()),
         postal_code: formData["postal"],
         sitter_listing: type,
+        user_id: user.id,
       };
       createNewListing(newData);
     } else {
       let count = formData["pets"];
       count = count.length;
       for (let i = 0; i < count; i++) {
-        //update when have pet object data
-        //for (let each of formData["pets"]) {
+        let petid = 0;
+        for (let each of user.pets) {
+          if (each["name"] === formData["pets"][i]) {
+            petid = each.id;
+          }
+        }
         const type = formData["type"] ? true : false;
         const newData = {
           activity_type: formData["activity"],
@@ -118,7 +125,8 @@ export default function ListingForm() {
           ),
           postal_code: formData["postal"],
           sitter_listing: type,
-          pet_id: i + 1, //each
+          pet_id: petid, //each
+          user_id: user.id,
         };
         createNewListing(newData);
       }
@@ -180,131 +188,136 @@ export default function ListingForm() {
           </ul>
         </div>
       )}
-      <form onSubmit={handleSubmit} disabled={submitting}>
-        <fieldset>
-          <label>
-            <p>Listing Type</p>
-            <select
-              name="type"
-              onChange={handleChange}
-              required
-              value={formData.type || ""}
-            >
-              <option value="">--Please choose an option--</option>
-              <option value="sitter-request">Request For Sitter</option>
-              <option value="sitter-available">
-                Sitter Available for Activities
-              </option>
-            </select>
-          </label>
-          <div>
-            <p hidden={formData.type !== "sitter-request"}>Select Pet(s)</p>
-            {formData.type === "sitter-request" && (
-              <FormControl sx={{ m: 1, width: 300 }}>
-                <InputLabel id="demo-multiple-chip-label"></InputLabel>
-                <Select
-                  labelId="demo-multiple-chip-label"
-                  id="demo-multiple-chip"
-                  multiple
-                  value={pets}
+      {!user.id && <h1>Please Login or Register to Access This Page.</h1>}
+      {user.id && (
+        <form onSubmit={handleSubmit} disabled={submitting}>
+          <fieldset>
+            <label>
+              <p>Listing Type</p>
+              <select
+                name="type"
+                onChange={handleChange}
+                required
+                value={formData.type || ""}
+              >
+                <option value="">--Please choose an option--</option>
+                {user.pets && (
+                  <option value="sitter-request">Request For Sitter</option>
+                )}
+                <option value="sitter-available">
+                  Sitter Available for Activities
+                </option>
+              </select>
+            </label>
+            <div>
+              <p hidden={formData.type !== "sitter-request"}>Select Pet(s)</p>
+              {formData.type === "sitter-request" && (
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel id="demo-multiple-chip-label"></InputLabel>
+                  <Select
+                    labelId="demo-multiple-chip-label"
+                    id="demo-multiple-chip"
+                    multiple
+                    value={pets}
+                    required
+                    onChange={handlePets}
+                    input={
+                      <OutlinedInput id="select-multiple-chip" label="Chip" />
+                    }
+                    renderValue={(selected) => (
+                      <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                        {selected.map((value) => (
+                          <Chip key={value} label={value} />
+                        ))}
+                      </Box>
+                    )}
+                    MenuProps={MenuProps}
+                  >
+                    {user.pets.map((pet) => (
+                      <MenuItem
+                        key={pet.name}
+                        value={pet.name}
+                        style={getStyles(pet.name, pets, theme)}
+                      >
+                        {pet.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              )}
+            </div>
+            <label>
+              <p>Select Activity Requested</p>
+              <select
+                name="activity"
+                onChange={handleChange}
+                required
+                value={formData.activity || ""}
+              >
+                <option value="">--Please choose an option--</option>
+                <option value="any-activity">Anything!</option>
+                <option value="walkies">Walk</option>
+                <option value="sitting">Sitting</option>
+                <option value="doggy-date">Doggy Date</option>
+              </select>
+            </label>
+          </fieldset>
+          <fieldset disabled={submitting}>
+            <label>
+              <p>Start Time</p>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DateTimePicker
+                  renderInput={(props) => <TextField {...props} />}
+                  label="DateTimePicker"
+                  name={START_TIME}
+                  value={startValue}
+                  onChange={handleStartTimeRangePickerChange}
                   required
-                  onChange={handlePets}
-                  input={
-                    <OutlinedInput id="select-multiple-chip" label="Chip" />
-                  }
-                  renderValue={(selected) => (
-                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-                      {selected.map((value) => (
-                        <Chip key={value} label={value} />
-                      ))}
-                    </Box>
-                  )}
-                  MenuProps={MenuProps}
-                >
-                  {names.map((name) => (
-                    <MenuItem
-                      key={name}
-                      value={name}
-                      style={getStyles(name, pets, theme)}
-                    >
-                      {name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            )}
-          </div>
-          <label>
-            <p>Select Activity Requested</p>
-            <select
-              name="activity"
-              onChange={handleChange}
-              required
-              value={formData.activity || ""}
-            >
-              <option value="">--Please choose an option--</option>
-              <option value="any-activity">Anything!</option>
-              <option value="walkies">Walk</option>
-              <option value="sitting">Sitting</option>
-              <option value="doggy-date">Doggy Date</option>
-            </select>
-          </label>
-        </fieldset>
-        <fieldset disabled={submitting}>
-          <label>
-            <p>Start Time</p>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DateTimePicker
-                renderInput={(props) => <TextField {...props} />}
-                label="DateTimePicker"
-                name={START_TIME}
-                value={startValue}
-                onChange={handleStartTimeRangePickerChange}
+                />
+              </LocalizationProvider>
+            </label>
+            <label>
+              <p>End Time</p>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DateTimePicker
+                  renderInput={(props) => <TextField {...props} />}
+                  label="DateTimePicker"
+                  name={END_TIME}
+                  value={endValue}
+                  onChange={handleEndTimeRangePickerChange}
+                  required
+                />
+              </LocalizationProvider>
+            </label>
+            <label>
+              <p>Postal Code</p>
+              <input
+                type="text"
+                maxLength={6}
+                name="postal"
+                onChange={handleChange}
                 required
+                placeholder="A1B2C3"
+                value={formData.postal || ""}
               />
-            </LocalizationProvider>
-          </label>
-          <label>
-            <p>End Time</p>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DateTimePicker
-                renderInput={(props) => <TextField {...props} />}
-                label="DateTimePicker"
-                name={END_TIME}
-                value={endValue}
-                onChange={handleEndTimeRangePickerChange}
-                required
+            </label>
+            <label>
+              <p>Additional Details</p>
+              <input
+                type="text"
+                maxLength={199}
+                name="details"
+                onChange={handleChange}
+                placeholder="Tell us more!"
+                value={formData.details || ""}
               />
-            </LocalizationProvider>
-          </label>
-          <label>
-            <p>Postal Code</p>
-            <input
-              type="text"
-              maxLength={6}
-              name="postal"
-              onChange={handleChange}
-              required
-              placeholder="A1B2C3"
-              value={formData.postal || ""}
-            />
-          </label>
-          <label>
-            <p>Additional Details</p>
-            <input
-              type="text"
-              maxLength={199}
-              name="details"
-              onChange={handleChange}
-              placeholder="Tell us more!"
-              value={formData.details || ""}
-            />
-          </label>
-        </fieldset>
-        <button type="submit" disabled={submitting}>
-          Submit
-        </button>
-      </form>
+            </label>
+          </fieldset>
+          <button type="submit" disabled={submitting}>
+            Submit
+          </button>
+        </form>
+      )}
     </div>
   );
 }

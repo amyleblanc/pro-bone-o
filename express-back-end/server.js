@@ -1,7 +1,10 @@
 const express = require("express");
+const Pusher = require("pusher");
+const cors = require("cors");
 const app = express();
 const BodyParser = require("body-parser");
 const PORT = 8080;
+
 const morgan = require("morgan");
 const cookieSession = require("cookie-session");
 
@@ -9,7 +12,13 @@ const prisma = require("./api/prisma");
 //const { allUsers } = require("./api/users");
 const dataqueries = require("./api/dataqueries");
 
+const path = require("path");
+require("dotenv").config({
+  path: path.resolve(__dirname, "../.env"),
+});
+
 // express Configuration
+app.use(cors());
 app.use(BodyParser.urlencoded({ extended: false }));
 app.use(BodyParser.json());
 app.use(express.static("public"));
@@ -20,6 +29,14 @@ app.use(
     keys: ["key1", "key2"],
   })
 );
+
+const pusher = new Pusher({
+  appId: process.env.app_id,
+  key: process.env.key,
+  secret: process.env.secret,
+  cluster: process.env.cluster,
+  encrypted: true,
+});
 
 // Sample GET route
 app.get("/api/data", (req, res) => {
@@ -200,6 +217,12 @@ app.get("/api/user/register", (req, res) => {
       console.log(err.message);
       return null;
     });
+});
+
+app.post("/message", (req, res) => {
+  const payload = req.body;
+  pusher.trigger("chat", "message", payload);
+  res.send(payload);
 });
 
 app.listen(PORT, () => {

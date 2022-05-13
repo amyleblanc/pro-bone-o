@@ -12,9 +12,9 @@ import MyListings from "./pages/MyListings";
 import MyBookings from "./pages/MyBookings";
 import CssBaseline from "@mui/material/CssBaseline";
 import ResponsiveAppBar from "./components/NavBar";
+import App from "./pages/Chat";
 
 export default function Application() {
-  
   return (
     <>
       <main>
@@ -30,8 +30,12 @@ export default function Application() {
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/mylistings" element={<MyListings url={"/api/listing"} />} />
+            <Route
+              path="/mylistings"
+              element={<MyListings url={"/api/listing"} />}
+            />
             <Route path="/mybookings" element={<MyBookings />} />
+            <Route path="/messages" element={<App />} />
           </Routes>
         </BrowserRouter>
       </main>

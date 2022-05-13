@@ -1,7 +1,7 @@
 import React, { useState, useReducer } from "react";
 import { getSpecificDog } from "../helper/fetchdog";
 import axiosRequest from "../helper/axios";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useRecoilState } from "recoil";
 import userState from "../components/atoms";
 
 const dogList = [
@@ -178,13 +178,16 @@ export default function RegisterPet() {
   const [formData, setFormData] = useReducer(formReducer, {});
   const [submitting, setSubmitting] = useState(false);
   const [dogPic, setDogPic] = useState("");
+  //const [user, setUser] = useRecoilState(userState);
   const user = useRecoilValue(userState);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    registerNewPet(formData);
+    const sendData = formData;
+    sendData["user_id"] = user.id;
+    registerNewPet(sendData);
     setSubmitting(true);
-    console.log(formData);
+    //console.log(formData);
     setTimeout(() => {
       setSubmitting(false);
       setFormData({ reset: true });

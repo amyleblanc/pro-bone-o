@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from "react";
+import React, { useState, useReducer, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { DateTimePicker } from "@mui/x-date-pickers";
@@ -12,8 +12,10 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Chip from "@mui/material/Chip";
 import axiosRequest from "../helper/axios";
-import { useRecoilValue } from "recoil";
-import userState from "../components/atoms";
+import { useRecoilState } from "recoil";
+import userState from "./atoms";
+import Avatar from "@mui/material/Avatar";
+const axios = require("axios").default;
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -62,6 +64,10 @@ const createNewListing = async (formData) => {
   axiosRequest("/api/listings/create", "POST", processedForm);
 };
 
+const getUpdatedUser = async (userID) => {
+  axiosRequest(`/login/${userID}`, "GET");
+};
+
 //formats date in local time for backend - if moving globablly would update to render this on the front end instead
 const dateFormatter = (date) => {
   //const newDate = date.toISOString();
@@ -78,12 +84,26 @@ export default function ListingForm() {
   const [formData, setFormData] = useReducer(formReducer, {});
   const [startValue, setStartValue] = React.useState(new Date());
   const [endValue, setEndValue] = React.useState(new Date());
-  const user = useRecoilValue(userState);
-
+  const [user, setUser] = useRecoilState(userState);
   const theme = useTheme();
   const [pets, setPets] = React.useState([]);
 
   const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    getUpdatedUser(user.id).then((res) => setUser(res));
+    // axiosRequest(url, "GET", {});
+  }, []);
+
+  const getPetPhoto = (petName) => {
+    let url = "";
+    for (let each of user.pets) {
+      if (each.name === petName) {
+        url = each.photo_url;
+      }
+    }
+    return url;
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -201,7 +221,7 @@ export default function ListingForm() {
                 value={formData.type || ""}
               >
                 <option value="">--Please choose an option--</option>
-                {user.pets && (
+                {user.pets.length !== 0 && (
                   <option value="sitter-request">Request For Sitter</option>
                 )}
                 <option value="sitter-available">
@@ -227,7 +247,13 @@ export default function ListingForm() {
                     renderValue={(selected) => (
                       <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
                         {selected.map((value) => (
-                          <Chip key={value} label={value} />
+                          <Avatar
+                            alt={getPetPhoto(value)}
+                            src={getPetPhoto(value)}
+                            sx={{ width: 100, height: 100 }}
+                          >
+                            <Chip key={value} label={value}></Chip>{" "}
+                          </Avatar>
                         ))}
                       </Box>
                     )}
@@ -239,6 +265,9 @@ export default function ListingForm() {
                         value={pet.name}
                         style={getStyles(pet.name, pets, theme)}
                       >
+                        <Avatar alt={pet.name} src={pet.photo_url}>
+                          {pet.name}
+                        </Avatar>
                         {pet.name}
                       </MenuItem>
                     ))}

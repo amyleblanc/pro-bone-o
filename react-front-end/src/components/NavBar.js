@@ -13,6 +13,7 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import Greeting from "./Greeting/Greeting";
+import LoginSlider from "./Greeting/Slider";
 
 const pages = [{ page: "Browse Listings", link: "listing" }];
 
@@ -123,6 +124,7 @@ const ResponsiveAppBar = () => {
           </Box>
 
           <Greeting />
+          <LoginSlider />
         </Toolbar>
       </Container>
     </AppBar>

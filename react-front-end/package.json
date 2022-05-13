@@ -12,7 +12,6 @@
     "axios": "^0.26.0",
     "cors": "^2.8.5",
     "dayjs": "^1.11.2",
-    "dotenv": "^16.0.1",
     "pusher": "^5.1.0-beta",
     "pusher-js": "^7.1.0-beta",
     "react": "^18.1.0",
@@ -43,5 +42,9 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:8080"
+  "proxy": "http://localhost:8080",
+  "devDependencies": {
+    "webpack": "^5.72.1",
+    "webpack-cli": "^4.9.2"
+  }
 }

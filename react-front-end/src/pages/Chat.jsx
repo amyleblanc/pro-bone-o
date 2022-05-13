@@ -3,10 +3,6 @@ import axios from "axios";
 import Pusher from "pusher-js";
 import ChatList from "../components/ChatList";
 import ChatBox from "../components/ChatBox";
-const path = require("path");
-require("dotenv").config({
-  path: path.resolve(__dirname, "../.env"),
-});
 
 export default class App extends Component {
   constructor(props) {
@@ -20,8 +16,8 @@ export default class App extends Component {
   componentDidMount() {
     const username = window.prompt("Username: ", "Anonymous");
     this.setState({ username });
-    const pusher = new Pusher("APP_KEY", {
-      cluster: "APP_CLUSTER",
+    const pusher = new Pusher(process.env.REACT_APP_key, {
+      cluster: process.env.REACT_APP_cluster,
       encrypted: true,
     });
     const channel = pusher.subscribe("chat");

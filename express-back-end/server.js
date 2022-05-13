@@ -5,6 +5,9 @@ const app = express();
 const BodyParser = require("body-parser");
 const PORT = 8080;
 
+const Datastore = require("nedb");
+const db = new Datastore();
+
 const morgan = require("morgan");
 const cookieSession = require("cookie-session");
 
@@ -223,6 +226,44 @@ app.post("/message", (req, res) => {
   const payload = req.body;
   pusher.trigger("chat", "message", payload);
   res.send(payload);
+});
+
+//update pusher trigger to use comments; update url to include id for params
+// app.post("/booking/comment/", function (req, res) {
+//   console.log(req.body);
+//   //const bookingChannel = req.params.id;
+//   const newComment = {
+//     name: req.body.name,
+//     email: req.body.email,
+//     comment: req.body.comment,
+//   };
+//   pusher.trigger("flash-comments", "new_comment", newComment);
+//   res.json({ created: true });
+// });
+
+app.get("/booking/comment/:id", (req, res) => {
+  const id = req.params.id;
+  db.find({ id }, (err, data) => {
+    if (err) return res.status(500).send(err);
+
+    res.json(data);
+  });
+});
+
+//id added to choose booking
+app.post("/booking/comment/:id", (req, res) => {
+  const id = req.params.id;
+  db.insert(Object.assign({ id }, req.body), (err, newComment) => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+
+    pusher.trigger(`comments${id}`, `new-comment${id}`, {
+      comment: newComment,
+    });
+
+    res.status(200).send("OK");
+  });
 });
 
 app.listen(PORT, () => {

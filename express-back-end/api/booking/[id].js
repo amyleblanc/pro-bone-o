@@ -3,7 +3,11 @@ const { prisma } = require("../prisma");
 // POST Create a new booking
 //requires data object for booking information
 //ex: {sitter_booking: true, start_time: "2022-05-06T08:00:00.000Z"}
-async function createbooking(bookingData) {
+async function createbooking(userID, bookingData) {
+  bookingData["user_id"] = userID;
+  bookingData["rating"] = null;
+  bookingData["review"] = "";
+  bookingData["accepted"] = false;
   const booking = await prisma.booking.create({
     data: bookingData,
   });

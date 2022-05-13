@@ -12,7 +12,7 @@ import {
 } from "@mui/material/";
 import userState from "../components/atoms";
 import NavTabs from "../components/Tabs";
-import Chat2 from "../components/Chat2";
+import Chat from "../components/Chat";
 
 export default function Profile() {
   const user = useRecoilValue(userState);
@@ -24,11 +24,11 @@ export default function Profile() {
   return (
     <div>
       <Container maxWidth="sm" style={{ marginTop: "100px" }}>
-        <Chat2
+        <Chat
           first_name={user.first_name}
           last_name={user.last_name}
-          id={user.id}
-        ></Chat2>
+          id={user.id} //just needs to be updated to booking.id in real booking
+        ></Chat>
         <Typography
           paddingBottom="40px"
           variant="h3"

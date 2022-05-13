@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import Pusher from "pusher-js";
 import axios from "axios";
-//import './App.css';
+import "./Chat.css";
 
-class Chat2 extends Component {
+class Chat extends Component {
   state = {
     username: this.props.first_name + " " + this.props.last_name,
     newComment: "",
     comments: [],
-    id: this.props.id,
+    booking_id: this.props.id,
   };
 
   updateInput = (event) => {
@@ -20,20 +20,18 @@ class Chat2 extends Component {
 
   postComment = (event) => {
     event.preventDefault();
-    const { username, newComment, id } = this.state;
+    const { username, newComment, booking_id } = this.state;
     if (username.trim() === "" || newComment.trim() === "") return;
 
     const data = {
       name: username,
       text: newComment,
-      votes: 0,
     };
 
     axios
-      .post(`http://localhost:8080/booking/comment/${id}`, data)
+      .post(`http://localhost:8080/booking/comment/${booking_id}`, data)
       .then(() => {
         this.setState({
-          username: "",
           newComment: "",
         });
       })
@@ -41,14 +39,14 @@ class Chat2 extends Component {
   };
 
   componentDidMount() {
-    const { id } = this.state;
+    const { booking_id } = this.state;
     const pusher = new Pusher(process.env.REACT_APP_key, {
       cluster: process.env.REACT_APP_cluster,
       encrypted: true,
     });
 
     axios
-      .get(`http://localhost:8080/booking/comment/${id}`)
+      .get(`http://localhost:8080/booking/comment/${booking_id}`)
       //.get(`http://localhost:8080/booking/comment/`)
       .then(({ data }) => {
         this.setState({
@@ -57,8 +55,8 @@ class Chat2 extends Component {
       })
       .catch((error) => console.log(error));
 
-    const channel = pusher.subscribe(`comments${id}`);
-    channel.bind(`new-comment${id}`, (data) => {
+    const channel = pusher.subscribe(`comments${booking_id}`);
+    channel.bind(`new-comment`, (data) => {
       this.setState((prevState) => {
         const { comments } = prevState;
         comments.push(data.comment);
@@ -73,7 +71,12 @@ class Chat2 extends Component {
   render() {
     const { username, newComment, comments } = this.state;
 
-    const userComments = comments.map((e) => (
+    const key = "text";
+    const arrayUniqueByKey = [
+      ...new Map(comments.map((item) => [item[key], item])).values(),
+    ];
+    const userComments = arrayUniqueByKey.map((e) => (
+      //const userComments = comments.map((e) => (
       <article className="comment" key={e._id}>
         <h1 className="comment-user">{e.name}</h1>
         <p className="comment-text">{e.text}</p>
@@ -105,4 +108,4 @@ class Chat2 extends Component {
   }
 }
 
-export default Chat2;
+export default Chat;

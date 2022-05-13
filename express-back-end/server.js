@@ -241,6 +241,7 @@ app.post("/message", (req, res) => {
 //   res.json({ created: true });
 // });
 
+//gets a booking's conversation history
 app.get("/booking/comment/:id", (req, res) => {
   const id = req.params.id;
   db.find({ id }, (err, data) => {
@@ -250,15 +251,14 @@ app.get("/booking/comment/:id", (req, res) => {
   });
 });
 
-//id added to choose booking
+//posts a new comment to a booking's conversation history
 app.post("/booking/comment/:id", (req, res) => {
   const id = req.params.id;
   db.insert(Object.assign({ id }, req.body), (err, newComment) => {
     if (err) {
       return res.status(500).send(err);
     }
-
-    pusher.trigger(`comments${id}`, `new-comment${id}`, {
+    pusher.trigger(`comments${id}`, `new-comment`, {
       comment: newComment,
     });
 

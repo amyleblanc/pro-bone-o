@@ -13,8 +13,6 @@ async function getSpecificDog(breed) {
     const message = await response.json();
     const url = message["message"];
     return url;
-  } else {
-    getDogUrl();
   }
 }
 

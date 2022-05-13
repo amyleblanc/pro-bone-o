@@ -1,8 +1,9 @@
 import React, { useState, useReducer } from "react";
-import { getSpecificDog } from "../helper/fetchdog";
+import { getSpecificDog, getDogUrl } from "../helper/fetchdog";
 import axiosRequest from "../helper/axios";
 import { useRecoilValue, useRecoilState } from "recoil";
 import userState from "../components/atoms";
+import axios from "axios";
 
 const dogList = [
   "Affenpinscher",
@@ -178,16 +179,21 @@ export default function RegisterPet() {
   const [formData, setFormData] = useReducer(formReducer, {});
   const [submitting, setSubmitting] = useState(false);
   const [dogPic, setDogPic] = useState("");
-  //const [user, setUser] = useRecoilState(userState);
-  const user = useRecoilValue(userState);
+  const [user, setUser] = useRecoilState(userState);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const sendData = formData;
+    const id = user.id;
     sendData["user_id"] = user.id;
-    registerNewPet(sendData);
+    const getUser = async () => {
+      const res = await axios.get(`/login/${id}`);
+      console.log(res.data);
+      setUser(res.data);
+    };
+    registerNewPet(sendData).then(() => getUser());
+    console.log(user);
     setSubmitting(true);
-    //console.log(formData);
     setTimeout(() => {
       setSubmitting(false);
       setFormData({ reset: true });
@@ -197,14 +203,18 @@ export default function RegisterPet() {
   const handleChange = (event) => {
     const isCheckbox = event.target.type === "checkbox";
     if (event.target.name === "breed") {
-      const url = event.target.value.toString().toLowerCase();
-      getSpecificDog(url).then((result) => {
-        setDogPic(result);
-        setFormData({
-          name: "photo_url",
-          value: result,
-        });
-      });
+      for (let each of dogList) {
+        if (event.target.value === each) {
+          const url = event.target.value.toString().toLowerCase();
+          getSpecificDog(url).then((result) => {
+            setDogPic(result);
+            setFormData({
+              name: "photo_url",
+              value: result,
+            });
+          });
+        }
+      }
     }
     setFormData({
       name: event.target.name,

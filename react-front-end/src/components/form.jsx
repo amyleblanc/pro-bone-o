@@ -90,10 +90,10 @@ export default function ListingForm() {
 
   const [submitting, setSubmitting] = useState(false);
 
-  useEffect(() => {
-    getUpdatedUser(user.id).then((res) => setUser(res));
-    // axiosRequest(url, "GET", {});
-  }, []);
+  // useEffect(() => {
+  //   getUpdatedUser(user.id).then((res) => setUser(res));
+  //   axiosRequest(`/login/${userID}`, "GET", {});
+  // }, []);
 
   const getPetPhoto = (petName) => {
     let url = "";

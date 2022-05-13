@@ -103,8 +103,9 @@ app.post("/api/listings/create", (req, res) => {
 //register a new  pet on a user (currently using placeholder userID param)
 app.post("/api/user/pets/", (req, res) => {
   const petRegistrationDetails = req.body;
+  const userID = req.body.user_id;
   dataqueries.petsID
-    .createpet(1, petRegistrationDetails)
+    .createpet(userID, petRegistrationDetails)
     .then((petInfo) => {
       res.json(petInfo);
     })

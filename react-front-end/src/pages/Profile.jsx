@@ -67,7 +67,7 @@ export default function Profile() {
                     alt="pet avatar"
                     sx={{ width: 70, height: 70 }}
                     />
-                  <Typography gutterBottom variant="p" component="div" sx={{paddingTop: 1, paddingLeft: 1.5}}>
+                  <Typography gutterBottom variant="p" component="div" sx={{paddingTop: 1}}>
                     {pet.name}
                   </Typography>
                 </>
@@ -76,7 +76,7 @@ export default function Profile() {
             </CardContent>
           </Box>
           <CardActions sx={{width: 200}}>
-            <Button size="small">Edit</Button>
+            <Button>Edit</Button>
           </CardActions>
         </Card>
       </Container>

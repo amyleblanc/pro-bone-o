@@ -15,6 +15,13 @@ import axiosRequest from "../helper/axios";
 import { useRecoilState } from "recoil";
 import userState from "./atoms";
 import Avatar from "@mui/material/Avatar";
+import { atom } from "recoil";
+
+const userState = atom({
+  key: "searchState",
+  default: [],
+});
+
 const axios = require("axios").default;
 
 const ITEM_HEIGHT = 48;
@@ -41,12 +48,10 @@ const formReducer = (state, event) => {
   if (event.reset) {
     return {
       type: "",
-      pet: [],
-      activity: "",
+      activity: "Anything",
       start: "",
       end: "",
       details: "",
-      pets: [],
       postal: "",
     };
   }
@@ -59,7 +64,7 @@ const formReducer = (state, event) => {
 const START_TIME = "start";
 const END_TIME = "end";
 
-const createNewListing = async (formData) => {
+const updateSearch = async (formData) => {
   const processedForm = formData;
   axiosRequest("/api/listings/create", "POST", processedForm);
 };

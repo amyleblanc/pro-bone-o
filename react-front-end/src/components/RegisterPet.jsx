@@ -1,6 +1,9 @@
 import React, { useState, useReducer } from "react";
-import { getSpecificDog } from "../helper/fetchdog";
+import { getSpecificDog, getDogUrl } from "../helper/fetchdog";
 import axiosRequest from "../helper/axios";
+import { useRecoilValue, useRecoilState } from "recoil";
+import userState from "../components/atoms";
+import axios from "axios";
 
 const dogList = [
   "Affenpinscher",
@@ -176,12 +179,21 @@ export default function RegisterPet() {
   const [formData, setFormData] = useReducer(formReducer, {});
   const [submitting, setSubmitting] = useState(false);
   const [dogPic, setDogPic] = useState("");
+  const [user, setUser] = useRecoilState(userState);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    registerNewPet(formData);
+    const sendData = formData;
+    const id = user.id;
+    sendData["user_id"] = user.id;
+    const getUser = async () => {
+      const res = await axios.get(`/login/${id}`);
+      console.log(res.data);
+      setUser(res.data);
+    };
+    registerNewPet(sendData).then(() => getUser());
+    console.log(user);
     setSubmitting(true);
-    console.log(formData);
     setTimeout(() => {
       setSubmitting(false);
       setFormData({ reset: true });
@@ -191,14 +203,18 @@ export default function RegisterPet() {
   const handleChange = (event) => {
     const isCheckbox = event.target.type === "checkbox";
     if (event.target.name === "breed") {
-      const url = event.target.value.toString().toLowerCase();
-      getSpecificDog(url).then((result) => {
-        setDogPic(result);
-        setFormData({
-          name: "photo_url",
-          value: result,
-        });
-      });
+      for (let each of dogList) {
+        if (event.target.value === each) {
+          const url = event.target.value.toString().toLowerCase();
+          getSpecificDog(url).then((result) => {
+            setDogPic(result);
+            setFormData({
+              name: "photo_url",
+              value: result,
+            });
+          });
+        }
+      }
     }
     setFormData({
       name: event.target.name,
@@ -221,89 +237,92 @@ export default function RegisterPet() {
           </ul>
         </div>
       )}
-      <form onSubmit={handleSubmit} disabled={submitting}>
-        <fieldset disabled={submitting}>
-          <label>
-            <p>Name:</p>
-            <input
-              type="text"
-              maxLength={249}
-              name="name"
-              onChange={handleChange}
-              placeholder="What is your Pet's Name?"
-              value={formData.name || ""}
-              required
-            />
-          </label>
-          <label>
-            <p>Breed:</p>
-            <input
-              type="text"
-              name="breed"
-              list="dogbreed"
-              onChange={handleChange}
-            />
-            <datalist id="dogbreed">
-              {dogList.map((item) => (
-                <option key={item} value={item} />
-              ))}
-            </datalist>
-          </label>
-          {dogPic && (
-            <div id="dog-photo">
-              <img
-                src={formData.photo_url ? formData.photo_url : dogPic}
-                alt="dog"
-              ></img>
-              <p>Use Temporary Picture, or enter custom photo url below:</p>
-            </div>
-          )}
+      {!user.id && <h1>Please Login or Register to Access This Page.</h1>}
+      {user.id && (
+        <form onSubmit={handleSubmit} disabled={submitting}>
+          <fieldset disabled={submitting}>
+            <label>
+              <p>Name:</p>
+              <input
+                type="text"
+                maxLength={249}
+                name="name"
+                onChange={handleChange}
+                placeholder="What is your Pet's Name?"
+                value={formData.name || ""}
+                required
+              />
+            </label>
+            <label>
+              <p>Breed:</p>
+              <input
+                type="text"
+                name="breed"
+                list="dogbreed"
+                onChange={handleChange}
+              />
+              <datalist id="dogbreed">
+                {dogList.map((item) => (
+                  <option key={item} value={item} />
+                ))}
+              </datalist>
+            </label>
+            {dogPic && (
+              <div id="dog-photo">
+                <img
+                  src={formData.photo_url ? formData.photo_url : dogPic}
+                  alt="dog"
+                ></img>
+                <p>Use Temporary Picture, or enter custom photo url below:</p>
+              </div>
+            )}
 
-          <label>
-            <p>Select a Photo:</p>
-            <input
-              type="url"
-              //type="search"
-              maxLength={499}
-              pattern="https://.*"
-              name="photo_url"
-              onChange={handleChange}
-              placeholder="What image would you like to use for the pet?"
-              value={formData.photo_url || ""}
-            />
-          </label>
-          <label>
-            <p>Description of your Pet:</p>
-            <input
-              type="text"
-              maxLength={499}
-              name="description"
-              onChange={handleChange}
-              placeholder="Please provide any additional details you'd like to inlude about your pet."
-              value={formData.description || ""}
-            />
-          </label>
-          <label>
-            <p>
-              Does your pet require more than the average care or attention?
-            </p>
-            <p>How would you rate how easily it is to care for your pet?</p>
-            <input
-              type="number"
-              max={5}
-              min={1}
-              name="difficulty"
-              onChange={handleChange}
-              placeholder="5 for very easy, 1 for has substantial additional care requirements."
-              value={formData.difficulty || ""}
-              required
-            />
-          </label>
-        </fieldset>
-        <button type="submit" disabled={submitting}>
-          Submit
-        </button>
-      </form>
+            <label>
+              <p>Select a Photo:</p>
+              <input
+                type="url"
+                //type="search"
+                maxLength={499}
+                pattern="https://.*"
+                name="photo_url"
+                onChange={handleChange}
+                placeholder="What image would you like to use for the pet?"
+                value={formData.photo_url || ""}
+              />
+            </label>
+            <label>
+              <p>Description of your Pet:</p>
+              <input
+                type="text"
+                maxLength={499}
+                name="description"
+                onChange={handleChange}
+                placeholder="Please provide any additional details you'd like to inlude about your pet."
+                value={formData.description || ""}
+              />
+            </label>
+            <label>
+              <p>
+                Does your pet require more than the average care or attention?
+              </p>
+              <p>How would you rate how easily it is to care for your pet?</p>
+              <input
+                type="number"
+                max={5}
+                min={1}
+                name="difficulty"
+                onChange={handleChange}
+                placeholder="5 for very easy, 1 for has substantial additional care requirements."
+                value={formData.difficulty || ""}
+                required
+              />
+            </label>
+          </fieldset>
+          <button type="submit" disabled={submitting}>
+            Submit
+          </button>
+        </form>
+      )}
     </div>
   );
 }

@@ -13,6 +13,7 @@ model booking {
   listing_id Int?
   rating     Int?
   review     String?  @db.VarChar(500)
+  accepted   Boolean?
   listing    listing? @relation(fields: [listing_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   users      users?   @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

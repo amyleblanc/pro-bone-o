@@ -19,7 +19,7 @@ const amy = {
   postal_code: "V5T4G6",
   photo_url: "https://randomuser.me/api/portraits/women/44.jpg",
   rating: 4.0,
-  is_dog_owner: true,
+  is_dog_owner: false,
 };
 
 const bryson = {
@@ -34,7 +34,9 @@ const bryson = {
   is_dog_owner: true,
 };
 
-const usersArray = [rhys, amy, bryson];
+const usersArray = [rhys, bryson];
+
+const newUserArray = [amy];
 
 const bookings = [
   {
@@ -111,4 +113,4 @@ const bookings = [
   },
 ];
 
-module.exports = { usersArray, bookings };
+module.exports = { usersArray, bookings, newUserArray };

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { useRecoilValue } from 'recoil';
-import userState from "./atoms"
+import { useRecoilValue } from "recoil";
+import userState from "./atoms";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -13,42 +13,38 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import Greeting from "./Greeting/Greeting";
+import LoginSlider from "./Greeting/Slider";
 
-const pages = [
-  { page: "Browse Listings", link: "listing" },
-];
-
+const pages = [{ page: "Browse Listings", link: "listing" }];
 
 const ResponsiveAppBar = () => {
   const user = useRecoilValue(userState);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
-  
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
-  
+
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-  
 
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Link style={{textDecoration: "none", padding: "10px"}} to={'/'}>
-          <Typography
-            noWrap
-            component="a"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              height: "3em",
-            }}
-          >
-            <img src="/images/pro-bone-o_logo.png" alt="logo" />
-          </Typography>
+          <Link style={{ textDecoration: "none", padding: "10px" }} to={"/"}>
+            <Typography
+              noWrap
+              component="a"
+              sx={{
+                mr: 2,
+                display: { xs: "none", md: "flex" },
+                height: "3em",
+              }}
+            >
+              <img src="/images/pro-bone-o_logo.png" alt="logo" />
+            </Typography>
           </Link>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -126,8 +122,9 @@ const ResponsiveAppBar = () => {
               </Link>
             ))}
           </Box>
-          
+
           <Greeting />
+          <LoginSlider />
         </Toolbar>
       </Container>
     </AppBar>

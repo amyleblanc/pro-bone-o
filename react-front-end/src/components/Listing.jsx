@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./listing.css";
-import { Grid } from '@mui/material';
+import { Grid } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -8,6 +8,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import axiosRequest from "../helper/axios";
+import ResponsiveDialog from "./modal-popup";
 
 /**
  *
@@ -18,9 +19,14 @@ export default function Listing(props) {
   const [listing, setListing] = useState([]);
   const { url } = props;
 
+  //searchString, sitterListing, startTime, endTime, accepted, archived;
+
   useEffect(() => {
-    axiosRequest(url, "GET").then((res) => setListing(res));
+    axiosRequest(url, "GET", {}).then((res) => setListing(res));
   }, [url]);
+  // useEffect(() => {
+  //   axiosRequest("/api/listing", "GET").then((res) => setListing(res));
+  // });
 
   const useListing = listing.map((listing) => {
     console.log(listing);
@@ -42,7 +48,6 @@ export default function Listing(props) {
             component="img"
             height="140"
             image={listing.pets.photo_url}
-            // "/static/images/cards/contemplative-reptile.jpg"
             alt="Sitter Or Dog"
           />
           <CardContent>
@@ -54,7 +59,19 @@ export default function Listing(props) {
             </Typography>
           </CardContent>
           <CardActions>
-            <Button size="small">Apply</Button>
+            <ResponsiveDialog
+              id={listing.id}
+              sitter_listing={listing.sitter_listing}
+              user_id={listing.user_id}
+              additional_details={listing.additional_details}
+              postal_code={listing.postal_code}
+              start_time={listing.start_time}
+              end_time={listing.end_time}
+              pet_id={listing.pet_id}
+              activity_type={listing.activity_type}
+              pet_name={listing.pets.name}
+              pet_photo={listing.pets.photo_url}
+            ></ResponsiveDialog>
           </CardActions>
         </Card>
         {/* <initMap /> */}

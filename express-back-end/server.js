@@ -34,9 +34,27 @@ app.get("/api/data", (req, res) => {
     });
 });
 
+//gets all listings through a listingFilterQuery
 app.get("/api/listing", (req, res) => {
-  dataqueries.listing
-    .allListings()
+  const params = req.body;
+  console.log(params);
+  dataqueries.listingFilter
+    .allFiltersListings()
+    .then((listing) => {
+      res.json(listing);
+    })
+    .catch((err) => {
+      console.log(err.message);
+      return null;
+    });
+});
+
+//gets the details of a specific listing
+app.get("/api/listing/:id", (req, res) => {
+  const listingId = req.params.id;
+  console.log(params);
+  dataqueries.listingID
+    .getListing(listingId)
     .then((listing) => {
       res.json(listing);
     })
@@ -80,14 +98,16 @@ app.get("/logout", (req, res) => {
   res.redirect("/");
 });
 
+//used to create a new listing
 app.post("/api/listings/create", (req, res) => {
   const listingDetails = req.body;
+  const userID = req.body.user_id;
   //console.log(req);
   //update later when id validation in place; number for testing
   //const id = req.session.user_id;
   //const id = 1;
   dataqueries.listingID
-    .createlisting(1, listingDetails)
+    .createlisting(userID, listingDetails)
     .then((listingInfo) => {
       res.json(listingInfo);
     })
@@ -97,11 +117,25 @@ app.post("/api/listings/create", (req, res) => {
     });
 });
 
+//create a new booking
+app.post("/api/listings/apply/:id", (req, res) => {
+  const listingDetails = req.body;
+  const userID = req.body.user_id;
+  console.log(listingDetails);
+  console.log(userID);
+  dataqueries.bookingID
+    .createbooking(userID, listingDetails)
+    .then((bookingInfo) => {
+      res.json(bookingInfo);
+    });
+});
+
 //register a new  pet on a user (currently using placeholder userID param)
 app.post("/api/user/pets/", (req, res) => {
   const petRegistrationDetails = req.body;
+  const userID = req.body.user_id;
   dataqueries.petsID
-    .createpet(1, petRegistrationDetails)
+    .createpet(userID, petRegistrationDetails)
     .then((petInfo) => {
       res.json(petInfo);
     })
@@ -113,7 +147,7 @@ app.post("/api/user/pets/", (req, res) => {
 
 //to update with login routing?
 //register a new user //email checking for dupe not functional
-app.post("/api/user/", (req, res) => {
+app.post("/api/user/register", (req, res) => {
   const userRegistrationDetails = req.body;
   dataqueries.userID
     .getUserByParam(userRegistrationDetails.email_address)
@@ -125,6 +159,24 @@ app.post("/api/user/", (req, res) => {
   dataqueries.userID
     .createUser(userRegistrationDetails)
     .then((userInfo) => {
+      console.log(userInfo);
+      req.session.user_id = userInfo.id;
+      res.json(userInfo);
+    })
+    .catch((err) => {
+      console.log(err.message);
+      return null;
+    });
+});
+
+//allow pulling registration information of new user for login
+app.get("/api/user/register", (req, res) => {
+  const userRegistrationDetails = req.body;
+  dataqueries.userID
+    .getUserByParam(userRegistrationDetails.email_address)
+    .then((userInfo) => {
+      console.log(userInfo);
+      req.session.user_id = userInfo.id;
       res.json(userInfo);
     })
     .catch((err) => {

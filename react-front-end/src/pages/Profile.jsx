@@ -1,21 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useRecoilValue } from "recoil";
 import { Avatar, Box, Button, Card, CardActions, CardContent, Typography, Container } from "@mui/material/";
+import userState from "../components/atoms";
 import NavTabs from "../components/Tabs";
 
-const axios = require("axios").default;
-
-
 export default function Profile() {
-  const [user, setUser] = useState([]);
-  
-  useEffect(() => {
-    const user = async () => {
-      const res = await axios("/api/users/2");
-      setUser(res.data);
-    };
-    user();
-    console.log("user-profile", user);
-  }, []);
+  const user = useRecoilValue(userState);
+
+  const phoneNumber = user.phone_number.split('');
+  phoneNumber.splice(3, 0, '-');
+  phoneNumber.splice(7, 0, '-');
 
   return (
     <div>
@@ -50,21 +44,35 @@ export default function Profile() {
             <Avatar
               src={user.photo_url}
               alt="user avatar"
-              sx={{ width: 150, height: 150 }}
+              sx={{ width: 150, height: 150, marginRight: 5 }}
             />
-            <CardContent>
-              <Typography gutterBottom variant="h4" component="div" sx={{paddingLeft: 5}}>
+            <CardContent sx={{width: 350}}>
+              <Typography gutterBottom variant="h4" component="div">
                 {user.first_name} {user.last_name}
               </Typography>
-              <Typography gutterBottom variant="p" component="div" sx={{paddingLeft: 5}}>
+              <Typography gutterBottom variant="p" component="div">
                 email: {user.email_address}
               </Typography>
-              <Typography gutterBottom variant="p" component="div" sx={{paddingLeft: 5}}>
-                phone: {user.phone_number}
+              <Typography gutterBottom variant="p" component="div">
+                phone: {phoneNumber}
               </Typography>
-              <Typography gutterBottom variant="h5" component="div" sx={{paddingLeft: 5, paddingTop: 3}}>
+              <Typography gutterBottom variant="h5" component="div" sx={{paddingTop: 3, paddingBottom: 2}}>
                 My Furry Friends:
               </Typography>
+              {user.pets.map(pet => (
+                <>
+                  <Avatar
+                    key={pet.id} 
+                    src={pet.photo_url}
+                    alt="pet avatar"
+                    sx={{ width: 70, height: 70 }}
+                    />
+                  <Typography gutterBottom variant="p" component="div" sx={{paddingTop: 1, paddingLeft: 1.5}}>
+                    {pet.name}
+                  </Typography>
+                </>
+                )
+              )}
             </CardContent>
           </Box>
           <CardActions sx={{width: 200}}>

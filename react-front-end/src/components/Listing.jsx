@@ -8,6 +8,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import axiosRequest from "../helper/axios";
+import ResponsiveDialog from "./modal-popup";
 
 /**
  *
@@ -58,7 +59,19 @@ export default function Listing(props) {
             </Typography>
           </CardContent>
           <CardActions>
-            <Button size="small">Apply</Button>
+            <ResponsiveDialog
+              id={listing.id}
+              sitter_listing={listing.sitter_listing}
+              user_id={listing.user_id}
+              additional_details={listing.additional_details}
+              postal_code={listing.postal_code}
+              start_time={listing.start_time}
+              end_time={listing.end_time}
+              pet_id={listing.pet_id}
+              activity_type={listing.activity_type}
+              pet_name={listing.pets.name}
+              pet_photo={listing.pets.photo_url}
+            ></ResponsiveDialog>
           </CardActions>
         </Card>
         {/* <initMap /> */}

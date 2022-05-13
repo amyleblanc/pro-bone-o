@@ -34,11 +34,27 @@ app.get("/api/data", (req, res) => {
     });
 });
 
+//gets all listings through a listingFilterQuery
 app.get("/api/listing", (req, res) => {
   const params = req.body;
   console.log(params);
   dataqueries.listingFilter
     .allFiltersListings()
+    .then((listing) => {
+      res.json(listing);
+    })
+    .catch((err) => {
+      console.log(err.message);
+      return null;
+    });
+});
+
+//gets the details of a specific listing
+app.get("/api/listing/:id", (req, res) => {
+  const listingId = req.params.id;
+  console.log(params);
+  dataqueries.listingID
+    .getListing(listingId)
     .then((listing) => {
       res.json(listing);
     })
@@ -82,6 +98,7 @@ app.get("/logout", (req, res) => {
   res.redirect("/");
 });
 
+//used to create a new listing
 app.post("/api/listings/create", (req, res) => {
   const listingDetails = req.body;
   const userID = req.body.user_id;
@@ -97,6 +114,19 @@ app.post("/api/listings/create", (req, res) => {
     .catch((err) => {
       console.log(err.message);
       return null;
+    });
+});
+
+//create a new booking
+app.post("/api/listings/apply/:id", (req, res) => {
+  const listingDetails = req.body;
+  const userID = req.body.user_id;
+  console.log(listingDetails);
+  console.log(userID);
+  dataqueries.bookingID
+    .createbooking(userID, listingDetails)
+    .then((bookingInfo) => {
+      res.json(bookingInfo);
     });
 });
 
@@ -139,6 +169,7 @@ app.post("/api/user/register", (req, res) => {
     });
 });
 
+//allow pulling registration information of new user for login
 app.get("/api/user/register", (req, res) => {
   const userRegistrationDetails = req.body;
   dataqueries.userID

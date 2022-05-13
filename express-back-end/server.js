@@ -117,7 +117,7 @@ app.post("/api/user/pets/", (req, res) => {
 
 //to update with login routing?
 //register a new user //email checking for dupe not functional
-app.post("/api/user/", (req, res) => {
+app.post("/api/user/register", (req, res) => {
   const userRegistrationDetails = req.body;
   dataqueries.userID
     .getUserByParam(userRegistrationDetails.email_address)
@@ -129,6 +129,23 @@ app.post("/api/user/", (req, res) => {
   dataqueries.userID
     .createUser(userRegistrationDetails)
     .then((userInfo) => {
+      console.log(userInfo);
+      req.session.user_id = userInfo.id;
+      res.json(userInfo);
+    })
+    .catch((err) => {
+      console.log(err.message);
+      return null;
+    });
+});
+
+app.get("/api/user/register", (req, res) => {
+  const userRegistrationDetails = req.body;
+  dataqueries.userID
+    .getUserByParam(userRegistrationDetails.email_address)
+    .then((userInfo) => {
+      console.log(userInfo);
+      req.session.user_id = userInfo.id;
       res.json(userInfo);
     })
     .catch((err) => {

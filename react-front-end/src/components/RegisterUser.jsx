@@ -1,7 +1,8 @@
 import React, { useState, useReducer } from "react";
 import axiosRequest from "../helper/axios";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useRecoilState } from "recoil";
 import userState from "../components/atoms";
+import axios from "axios";
 
 const formReducer = (state, event) => {
   if (event.reset) {
@@ -26,7 +27,13 @@ const formReducer = (state, event) => {
 const registerNewUser = async (formData) => {
   const processedForm = formData;
   delete processedForm["verified"];
-  axiosRequest(`/api/user/`, "POST", processedForm);
+  axiosRequest(`/api/user/register`, "POST", processedForm);
+};
+
+const getLoggedIn = async (formData) => {
+  const processedForm = formData;
+  delete processedForm["verified"];
+  axiosRequest(`/api/user/register`, "GET", processedForm);
 };
 
 //still need to add styling to image as well
@@ -35,7 +42,8 @@ export default function RegisterUser() {
   const [submitting, setSubmitting] = useState(false);
   const [userPic, setUserPic] = useState("");
   const [error, setError] = useState(false);
-  const user = useRecoilValue(userState);
+  //const user = useRecoilValue(userState);
+  const [user, setUser] = useRecoilState(userState);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -46,7 +54,19 @@ export default function RegisterUser() {
       }, 3000);
       return;
     }
-    registerNewUser(formData);
+
+    const getUser = async (id) => {
+      const res = await axios.get(`/login/${id}`);
+      console.log(res.data);
+      setUser(res.data);
+    };
+
+    registerNewUser(formData).then(() => {
+      getLoggedIn(formData).then((userinfo) => {
+        console.log("this is user info", userinfo);
+        getUser(userinfo.id);
+      });
+    }); //getUser(userinfo.id));
     setSubmitting(true);
     console.log(formData);
     setTimeout(() => {

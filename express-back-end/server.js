@@ -35,11 +35,28 @@ app.get("/api/data", (req, res) => {
 });
 
 //gets all listings through a listingFilterQuery
+/*
 app.get("/api/listing", (req, res) => {
   const params = req.body;
   console.log(params);
   dataqueries.listingFilter
     .allFiltersListings()
+    .then((listing) => {
+      res.json(listing);
+    })
+    .catch((err) => {
+      console.log(err.message);
+      return null;
+    });
+});
+*/
+
+//get all listings with no filtering
+app.get("/api/listing", (req, res) => {
+  const params = req.body;
+  console.log(params);
+  dataqueries.listing
+    .allListings()
     .then((listing) => {
       res.json(listing);
     })

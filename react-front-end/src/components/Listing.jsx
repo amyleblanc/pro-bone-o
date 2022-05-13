@@ -44,34 +44,69 @@ export default function Listing(props) {
             mt: 5,
           }}
         >
-          <CardMedia
-            component="img"
-            height="140"
-            image={listing.pets.photo_url}
-            alt="Sitter Or Dog"
-          />
+          {listing.pets && (
+            <CardMedia
+              component="img"
+              height="140"
+              image={listing.pets.photo_url}
+              alt="Dog"
+            />
+          )}
+          {!listing.pets.photo_url && (
+            <CardMedia
+              component="img"
+              height="140"
+              image={listing.users.photo_url}
+              alt="Sitter"
+            />
+          )}
           <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              {listing.activity_type} - {listing.pets.name}
-            </Typography>
+            {listing.pets.name && (
+              <Typography gutterBottom variant="h5" component="div">
+                {listing.activity_type} - {listing.pets.name}
+              </Typography>
+            )}
+            {!listing.pets.name && (
+              <Typography gutterBottom variant="h5" component="div">
+                {listing.activity_type} - {listing.users.first_name}{" "}
+                {listing.users.last_name}
+              </Typography>
+            )}
             <Typography variant="body2" color="text.secondary">
               {listing.additional_details}
             </Typography>
           </CardContent>
           <CardActions>
-            <ResponsiveDialog
-              id={listing.id}
-              sitter_listing={listing.sitter_listing}
-              user_id={listing.user_id}
-              additional_details={listing.additional_details}
-              postal_code={listing.postal_code}
-              start_time={listing.start_time}
-              end_time={listing.end_time}
-              pet_id={listing.pet_id}
-              activity_type={listing.activity_type}
-              pet_name={listing.pets.name}
-              pet_photo={listing.pets.photo_url}
-            ></ResponsiveDialog>
+            {listing.pets && (
+              <ResponsiveDialog
+                id={listing.id}
+                sitter_listing={listing.sitter_listing}
+                user_id={listing.user_id}
+                additional_details={listing.additional_details}
+                postal_code={listing.postal_code}
+                start_time={listing.start_time}
+                end_time={listing.end_time}
+                pet_id={listing.pet_id}
+                activity_type={listing.activity_type}
+                pet_name={listing.pets.name}
+                pet_photo={listing.pets.photo_url}
+              ></ResponsiveDialog>
+            )}
+            {!listing.pets && (
+              <ResponsiveDialog
+                id={listing.id}
+                sitter_listing={listing.sitter_listing}
+                user_id={listing.user_id}
+                additional_details={listing.additional_details}
+                postal_code={listing.postal_code}
+                start_time={listing.start_time}
+                end_time={listing.end_time}
+                //pet_id={listing.pet_id}
+                activity_type={listing.activity_type}
+                pet_name={listing.users.name}
+                pet_photo={listing.users.photo_url}
+              ></ResponsiveDialog>
+            )}
           </CardActions>
         </Card>
         {/* <initMap /> */}

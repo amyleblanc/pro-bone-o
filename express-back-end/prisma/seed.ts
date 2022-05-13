@@ -187,6 +187,18 @@ async function main() {
   for (let each of newUserArray) {
     const start = randomStart();
     const end = randomEnd();
+    const randomDog = dogList[Math.floor(Math.random() * dogList.length)];
+    const dogUrl = await getDogUrl(randomDog);
+    const petsCreate = await prisma.pets.create({
+      data: {
+        name: randFirstName(),
+        photo_url: dogUrl,
+        breed: randomDog,
+        description: randSentence(),
+        difficulty: randNumber({ min: 0, max: 5 }),
+      },
+    });
+
     const usersCreate = await prisma.users.create({
       data: {
         first_name: each.first_name,
@@ -198,6 +210,9 @@ async function main() {
         phone_number: String(each.phone_number),
         rating: each.rating,
         is_dog_owner: false,
+        pets: {
+          connect: { id: petsCreate.id },
+        },
       },
     });
 
@@ -213,6 +228,9 @@ async function main() {
         archived: Math.random() < 0.5,
         users: {
           connect: { id: usersCreate.id },
+        },
+        pets: {
+          connect: { id: petsCreate.id },
         },
       },
     });

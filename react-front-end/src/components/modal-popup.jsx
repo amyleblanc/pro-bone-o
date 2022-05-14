@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useEffect } from "react";
+import { useEffect, useReducer } from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -13,19 +13,32 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import userState from "./atoms";
 import axiosRequest from "../helper/axios";
 import axios from "axios";
+import { TextField } from "@mui/material";
 
 const applyToPosting = async (formData) => {
   const processedForm = formData;
   axiosRequest("/api/listings/apply/:id", "POST", processedForm);
 };
 
+const formReducer = (state, event) => {
+  if (event.reset) {
+    return {
+      personal_message: "",
+    };
+  }
+  return {
+    ...state,
+    [event.name]: event.value,
+  };
+};
+
 export default function ResponsiveDialog(props) {
+  const [formData, setFormData] = useReducer(formReducer, {});
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   const [user, setUser] = useRecoilState(userState);
   const userName = useRecoilValue(userState);
-  const [listing, setListing] = React.useState("");
   const {
     id,
     sitter_listing,
@@ -38,6 +51,7 @@ export default function ResponsiveDialog(props) {
     pet_id,
     pet_name,
     pet_photo,
+    phone_number,
   } = props;
 
   const start = new Date(start_time);
@@ -67,15 +81,28 @@ export default function ResponsiveDialog(props) {
   };
 
   const handleApply = () => {
-    const applicationPackage = { user_id: userName.id, listing_id: id };
+    const applicationPackage = {
+      user_id: userName.id,
+      listing_id: id,
+      personal_message: formData.personal_message,
+      phone_number: phone_number,
+    };
 
     const getUser = async () => {
       const res = await axios.get(`/login/${id}`);
-      console.log(res.data);
+      //console.log(res.data);
       setUser(res.data);
     };
     applyToPosting(applicationPackage).then(() => getUser());
     setOpen(false);
+  };
+
+  const handleText = (event) => {
+    //console.log(event.target.name);
+    setFormData({
+      name: event.target.name,
+      value: event.target.value,
+    });
   };
 
   // useEffect(() => {
@@ -128,6 +155,22 @@ export default function ResponsiveDialog(props) {
             Additional Details:
             {props.additional_details}
           </DialogContentText>
+        </DialogContent>
+        <DialogContent>
+          <DialogContentText>
+            Send a Personal Message with your application!
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="personal_message"
+            name="personal_message"
+            label="personal_message"
+            type="text"
+            fullWidth
+            variant="standard"
+            onChange={handleText}
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleApply} autoFocus>

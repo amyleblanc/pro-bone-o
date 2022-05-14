@@ -31,15 +31,16 @@ export default function Listing(props) {
   const useListing = listing.map((listing) => {
     console.log(listing);
     return (
-      <Grid container justifyContent="space-around">
+      // <Grid container justifyContent="space-around">
+      <Grid item xs={12} sm={4} md={4}>
         <Card
           sx={{
             bgcolor: "background.paper",
             boxShadow: 1,
             borderRadius: 2,
             p: 2,
-            minWidth: 300,
-            maxWidth: 345,
+            //minWidth: 300,
+            //maxWidth: 345,
             // ml: 30,
             mt: 5,
           }}
@@ -117,12 +118,20 @@ export default function Listing(props) {
 
   return (
     <main>
-      <section>
-        <div>
-          <h1>Current Listings</h1>
-          <div className="container">{listing && useListing}</div>
-        </div>
-      </section>
+      {/* <section>
+        <div> */}
+      <h1>Current Listings</h1>
+      {/* <Grid container justifyContent="space-around"> */}
+      <Grid
+        container
+        spacing={{ xs: 2, md: 3 }}
+        columns={{ xs: 4, sm: 8, md: 12 }}
+      >
+        {listing && useListing}
+        {/* <div className="container">{listing && useListing}</div> */}
+      </Grid>
+      {/* </div>
+      </section> */}
     </main>
   );
 }

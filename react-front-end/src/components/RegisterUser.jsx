@@ -1,8 +1,12 @@
 import React, { useState, useReducer } from "react";
 import axiosRequest from "../helper/axios";
 import { useRecoilValue, useRecoilState } from "recoil";
+import { Grid, Box, Button, FormControl } from '@mui/material';
+import TextField from '@mui/material/TextField';
 import userState from "../components/atoms";
 import axios from "axios";
+import { border } from "@mui/system";
+import './Logout.css'
 
 const formReducer = (state, event) => {
   if (event.reset) {
@@ -88,27 +92,40 @@ export default function RegisterUser() {
   };
 
   return (
-    <div className="create-form">
-      <h1>New User Registration</h1>
-      {submitting && (
-        <div>
-          You are submitting the following:
-          <ul>
-            {Object.entries(formData).map(([name, value]) => (
-              <li key={name}>
-                <strong>{name}</strong>:{value.toString()}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-      {user.id && <h2>You are Already Logged In.</h2>}
-      {!user.id && (
-        <form onSubmit={handleSubmit} disabled={submitting}>
-          <fieldset disabled={submitting}>
-            <label>
-              <p>First Name:</p>
-              <input
+    <Grid
+      container
+      spacing={0}
+      direction="column"
+      alignItems="center"
+      justifyContent="center"
+      s>
+
+      <Box component="form"
+        sx={{
+          maxWidth: 600,
+          '& .MuiTextField-root': { m: 1, width: '25ch' },
+          
+        }}
+        noValidate
+        autoComplete="off">
+        <h1>New User Registration</h1>
+        {submitting && (
+          <div>
+            You are submitting the following:
+            <ul>
+              {Object.entries(formData).map(([name, value]) => (
+                <li key={name}>
+                  <strong>{name}</strong>:{value.toString()}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        {user.id && <h2>You are Already Logged In.</h2>}
+        {!user.id && (
+          <FormControl onSubmit={handleSubmit} disabled={submitting} className="no-outline">
+            <fieldset disabled={submitting}>
+              <TextField
                 type="text"
                 maxLength={249}
                 name="first_name"
@@ -117,10 +134,7 @@ export default function RegisterUser() {
                 value={formData.first_name || ""}
                 required
               />
-            </label>
-            <label>
-              <p>Last Name:</p>
-              <input
+              <TextField
                 type="text"
                 maxLength={249}
                 name="last_name"
@@ -129,10 +143,7 @@ export default function RegisterUser() {
                 value={formData.last_name || ""}
                 required
               />
-            </label>
-            <label>
-              <p>Email Address: (not publicly visible)</p>
-              <input
+              <TextField
                 type="text"
                 maxLength={249}
                 name="email_address"
@@ -141,10 +152,7 @@ export default function RegisterUser() {
                 value={formData.email_address || ""}
                 required
               />
-            </label>
-            <label>
-              <p>Postal Code: (Let everyone know whereabouts you are!)</p>
-              <input
+              <TextField
                 type="text"
                 maxLength={6}
                 name="postal_code"
@@ -153,10 +161,8 @@ export default function RegisterUser() {
                 value={formData.postal_code || ""}
                 required
               />
-            </label>
-            <label>
-              <p>Phone Number: (not publicly visible)</p>
-              <input
+
+              <TextField
                 type="text"
                 maxLength={11}
                 name="phone_number"
@@ -165,19 +171,15 @@ export default function RegisterUser() {
                 value={formData.phone_number || ""}
                 required
               />
-            </label>
-            {userPic && (
-              <div id="user-photo">
-                <img
-                  src={formData.photo_url ? formData.photo_url : userPic}
-                  alt="user"
-                ></img>
-              </div>
-            )}
-
-            <label>
-              <p>Provide a Photo URL:</p>
-              <input
+              {userPic && (
+                <div id="user-photo">
+                  <img
+                    src={formData.photo_url ? formData.photo_url : userPic}
+                    alt="user"
+                  ></img>
+                </div>
+              )}
+              <TextField
                 type="url"
                 maxLength={499}
                 pattern="https://.*"
@@ -186,10 +188,9 @@ export default function RegisterUser() {
                 placeholder="What image would you like to use for the pet?"
                 value={formData.photo_url || ""}
               />
-            </label>
-            {/* <label>
+              {/* <label>
             <p>Please provide a small description of yourself!</p>
-            <input
+            <TextField
               type="text"
               maxLength={499}
               name="description"
@@ -199,22 +200,19 @@ export default function RegisterUser() {
             />
           </label> */}
 
-            <label>
-              <p>Password: (min 6 characters)</p>
+
               {error && <p>Error! Please confirm your passwords match!</p>}
-              <input
+              <TextField
                 id="password"
                 name="password"
                 type="password"
                 onChange={handleChange}
                 pattern="^\S{6,}$"
-                placeholder="Password"
+                placeholder="Password (min 6 char)"
                 value={formData.password || ""}
                 required
               />
-            </label>
-            <label>
-              <input
+              <TextField
                 id="password_two"
                 name="verified"
                 type="password"
@@ -224,22 +222,20 @@ export default function RegisterUser() {
                 value={formData.verified || ""}
                 required
               />
-            </label>
-            <label>
               <p>Are you a pet owner?</p>
-              <input
+              <TextField
                 type="checkbox"
                 name="is_dog_owner"
                 onChange={handleChange}
                 value={formData.is_dog_owner || false}
               />
-            </label>
-          </fieldset>
-          <button type="submit" disabled={submitting}>
-            Submit
-          </button>
-        </form>
-      )}
-    </div>
+            </fieldset>
+            <Button type="submit" disabled={submitting} sx={{ mb: "30px" }}>
+              Submit
+            </Button>
+          </FormControl>
+        )}
+      </Box>
+    </Grid>
   );
 }

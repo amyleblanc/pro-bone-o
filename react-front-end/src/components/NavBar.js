@@ -30,7 +30,7 @@ const ResponsiveAppBar = () => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" style={{ background: '#ffde5a' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Link style={{ textDecoration: "none", padding: "10px" }} to={"/"}>
@@ -115,7 +115,7 @@ const ResponsiveAppBar = () => {
                 <Button
                   key={page.page}
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "white", display: "block" }}
+                  sx={{ my: 2, color: "black", display: "block" }}
                 >
                   {page.page}
                 </Button>

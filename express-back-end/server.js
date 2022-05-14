@@ -1,7 +1,13 @@
 const express = require("express");
+const Pusher = require("pusher");
+const cors = require("cors");
 const app = express();
 const BodyParser = require("body-parser");
 const PORT = 8080;
+
+const Datastore = require("nedb");
+const db = new Datastore();
+
 const morgan = require("morgan");
 const cookieSession = require("cookie-session");
 
@@ -9,7 +15,15 @@ const prisma = require("./api/prisma");
 //const { allUsers } = require("./api/users");
 const dataqueries = require("./api/dataqueries");
 
+const path = require("path");
+require("dotenv").config({
+  path: path.resolve(__dirname, "../.env"),
+});
+
+const { sendMessage } = require("./services/twilio-sms");
+
 // express Configuration
+app.use(cors());
 app.use(BodyParser.urlencoded({ extended: false }));
 app.use(BodyParser.json());
 app.use(express.static("public"));
@@ -20,6 +34,14 @@ app.use(
     keys: ["key1", "key2"],
   })
 );
+
+const pusher = new Pusher({
+  appId: process.env.app_id,
+  key: process.env.key,
+  secret: process.env.secret,
+  cluster: process.env.cluster,
+  encrypted: true,
+});
 
 // Sample GET route
 app.get("/api/data", (req, res) => {
@@ -34,13 +56,17 @@ app.get("/api/data", (req, res) => {
     });
 });
 
-//gets all listings through a listingFilterQuery
-/*
-app.get("/api/listing", (req, res) => {
-  const params = req.body;
-  console.log(params);
+//gets all listings through a listingFilterQuery for the search bar
+//currently does not use postal
+app.post("/api/listing/filter", (req, res) => {
+  const body = req.body;
+  const { activity, start, end, postal } = body;
+  const type = body["type"] === "sitter-request" ? true : false;
+  //const params = req.params;
+  console.log("body:", body);
+  //console.log("params:", params);
   dataqueries.listingFilter
-    .allFiltersListings()
+    .allFiltersListings(activity, type, start, end)
     .then((listing) => {
       res.json(listing);
     })
@@ -49,7 +75,6 @@ app.get("/api/listing", (req, res) => {
       return null;
     });
 });
-*/
 
 //get all listings with no filtering
 app.get("/api/listing", (req, res) => {
@@ -135,9 +160,15 @@ app.post("/api/listings/create", (req, res) => {
 });
 
 //create a new booking
+//update with phone number and make live
 app.post("/api/listings/apply/:id", (req, res) => {
   const listingDetails = req.body;
+  const message = listingDetails.personal_message;
+  const phone_number = listingDetails.phone_number;
+  delete listingDetails["phone_number"];
+  delete listingDetails["personal_message"];
   const userID = req.body.user_id;
+
   console.log(listingDetails);
   console.log(userID);
   dataqueries.bookingID
@@ -145,6 +176,9 @@ app.post("/api/listings/apply/:id", (req, res) => {
     .then((bookingInfo) => {
       res.json(bookingInfo);
     });
+  // .then(() => {
+  //   sendMessage(phone_number, message);
+  // });
 });
 
 //register a new  pet on a user (currently using placeholder userID param)
@@ -200,6 +234,50 @@ app.get("/api/user/register", (req, res) => {
       console.log(err.message);
       return null;
     });
+});
+
+app.post("/message", (req, res) => {
+  const payload = req.body;
+  pusher.trigger("chat", "message", payload);
+  res.send(payload);
+});
+
+//update pusher trigger to use comments; update url to include id for params
+// app.post("/booking/comment/", function (req, res) {
+//   console.log(req.body);
+//   //const bookingChannel = req.params.id;
+//   const newComment = {
+//     name: req.body.name,
+//     email: req.body.email,
+//     comment: req.body.comment,
+//   };
+//   pusher.trigger("flash-comments", "new_comment", newComment);
+//   res.json({ created: true });
+// });
+
+//gets a booking's conversation history
+app.get("/booking/comment/:id", (req, res) => {
+  const id = req.params.id;
+  db.find({ id }, (err, data) => {
+    if (err) return res.status(500).send(err);
+
+    res.json(data);
+  });
+});
+
+//posts a new comment to a booking's conversation history
+app.post("/booking/comment/:id", (req, res) => {
+  const id = req.params.id;
+  db.insert(Object.assign({ id }, req.body), (err, newComment) => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    pusher.trigger(`comments${id}`, `new-comment`, {
+      comment: newComment,
+    });
+
+    res.status(200).send("OK");
+  });
 });
 
 app.listen(PORT, () => {

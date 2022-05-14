@@ -8,11 +8,13 @@ import RegisterPet from "./components/RegisterPet";
 import RegisterUser from "./components/RegisterUser";
 import Splash from "./pages/splash";
 import MyAccount from "./pages/MyAccount";
+import ProfileProtec from "./pages/ProfileProtec";
 import CssBaseline from "@mui/material/CssBaseline";
 import ResponsiveAppBar from "./components/NavBar";
+import Chat from "./components/Chat";
+import FilterBar from "./components/searchbar";
 
 export default function Application() {
-  
   return (
     <>
       <main>
@@ -28,6 +30,9 @@ export default function Application() {
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />} />
             <Route path="/myaccount" element={<MyAccount />} />
+            <Route path="/profile" element={<ProfileProtec />} />
+            <Route path="/comments" element={<Chat />} />
+            <Route path="/searchbar" element={<FilterBar />} />
           </Routes>
         </BrowserRouter>
       </main>

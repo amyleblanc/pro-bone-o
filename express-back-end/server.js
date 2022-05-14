@@ -20,6 +20,8 @@ require("dotenv").config({
   path: path.resolve(__dirname, "../.env"),
 });
 
+const { sendMessage } = require("./services/twilio-sms");
+
 // express Configuration
 app.use(cors());
 app.use(BodyParser.urlencoded({ extended: false }));
@@ -155,9 +157,15 @@ app.post("/api/listings/create", (req, res) => {
 });
 
 //create a new booking
+//update with phone number and make live
 app.post("/api/listings/apply/:id", (req, res) => {
   const listingDetails = req.body;
+  const message = listingDetails.personal_message;
+  const phone_number = listingDetails.phone_number;
+  delete listingDetails["phone_number"];
+  delete listingDetails["personal_message"];
   const userID = req.body.user_id;
+
   console.log(listingDetails);
   console.log(userID);
   dataqueries.bookingID
@@ -165,6 +173,9 @@ app.post("/api/listings/apply/:id", (req, res) => {
     .then((bookingInfo) => {
       res.json(bookingInfo);
     });
+  // .then(() => {
+  //   sendMessage(phone_number, message);
+  // });
 });
 
 //register a new  pet on a user (currently using placeholder userID param)

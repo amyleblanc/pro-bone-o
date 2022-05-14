@@ -90,6 +90,7 @@ export default function Listing(props) {
                 activity_type={listing.activity_type}
                 pet_name={listing.pets.name}
                 pet_photo={listing.pets.photo_url}
+                phone_number={listing.users.phone_number}
               ></ResponsiveDialog>
             )}
             {!listing.pets && (

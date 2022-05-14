@@ -3,6 +3,7 @@ import { getSpecificDog, getDogUrl } from "../helper/fetchdog";
 import axiosRequest from "../helper/axios";
 import { useRecoilValue, useRecoilState } from "recoil";
 import userState from "../components/atoms";
+import { Grid } from '@mui/material';
 import axios from "axios";
 
 const dogList = [
@@ -223,6 +224,13 @@ export default function RegisterPet() {
   };
 
   return (
+    <Grid
+      container
+      spacing={0}
+      direction="column"
+      alignItems="center"
+      justifyContent="center"
+      s>
     <div className="create-form">
       <h1>Add a Pet</h1>
       {submitting && (
@@ -239,7 +247,7 @@ export default function RegisterPet() {
       )}
       {!user.id && <h1>Please Login or Register to Access This Page.</h1>}
       {user.id && (
-        <form onSubmit={handleSubmit} disabled={submitting}>
+        <form onSubmit={handleSubmit} disabled={submitting} style->
           <fieldset disabled={submitting}>
             <label>
               <p>Name:</p>
@@ -324,5 +332,6 @@ export default function RegisterPet() {
         </form>
       )}
     </div>
+    </Grid>
   );
 }

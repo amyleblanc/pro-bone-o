@@ -7,7 +7,7 @@ import Logout from "./components/Logout";
 import RegisterPet from "./components/RegisterPet";
 import RegisterUser from "./components/RegisterUser";
 import Splash from "./pages/splash";
-import Profile from "./pages/Profile";
+import ProfileProtec from "./pages/ProfileProtec";
 import MyListings from "./pages/MyListings";
 import MyBookings from "./pages/MyBookings";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -29,7 +29,11 @@ export default function Application() {
             <Route path="/registerUser" element={<RegisterUser />} />
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route
+              path="/mylistings"
+              element={<MyListings url={"/api/listing"} />}
+            />
+            <Route path="/profile" element={<ProfileProtec />} />
             <Route
               path="/mylistings"
               element={<MyListings url={"/api/listing"} />}

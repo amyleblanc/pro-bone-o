@@ -2,7 +2,6 @@ import React from "react";
 import { useRecoilValue } from "recoil";
 import { Avatar, Box, Button, Card, CardActions, CardContent, Typography, Container } from "@mui/material/";
 import userState from "../components/atoms";
-import NavTabs from "../components/Tabs";
 
 export default function Profile() {
   const user = useRecoilValue(userState);
@@ -13,20 +12,7 @@ export default function Profile() {
 
   return (
     <div>
-      <Container maxWidth="sm" style={{ marginTop: "100px" }}>
-        <Typography
-          paddingBottom="40px"
-          variant="h3"
-          align="center"
-          color="textSecondary"
-        >
-          My Account
-        </Typography>
-        
-        <Card align="center">
-          <NavTabs />
-        </Card>
-        
+      <Container maxWidth="sm">
         <Card
           sx={{
             display: "flex",

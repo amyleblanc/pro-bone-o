@@ -4,17 +4,21 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { DateTimePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { useTheme } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import Chip from "@mui/material/Chip";
 import axiosRequest from "../helper/axios";
 import { useRecoilState } from "recoil";
 import userState from "./atoms";
-import Avatar from "@mui/material/Avatar";
+import { 
+  Grid, 
+  Box, 
+  Button, 
+  FormControl,
+  OutlinedInput, 
+  InputLabel, 
+  MenuItem, 
+  Select, 
+  Chip, 
+  Avatar 
+} from '@mui/material';
 const axios = require("axios").default;
 
 const ITEM_HEIGHT = 48;
@@ -194,7 +198,13 @@ export default function ListingForm() {
   };
 
   return (
-    <div className="create-form">
+      <Grid
+      container
+      spacing={1}
+      direction="column"
+      alignItems="center"
+      justifyContent="center"
+      s> 
       <h1>Create a Listing</h1>
       {submitting && (
         <div>
@@ -347,6 +357,7 @@ export default function ListingForm() {
           </button>
         </form>
       )}
-    </div>
+      </Grid>
+
   );
 }

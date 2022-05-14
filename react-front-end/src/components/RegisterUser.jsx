@@ -98,13 +98,13 @@ export default function RegisterUser() {
       direction="column"
       alignItems="center"
       justifyContent="center"
-      border={0}
       s>
 
       <Box component="form"
         sx={{
           maxWidth: 600,
           '& .MuiTextField-root': { m: 1, width: '25ch' },
+          
         }}
         noValidate
         autoComplete="off">

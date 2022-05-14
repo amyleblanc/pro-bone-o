@@ -112,9 +112,21 @@ export default function ResponsiveDialog(props) {
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Apply Now!
-      </Button>
+      {user.id && (
+        <DialogContent>
+          <Button variant="outlined" onClick={handleClickOpen}>
+            Apply Now!
+          </Button>
+        </DialogContent>
+      )}
+      {!user.id && (
+        <DialogContent>
+          <Button variant="outlined" onClick={handleClickOpen}>
+            View Posting!
+          </Button>
+        </DialogContent>
+      )}
+
       <Dialog
         fullScreen={fullScreen}
         open={open}
@@ -156,26 +168,37 @@ export default function ResponsiveDialog(props) {
             {props.additional_details}
           </DialogContentText>
         </DialogContent>
-        <DialogContent>
-          <DialogContentText>
-            Send a Personal Message with your application!
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="personal_message"
-            name="personal_message"
-            label="personal_message"
-            type="text"
-            fullWidth
-            variant="standard"
-            onChange={handleText}
-          />
-        </DialogContent>
+        {user.id && (
+          <DialogContent>
+            <DialogContentText>
+              Send a Personal Message with your application!
+            </DialogContentText>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="personal_message"
+              name="personal_message"
+              label="personal_message"
+              type="text"
+              fullWidth
+              variant="standard"
+              onChange={handleText}
+            />
+          </DialogContent>
+        )}
+        {!user.id && (
+          <DialogContent>
+            <DialogContentText>
+              Create an account to apply to this posting!
+            </DialogContentText>
+          </DialogContent>
+        )}
         <DialogActions>
-          <Button onClick={handleApply} autoFocus>
-            Apply!
-          </Button>
+          {user.id && (
+            <Button onClick={handleApply} autoFocus>
+              Apply!
+            </Button>
+          )}
         </DialogActions>
       </Dialog>
     </div>

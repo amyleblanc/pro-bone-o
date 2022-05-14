@@ -14,6 +14,7 @@ import userState from "./atoms";
 import axiosRequest from "../helper/axios";
 import axios from "axios";
 import { TextField } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const applyToPosting = async (formData) => {
   const processedForm = formData;
@@ -189,7 +190,14 @@ export default function ResponsiveDialog(props) {
         {!user.id && (
           <DialogContent>
             <DialogContentText>
-              Create an account to apply to this posting!
+              <Link style={{ textDecoration: "none" }} to={`/Login`}>
+                <Button>Login</Button>
+              </Link>
+              or
+              <Link style={{ textDecoration: "none" }} to={`/registerUser`}>
+                <Button>Register</Button>
+              </Link>{" "}
+              to apply to this posting!
             </DialogContentText>
           </DialogContent>
         )}

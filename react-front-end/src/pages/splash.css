@@ -3,3 +3,11 @@
     height:100vh;
     background-color: #ffde5a;
 }
+
+.mainWrap {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction:row;
+    margin-top: 30px;
+}

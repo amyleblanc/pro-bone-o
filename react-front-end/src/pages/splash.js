@@ -7,7 +7,8 @@ import { ReactComponent as DogSvG } from './img/undraw_good_doggy_-4-wfq.svg';
 export default function Splash() {
   return (
     <div className="parent">
-      <Container maxWidth="sm" style={{ marginTop: "20px"}}>
+      <Container className="mainWrap" maxWidth="sm">
+        <div>
         <Typography
           variant="h2"
           align="center"
@@ -20,7 +21,10 @@ export default function Splash() {
         <Typography variant="h5" align="center" color="textSecondary" paragraph>
           Find free dog walkers & sitters in your area!
         </Typography>
+        </div>
+        <div>
           <DogSvG />
+        </div>
       </Container>
     </div>
   );

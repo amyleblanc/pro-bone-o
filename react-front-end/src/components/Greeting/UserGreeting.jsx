@@ -31,7 +31,7 @@ function UserGreeting() {
     return (
         <>
         
-        <Box sx={{mr: 2}}>
+        <Box sx={{mr: 2, color:"black"}}>
             Welcome, {user.first_name}!
         </Box>
         <Box sx={{ flexGrow: 0 }}>

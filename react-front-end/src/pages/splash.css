@@ -1,0 +1,5 @@
+.parent {
+    display: flex;
+    height:100vh;
+    background-color: #ffde5a;
+}

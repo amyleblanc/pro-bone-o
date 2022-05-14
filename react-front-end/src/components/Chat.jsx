@@ -1,7 +1,10 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useRef } from "react";
 import Pusher from "pusher-js";
 import axios from "axios";
 import "./Chat.css";
+import { Paper } from "@mui/material";
+import { Grid } from "@mui/material";
+import { scroller, Events } from "react-scroll";
 
 class Chat extends Component {
   state = {
@@ -9,6 +12,21 @@ class Chat extends Component {
     newComment: "",
     comments: [],
     booking_id: this.props.id,
+  };
+
+  constructor(props) {
+    super(props);
+    const AlwaysScrollToBottom = () => {
+      const elementRef = useRef();
+      useEffect(() => elementRef.current.scrollIntoView());
+      return <div ref={elementRef} />;
+    };
+  }
+
+  AlwaysScrollToBottom = () => {
+    const elementRef = useRef();
+    useEffect(() => elementRef.current.scrollIntoView());
+    return <div ref={elementRef} />;
   };
 
   updateInput = (event) => {
@@ -84,25 +102,39 @@ class Chat extends Component {
     ));
 
     return (
-      <div className="App">
-        <article className="post">
-          <h1>Listing Details</h1>
-          <p>This is your conversation regarding the listing: </p>
-        </article>
-        <section className="comments-form">
-          <form onSubmit={this.postComment}>
-            <label htmlFor="new-comment">Comment:</label>
-            <textarea
-              className="comment"
-              name="newComment"
-              id="new-comment"
-              value={newComment}
-              onChange={this.updateInput}
-            />
-            <button type="submit">send</button>
-          </form>
-        </section>
-        <section className="comments-section">{userComments}</section>
+      <div className="Chat">
+        <Grid container spacing={1}>
+          <Grid item xs={12} md={2}>
+            <article className="post">
+              <h1>Listing Details</h1>
+              <p>This is your conversation regarding the listing: </p>
+            </article>
+          </Grid>
+          <Grid item xs={12} md={10}>
+            <Paper style={{ minHeight: 400, maxHeight: 400, overflow: "auto" }}>
+              <section className="comments-section">
+                {userComments}
+                <article name="final-comment"></article>
+              </section>
+              {/* <this.AlwaysScrollToBottom /> */}
+            </Paper>
+          </Grid>
+          <Grid item xs={12} md={12}>
+            <section className="comments-form">
+              <form onSubmit={this.postComment}>
+                <label htmlFor="new-comment">Comment:</label>
+                <textarea
+                  className="comment"
+                  name="newComment"
+                  id="new-comment"
+                  value={newComment}
+                  onChange={this.updateInput}
+                />
+                <button type="submit">send</button>
+              </form>
+            </section>
+          </Grid>
+        </Grid>
       </div>
     );
   }

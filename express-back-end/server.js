@@ -56,13 +56,17 @@ app.get("/api/data", (req, res) => {
     });
 });
 
-//gets all listings through a listingFilterQuery
-/*
-app.get("/api/listing", (req, res) => {
-  const params = req.body;
-  console.log(params);
+//gets all listings through a listingFilterQuery for the search bar
+//currently does not use postal
+app.post("/api/listing/filter", (req, res) => {
+  const body = req.body;
+  const { activity, start, end, postal } = body;
+  const type = body["type"] === "sitter-request" ? true : false;
+  //const params = req.params;
+  console.log("body:", body);
+  //console.log("params:", params);
   dataqueries.listingFilter
-    .allFiltersListings()
+    .allFiltersListings(activity, type, start, end)
     .then((listing) => {
       res.json(listing);
     })
@@ -71,7 +75,6 @@ app.get("/api/listing", (req, res) => {
       return null;
     });
 });
-*/
 
 //get all listings with no filtering
 app.get("/api/listing", (req, res) => {

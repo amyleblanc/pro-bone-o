@@ -26,7 +26,7 @@ async function allFiltersListings(
         gt: start,
       },
       end_time: {
-        gt: end,
+        lt: end,
       },
       OR: [
         {

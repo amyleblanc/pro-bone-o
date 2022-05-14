@@ -13,6 +13,7 @@ import MyBookings from "./pages/MyBookings";
 import CssBaseline from "@mui/material/CssBaseline";
 import ResponsiveAppBar from "./components/NavBar";
 import Chat from "./components/Chat";
+import FilterBar from "./components/searchbar";
 
 export default function Application() {
   return (
@@ -40,6 +41,7 @@ export default function Application() {
             />
             <Route path="/mybookings" element={<MyBookings />} />
             <Route path="/comments" element={<Chat />} />
+            <Route path="/searchbar" element={<FilterBar />} />
           </Routes>
         </BrowserRouter>
       </main>

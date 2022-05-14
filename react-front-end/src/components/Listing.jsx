@@ -9,6 +9,11 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import axiosRequest from "../helper/axios";
 import ResponsiveDialog from "./modal-popup";
+import { useRecoilValue } from "recoil";
+import FilterBar from "./searchbar";
+import searchState from "./atom-search";
+
+//const getListingState(//)
 
 /**
  *
@@ -18,12 +23,14 @@ import ResponsiveDialog from "./modal-popup";
 export default function Listing(props) {
   const [listing, setListing] = useState([]);
   const { url } = props;
+  const search = useRecoilValue(searchState);
 
   //searchString, sitterListing, startTime, endTime, accepted, archived;
 
   useEffect(() => {
     axiosRequest(url, "GET", {}).then((res) => setListing(res));
   }, [url]);
+
   // useEffect(() => {
   //   axiosRequest("/api/listing", "GET").then((res) => setListing(res));
   // });
@@ -121,6 +128,7 @@ export default function Listing(props) {
       {/* <section>
         <div> */}
       <h1>Current Listings</h1>
+      {/* <FilterBar /> */}
       {/* <Grid container justifyContent="space-around"> */}
       <Grid
         container

@@ -23,7 +23,7 @@ function UserGreeting() {
         setAnchorElUser(null);
       };
       const settings = [
-        { page: "My Account", link: "profile" },
+        { page: "My Account", link: "myaccount" },
         { page: "Create Listing", link: "createlisting" },
         { page: "Register Pet", link: "registerPet" },
         { page: "Logout", link: "logout" },

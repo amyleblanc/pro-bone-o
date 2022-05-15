@@ -22,12 +22,14 @@ export default function Profile() {
 
   return (
     <div>
-      <Container maxWidth="sm">
-        <Chat
-          first_name={user.first_name}
-          last_name={user.last_name}
-          id={user.id} //just needs to be updated to booking.id in real booking
-        ></Chat>
+      <Container
+          sx={{
+          display: "flex",
+          flexDirection: "column",
+          maxWidth: 552,
+          minWidth: 200,
+          bgcolor: "background.paper",
+        }}>
         <Card
           sx={{
             display: "flex",
@@ -38,7 +40,6 @@ export default function Profile() {
             boxShadow: 1,
             borderRadius: 0.5,
             p: 2,
-            mt: 5,
           }}
         >
           <Box sx={{ display: "flex", flexDirection: "row" }}>
@@ -88,6 +89,27 @@ export default function Profile() {
           <CardActions sx={{ width: 200 }}>
             <Button>Edit</Button>
           </CardActions>
+        </Card>
+        <Card
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            maxWidth: 552,
+            minWidth: 200,
+            bgcolor: "background.paper",
+            boxShadow: 1,
+            borderRadius: 0.5,
+            p: 2,
+            mt: 5,
+          }}
+        >
+          <Box sx={{ display: "flex", flexDirection: "row" }}>
+            <Chat
+              first_name={user.first_name}
+              last_name={user.last_name}
+              id={user.id} //just needs to be updated to booking.id in real booking
+            ></Chat>
+          </Box>
         </Card>
       </Container>
     </div>

@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { Box, Tab, Tabs, Typography } from "@mui/material/";
 import MyListings from "../pages/MyListings";
-import Profile from "../pages/Profile";
+import ProfileProtec from "../pages/ProfileProtec";
 import MyBookings from "../pages/MyBookings";
-import { green } from '@mui/material/colors';
 
 export default function NavTabs() {
   const [value, setValue] = useState(0);
@@ -47,7 +46,7 @@ export default function NavTabs() {
       </Tabs>
     </Box>
     <TabPanel value={value} index={0}>
-      <Profile />
+      <ProfileProtec />
     </TabPanel>
     <TabPanel value={value} index={1}>
       <MyListings url={"/api/listing"} />

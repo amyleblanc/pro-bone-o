@@ -13,10 +13,11 @@ async function allFiltersListings(
 ) {
   const isSitterListing = sitterListing ? sitterListing : false;
   const start = startTime ? startTime : "2010-02-12T08:00:00.000Z";
-  const end = endTime ? endTime : "2010-02-12T08:00:00.000Z";
+  const end = endTime ? endTime : "2030-02-12T08:00:00.000Z";
   const acceptedListing = accepted ? accepted : false;
   const archivedListing = archived ? archived : false;
-  const searchExists = searchString ? searchString : "";
+  let searchExists = searchString ? searchString : "";
+  if (searchExists === "Anything!") searchExists = "";
   const listings = await prisma.listing.findMany({
     where: {
       sitter_listing: isSitterListing,
@@ -37,7 +38,7 @@ async function allFiltersListings(
         },
       ],
     },
-    include: { pets: true },
+    include: { pets: true, users: true },
   });
   return listings;
 }

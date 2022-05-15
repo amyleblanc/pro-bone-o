@@ -68,6 +68,7 @@ app.post("/api/listing/filter", (req, res) => {
   dataqueries.listingFilter
     .allFiltersListings(activity, type, start, end)
     .then((listing) => {
+      console.log(listing);
       res.json(listing);
     })
     .catch((err) => {

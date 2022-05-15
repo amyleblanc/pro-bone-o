@@ -18,8 +18,8 @@ const axios = require("axios").default;
 const formReducer = (state, event) => {
   if (event.reset) {
     return {
-      type: "Open Requests for Sitter",
-      activity: "Anything",
+      type: "Available Dogs",
+      activity: "Anything!",
       start: "",
       end: "",
       postal: "",
@@ -68,19 +68,19 @@ export default function FilterBar() {
   // }, []);
 
   const handleSubmit = (event) => {
-    event.preventDefault();
-    setSubmitting(true);
-    console.log(formData);
-    setSearch(formData);
-    console.log("this is search data:", search);
-    updateSearch(formData).then((res) => {
-      console.log(res);
-    });
-    setTimeout(() => {
-      setSubmitting(false);
-      setPets([]);
-      setFormData({ reset: true });
-    }, 3000);
+    // event.preventDefault();
+    // setSubmitting(true);
+    // console.log(formData);
+    // setSearch(formData);
+    // console.log("this is search data:", search);
+    // updateSearch(formData).then((res) => {
+    //   //console.log(res);
+    // });
+    // setTimeout(() => {
+    //   setSubmitting(false);
+    //   setPets([]);
+    //   setFormData({ reset: true });
+    // }, 3000);
   };
 
   const handleChange = (event) => {
@@ -90,6 +90,7 @@ export default function FilterBar() {
       name: event.target.name,
       value: isCheckbox ? event.target.checked : event.target.value,
     });
+    setSearch(formData);
   };
 
   const handleStartTimeRangePickerChange = (_value) => {
@@ -151,7 +152,6 @@ export default function FilterBar() {
                       required
                       value={formData.type || ""}
                     >
-                      <option value="">--Options--</option>
                       <option value="sitter-request">Available Dogs</option>
                       <option value="sitter-available">
                         Available Sitters
@@ -168,7 +168,6 @@ export default function FilterBar() {
                       required
                       value={formData.activity || ""}
                     >
-                      <option value="">--Options--</option>
                       <option value="any-activity">Anything!</option>
                       <option value="walkies">Walk</option>
                       <option value="sitting">Sitting</option>
@@ -225,9 +224,9 @@ export default function FilterBar() {
               </Grid>
             </Grid>
           </fieldset>
-          <button type="submit" disabled={submitting}>
+          {/* <button type="submit" disabled={submitting}>
             Submit
-          </button>
+          </button> */}
         </form>
       </div>
     </Grid>

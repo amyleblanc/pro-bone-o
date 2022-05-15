@@ -7,18 +7,18 @@ import { useTheme } from "@mui/material/styles";
 import axiosRequest from "../helper/axios";
 import { useRecoilState } from "recoil";
 import userState from "./atoms";
-import { 
-  Grid, 
-  Box, 
-  Button, 
+import {
+  Grid,
+  Box,
+  Button,
   FormControl,
-  OutlinedInput, 
-  InputLabel, 
-  MenuItem, 
-  Select, 
-  Chip, 
-  Avatar 
-} from '@mui/material';
+  OutlinedInput,
+  InputLabel,
+  MenuItem,
+  Select,
+  Chip,
+  Avatar,
+} from "@mui/material";
 const axios = require("axios").default;
 
 const ITEM_HEIGHT = 48;
@@ -114,7 +114,7 @@ export default function ListingForm() {
     setSubmitting(true);
     console.log(formData);
     if (!formData["pets"]) {
-      const type = formData["type"] ? true : false;
+      const type = true;
       const newData = {
         activity_type: formData["activity"],
         additional_details: formData["details"] ? formData["details"] : "",
@@ -137,7 +137,7 @@ export default function ListingForm() {
             petid = each.id;
           }
         }
-        const type = formData["type"] ? true : false;
+        const type = false;
         const newData = {
           activity_type: formData["activity"],
           additional_details: formData["details"] ? formData["details"] : "",
@@ -198,13 +198,14 @@ export default function ListingForm() {
   };
 
   return (
-      <Grid
+    <Grid
       container
       spacing={1}
       direction="column"
       alignItems="center"
       justifyContent="center"
-      s> 
+      s
+    >
       <h1>Create a Listing</h1>
       {submitting && (
         <div>
@@ -357,7 +358,6 @@ export default function ListingForm() {
           </button>
         </form>
       )}
-      </Grid>
-
+    </Grid>
   );
 }

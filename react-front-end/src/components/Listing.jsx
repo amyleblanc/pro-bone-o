@@ -9,11 +9,18 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import axiosRequest from "../helper/axios";
 import ResponsiveDialog from "./modal-popup";
-import { useRecoilValue } from "recoil";
+//import { useRecoilValue } from "recoil";
 import FilterBar from "./searchbar";
 import searchState from "./atom-search";
+import axios from "axios";
+import { useRecoilState } from "recoil";
 
 //const getListingState(//)
+
+// const updateSearch = async (formData) => {
+//   const processedForm = formData;
+//   axiosRequest("/api/listing/filter", "POST", processedForm);
+// };
 
 /**
  *
@@ -23,13 +30,57 @@ import searchState from "./atom-search";
 export default function Listing(props) {
   const [listing, setListing] = useState([]);
   const { url } = props;
-  const search = useRecoilValue(searchState);
+  //const search = useRecoilValue(searchState);
+  const [search, setSearch] = useRecoilState(searchState);
+
+  const getSearchState = function () {
+    console.log(search);
+  };
 
   //searchString, sitterListing, startTime, endTime, accepted, archived;
 
   useEffect(() => {
-    axiosRequest(url, "GET", {}).then((res) => setListing(res));
-  }, [url]);
+    const getSearch = async () => {
+      const res = await axios
+        .post(`/api/listing/filter`)
+        .then((res) => setListing(res.data));
+      console.log("res data", res.data);
+      console.log("res only", res);
+    };
+    getSearch();
+  }, []);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(search);
+    const getSearch = async () => {
+      const res = await axios
+        .post(`/api/listing/filter`, search)
+        .then((res) => setListing(res.data));
+      console.log("res data", res.data);
+      console.log("res only", res);
+    };
+    getSearch();
+    // updateSearch(search);
+    //   // setListing(res);
+    // });
+  };
+
+  const handleReset = (event) => {
+    event.preventDefault();
+    console.log(search);
+    const getSearch = async () => {
+      const res = await axios
+        .post(`/api/listing/filter`)
+        .then((res) => setListing(res.data));
+      console.log("res data", res.data);
+      console.log("res only", res);
+    };
+    getSearch();
+    // updateSearch(search);
+    //   // setListing(res);
+    // });
+  };
 
   // useEffect(() => {
   //   axiosRequest("/api/listing", "GET").then((res) => setListing(res));
@@ -128,6 +179,11 @@ export default function Listing(props) {
       {/* <section>
         <div> */}
       <h1>Current Listings</h1>
+      {/* search state button confirms that state is being updated */}
+      {/* <Button onClick={getSearchState}>Search State</Button> */}
+      <FilterBar />
+      <Button onClick={handleReset}>Reset Search</Button>
+      <Button onClick={handleSubmit}>Execute Search</Button>
       {/* <FilterBar /> */}
       {/* <Grid container justifyContent="space-around"> */}
       <Grid

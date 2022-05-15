@@ -5,7 +5,6 @@ import userState from "../components/atoms";
 import axiosRequest from "../helper/axios";
 import moment from "moment";
 
-
 export default function MyListings(props) {
   const [listings, setListings] = useState([]);
   const { url } = props;
@@ -46,7 +45,6 @@ export default function MyListings(props) {
                 boxShadow: 1,
                 borderRadius: 0.5,
                 p: 2,
-                mt: 5,
               }}
             >
               <Box sx={{ display: 'flex', flexDirection: 'row' }}>

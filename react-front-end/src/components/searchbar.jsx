@@ -11,6 +11,7 @@ import Avatar from "@mui/material/Avatar";
 import { atom } from "recoil";
 import Switch from "@mui/material/Switch";
 import searchState from "./atom-search";
+import { Grid } from "@mui/material";
 
 const axios = require("axios").default;
 
@@ -104,96 +105,131 @@ export default function FilterBar() {
   };
 
   return (
-    <div className="search-bar">
-      <h1>Search Bar</h1>
-      {submitting && (
-        <div>
-          You are submitting the following:
-          <ul>
-            {Object.entries(formData).map(([name, value]) => (
-              <li key={name}>
-                <strong>{name}</strong>:{value.toString()}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-      <form onSubmit={handleSubmit} disabled={submitting}>
-        <fieldset>
-          <label>
-            <p>Listing Type</p>
-            <select
-              name="type"
-              onChange={handleChange}
-              required
-              value={formData.type || ""}
+    <Grid
+      container
+      // spacing={1}
+      direction="column"
+      alignItems="center"
+      justifyContent="center"
+      // columns={{ xs: 4, sm: 8, md: 12 }}
+      // className="mainWrap"
+      maxWidth="xl"
+    >
+      <div className="search-bar">
+        <h1>Search Bar</h1>
+        {submitting && (
+          <div>
+            You are submitting the following:
+            <ul>
+              {Object.entries(formData).map(([name, value]) => (
+                <li key={name}>
+                  <strong>{name}</strong>:{value.toString()}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} disabled={submitting}>
+          <fieldset disabled={submitting}>
+            <Grid
+              item
+              container
+              spacing={1}
+              direction="row"
+              columns={{ xs: 1, sm: 7, md: 7 }}
+              // className="mainWrap"
+              maxWidth="xl"
             >
-              <option value="">--Please choose an option--</option>
-              <option value="sitter-request">Open Requests for Sitter</option>
-              <option value="sitter-available">
-                Available Sitter Listings
-              </option>
-            </select>
-          </label>
-          <label>
-            <p>Activity</p>
-            <select
-              name="activity"
-              onChange={handleChange}
-              required
-              value={formData.activity || ""}
-            >
-              <option value="">--Please choose an option--</option>
-              <option value="any-activity">Anything!</option>
-              <option value="walkies">Walk</option>
-              <option value="sitting">Sitting</option>
-              <option value="doggy-date">Doggy Date</option>
-            </select>
-          </label>
-        </fieldset>
-        <fieldset disabled={submitting}>
-          <label>
-            <p>Start Time</p>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DateTimePicker
-                renderInput={(props) => <TextField {...props} />}
-                label="DateTimePicker"
-                name={START_TIME}
-                value={startValue}
-                onChange={handleStartTimeRangePickerChange}
-                required
-              />
-            </LocalizationProvider>
-          </label>
-          <label>
-            <p>End Time</p>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DateTimePicker
-                renderInput={(props) => <TextField {...props} />}
-                label="DateTimePicker"
-                name={END_TIME}
-                value={endValue}
-                onChange={handleEndTimeRangePickerChange}
-                required
-              />
-            </LocalizationProvider>
-          </label>
-          <label>
-            <p>Postal Code</p>
-            <input
-              type="text"
-              maxLength={6}
-              name="postal"
-              onChange={handleChange}
-              placeholder="A1B2C3"
-              value={formData.postal || ""}
-            />
-          </label>
-        </fieldset>
-        <button type="submit" disabled={submitting}>
-          Submit
-        </button>
-      </form>
-    </div>
+              <Grid item>
+                <Grid item xs={12} sm={1} md={1}>
+                  <label>
+                    <span>Type</span>
+                    <select
+                      name="type"
+                      onChange={handleChange}
+                      required
+                      value={formData.type || ""}
+                    >
+                      <option value="">--Options--</option>
+                      <option value="sitter-request">Available Dogs</option>
+                      <option value="sitter-available">
+                        Available Sitters
+                      </option>
+                    </select>
+                  </label>
+                </Grid>
+                <Grid item xs={12} sm={1} md={1}>
+                  <label>
+                    <span>Activity</span>
+                    <select
+                      name="activity"
+                      onChange={handleChange}
+                      required
+                      value={formData.activity || ""}
+                    >
+                      <option value="">--Options--</option>
+                      <option value="any-activity">Anything!</option>
+                      <option value="walkies">Walk</option>
+                      <option value="sitting">Sitting</option>
+                      <option value="doggy-date">Doggy Date</option>
+                    </select>
+                  </label>
+                </Grid>
+              </Grid>
+              <Grid item xs={6} sm={1} md={1}>
+                <label>
+                  <span>Postal Code</span>
+                  <br></br>
+                  <input
+                    type="text"
+                    maxLength={6}
+                    name="postal"
+                    onChange={handleChange}
+                    placeholder="A1B2C3"
+                    value={formData.postal || ""}
+                  />
+                </label>
+              </Grid>
+              <Grid item xs={12} sm={2} md={2}>
+                <label>
+                  <span>Start</span>
+                  <br></br>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DateTimePicker
+                      renderInput={(props) => <TextField {...props} />}
+                      label="DateTimePicker"
+                      name={START_TIME}
+                      value={startValue}
+                      onChange={handleStartTimeRangePickerChange}
+                      required
+                    />
+                  </LocalizationProvider>
+                </label>
+              </Grid>
+              <Grid item xs={12} sm={2} md={2}>
+                <label>
+                  <span>End</span>
+                  <br></br>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DateTimePicker
+                      renderInput={(props) => <TextField {...props} />}
+                      label="DateTimePicker"
+                      name={END_TIME}
+                      value={endValue}
+                      onChange={handleEndTimeRangePickerChange}
+                      required
+                    />
+                  </LocalizationProvider>
+                </label>
+              </Grid>
+            </Grid>
+          </fieldset>
+          <button type="submit" disabled={submitting}>
+            Submit
+          </button>
+        </form>
+      </div>
+    </Grid>
   );
 }

@@ -26,19 +26,18 @@ export default function Profile() {
           sx={{
           display: "flex",
           flexDirection: "column",
-          maxWidth: 552,
-          minWidth: 200,
+          maxWidth: "sm",
           bgcolor: "background.paper",
         }}>
         <Card
           sx={{
             display: "flex",
             flexDirection: "column",
-            maxWidth: 552,
+            width: "auto",
             minWidth: 200,
-            bgcolor: "background.paper",
+            bgcolor: "#ffde5a",
             boxShadow: 1,
-            borderRadius: 0.5,
+            borderRadius: "16px",
             p: 2,
           }}
         >
@@ -53,11 +52,15 @@ export default function Profile() {
                 {user.first_name} {user.last_name}
               </Typography>
               <Typography gutterBottom variant="p" component="div">
-                email: {user.email_address}
+                <b>email: </b> {user.email_address}
               </Typography>
               <Typography gutterBottom variant="p" component="div">
-                phone: {phoneNumber}
+                <b>phone: </b>{phoneNumber}
               </Typography>
+            </CardContent>
+          </Box>
+          <Box>
+            <CardContent>
               <Typography
                 gutterBottom
                 variant="h5"
@@ -86,8 +89,8 @@ export default function Profile() {
               ))}
             </CardContent>
           </Box>
-          <CardActions sx={{ width: 200 }}>
-            <Button>Edit</Button>
+          <CardActions>
+            <Button variant="contained" color="success" sx={{borderRadius: '16px', width: '100px'}}>Edit</Button>
           </CardActions>
         </Card>
         <Card

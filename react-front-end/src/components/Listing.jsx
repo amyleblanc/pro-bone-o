@@ -9,11 +9,18 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import axiosRequest from "../helper/axios";
 import ResponsiveDialog from "./modal-popup";
-import { useRecoilValue } from "recoil";
+//import { useRecoilValue } from "recoil";
 import FilterBar from "./searchbar";
 import searchState from "./atom-search";
+import axios from "axios";
+import { useRecoilState } from "recoil";
 
 //const getListingState(//)
+
+// const updateSearch = async (formData) => {
+//   const processedForm = formData;
+//   axiosRequest("/api/listing/filter", "POST", processedForm);
+// };
 
 /**
  *
@@ -22,18 +29,23 @@ import searchState from "./atom-search";
  */
 export default function Listing(props) {
   const [listing, setListing] = useState([]);
-  const { url } = props;
-  const search = useRecoilValue(searchState);
+  const { url, payload } = props;
+  //const search = useRecoilValue(searchState);
+  const [search, setSearch] = useRecoilState(searchState);
 
-  //searchString, sitterListing, startTime, endTime, accepted, archived;
+  const getSearchState = function () {
+    console.log(search);
+  };
 
   useEffect(() => {
-    axiosRequest(url, "GET", {}).then((res) => setListing(res));
-  }, [url]);
-
-  // useEffect(() => {
-  //   axiosRequest("/api/listing", "GET").then((res) => setListing(res));
-  // });
+    const getSearch = async () => {
+      const res = await axios
+        .post(url, payload)
+        .then((res) => setListing(res.data));
+      console.log("res only", res);
+    };
+    getSearch();
+  }, [url, payload]);
 
   const useListing = listing.map((listing) => {
     console.log(listing);
@@ -125,18 +137,13 @@ export default function Listing(props) {
 
   return (
     <main>
-      {/* <section>
-        <div> */}
       <h1>Current Listings</h1>
-      {/* <FilterBar /> */}
-      {/* <Grid container justifyContent="space-around"> */}
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}
         columns={{ xs: 4, sm: 8, md: 12 }}
       >
         {listing && useListing}
-        {/* <div className="container">{listing && useListing}</div> */}
       </Grid>
       {/* </div>
       </section> */}

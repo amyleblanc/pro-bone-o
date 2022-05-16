@@ -12,6 +12,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import ResponsiveAppBar from "./components/NavBar";
 import Chat from "./components/Chat";
 import FilterBar from "./components/searchbar";
+import AllListings from "./pages/AllListings";
 
 export default function Application() {
   return (
@@ -22,7 +23,7 @@ export default function Application() {
           <ResponsiveAppBar />
           <Routes>
             <Route path="/" element={<Splash />} />
-            <Route path="/listing" element={<Listing url={"/api/listing"} />} />
+            <Route path="/listing" element={<AllListings />} />
             <Route path="/createlisting" element={<ListingForm />} />
             <Route path="/registerPet" element={<RegisterPet />} />
             <Route path="/registerUser" element={<RegisterUser />} />

@@ -1,25 +1,21 @@
+import userState from "../components/atoms";
+import { Grid } from "@mui/material";
+import searchState from "../components/atom-search";
+import { useRecoilState } from "recoil";
 import React, { useState, useReducer, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { DateTimePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { useTheme } from "@mui/material/styles";
-import axiosRequest from "../helper/axios";
-import { useRecoilState } from "recoil";
-import userState from "./atoms";
-import Avatar from "@mui/material/Avatar";
-import { atom } from "recoil";
-import Switch from "@mui/material/Switch";
-import searchState from "./atom-search";
-import { Grid } from "@mui/material";
-
+import Listing from "../components/Listing";
+import { Button } from "react-scroll/modules";
 const axios = require("axios").default;
 
 const formReducer = (state, event) => {
   if (event.reset) {
     return {
       type: "sitter-request",
-      activity: "any-activity!",
+      activity: "any-activity",
       start: "",
       end: "",
       postal: "",
@@ -34,11 +30,6 @@ const formReducer = (state, event) => {
 const START_TIME = "start";
 const END_TIME = "end";
 
-const updateSearch = async (formData) => {
-  const processedForm = formData;
-  axiosRequest("/api/listing/filter", "POST", processedForm);
-};
-
 //formats date in local time for backend - if moving globablly would update to render this on the front end instead
 const dateFormatter = (date) => {
   //const newDate = date.toISOString();
@@ -51,37 +42,13 @@ const dateFormatter = (date) => {
   return isoAgain;
 };
 
-export default function FilterBar() {
+export default function AllListings() {
   const [formData, setFormData] = useReducer(formReducer, {});
   const [startValue, setStartValue] = React.useState(new Date());
   const [endValue, setEndValue] = React.useState(new Date());
-  const [user, setUser] = useRecoilState(userState);
-  //const theme = useTheme();
-  const [pets, setPets] = React.useState([]);
-  const [search, setSearch] = useRecoilState(searchState);
+  const [url, setUrl] = React.useState("/api/listing/filter");
 
   const [submitting, setSubmitting] = useState(false);
-
-  // useEffect(() => {
-  //   getUpdatedUser(user.id).then((res) => setUser(res));
-  //   axiosRequest(`/login/${userID}`, "GET", {});
-  // }, []);
-
-  const handleSubmit = (event) => {
-    // event.preventDefault();
-    // setSubmitting(true);
-    // console.log(formData);
-    // setSearch(formData);
-    // console.log("this is search data:", search);
-    // updateSearch(formData).then((res) => {
-    //   //console.log(res);
-    // });
-    // setTimeout(() => {
-    //   setSubmitting(false);
-    //   setPets([]);
-    //   setFormData({ reset: true });
-    // }, 3000);
-  };
 
   const handleChange = (event) => {
     const isCheckbox = event.target.type === "checkbox";
@@ -90,13 +57,29 @@ export default function FilterBar() {
       name: event.target.name,
       value: isCheckbox ? event.target.checked : event.target.value,
     });
-    console.log("this should show updated data.", formData);
-    // setSearch((prevState) => ({
-    //   ...prevState,
-    //   [event.target.name]: event.target.value,
-    // }));
-    setSearch(formData);
-    console.log("this is search after prevstate");
+  };
+
+  const handleReset = () => {
+    setFormData({
+      name: "type",
+      value: "sitter-request",
+    });
+    setFormData({
+      name: "activity",
+      value: "any-activity",
+    });
+    setFormData({
+      name: "start",
+      value: "",
+    });
+    setFormData({
+      name: "end",
+      value: "",
+    });
+    setFormData({
+      name: "postal",
+      value: "",
+    });
   };
 
   const handleStartTimeRangePickerChange = (_value) => {
@@ -112,17 +95,17 @@ export default function FilterBar() {
   };
 
   return (
-    <Grid
-      container
-      // spacing={1}
-      direction="column"
-      alignItems="center"
-      justifyContent="center"
-      // columns={{ xs: 4, sm: 8, md: 12 }}
-      // className="mainWrap"
-      maxWidth="xl"
-    >
-      <div className="search-bar">
+    <div className="search-listings">
+      <Grid
+        container
+        // spacing={1}
+        direction="column"
+        alignItems="center"
+        justifyContent="center"
+        // columns={{ xs: 4, sm: 8, md: 12 }}
+        // className="mainWrap"
+        maxWidth="xl"
+      >
         <h1>Search Bar</h1>
         {submitting && (
           <div>
@@ -137,7 +120,7 @@ export default function FilterBar() {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} disabled={submitting}>
+        <form disabled={submitting}>
           <fieldset disabled={submitting}>
             <Grid
               item
@@ -228,13 +211,15 @@ export default function FilterBar() {
                   </LocalizationProvider>
                 </label>
               </Grid>
+              <button disabled={submitting} onClick={handleReset}>
+                Reset
+              </button>
             </Grid>
           </fieldset>
-          {/* <button type="submit" disabled={submitting}>
-            Submit
-          </button> */}
         </form>
-      </div>
-    </Grid>
+      </Grid>
+
+      <Listing url={url} payload={formData} />
+    </div>
   );
 }

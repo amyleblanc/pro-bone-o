@@ -4,18 +4,19 @@ import './Map.css'
 
 const containerStyle = {
   width: '800px',
-  height: '400px'
+  height: '600px',
+  margin: '20px'
 };
 
 const center = {
-  lat: 44,
-  lng: -80
+  lat: 49.279046,
+  lng: -123.051898,
 };
 
 function Map() {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: "AIzaSyC-XEq_cPJtonnlHDxjmiEMtqItcMaYUkA"
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY
   })
 
   const [map, setMap] = React.useState(null)
@@ -34,11 +35,11 @@ function Map() {
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={{lat:44, lng:-80}}
-        zoom={9}
+        zoom={5}
         onLoad={onLoad}
         onUnmount={onUnmount}
       >
-        <Marker></Marker>
+        <Marker position={{lat: 49.279046, lng: -123.051898}} />
         <></>
       </GoogleMap>
   ) : <>Error Loading Map</>

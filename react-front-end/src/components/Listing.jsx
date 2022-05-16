@@ -139,6 +139,8 @@ export default function Listing(props) {
   return (
     <main>
       <h1>Current Listings</h1>
+      <div className="flexbox-container">
+        <div id="listings">
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}
@@ -146,8 +148,10 @@ export default function Listing(props) {
       >
         {listing && useListing}
       </Grid>
+      </div>
      <div>
         <Map></Map>
+     </div>
      </div>
     </main>
   );

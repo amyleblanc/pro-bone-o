@@ -5,3 +5,12 @@ h1 {
 .card {
   text-align: center;
 }
+
+.flexbox-container {
+  display: flex;
+  flex-direction: row;
+}
+
+#listings {
+  width: 50%;
+}

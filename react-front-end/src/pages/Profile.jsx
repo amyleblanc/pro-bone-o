@@ -10,6 +10,7 @@ import {
   Typography,
   Container,
 } from "@mui/material/";
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import userState from "../components/atoms";
 import Chat from "../components/Chat";
 
@@ -41,11 +42,11 @@ export default function Profile() {
             p: 2,
           }}
         >
-          <Box sx={{ display: "flex", flexDirection: "row" }}>
+          <Box sx={{ display: "flex", flexDirection: "row-reverse" }}>
             <Avatar
               src={user.photo_url}
               alt="user avatar"
-              sx={{ width: 150, height: 150, marginRight: 5 }}
+              sx={{ width: 150, height: 150, margin: 3 }}
             />
             <CardContent sx={{ width: 350 }}>
               <Typography gutterBottom variant="h4" component="div">
@@ -65,33 +66,43 @@ export default function Profile() {
                 gutterBottom
                 variant="h5"
                 component="div"
-                sx={{ paddingTop: 3, paddingBottom: 2 }}
               >
                 My Furry Friends:
               </Typography>
-              {user.pets.map((pet) => (
-                <>
-                  <Avatar
-                    key={pet.id}
-                    src={pet.photo_url}
-                    alt="pet avatar"
-                    sx={{ width: 70, height: 70 }}
-                  />
-                  <Typography
-                    gutterBottom
-                    variant="p"
-                    component="div"
-                    sx={{ paddingTop: 1 }}
-                  >
-                    {pet.name}
-                  </Typography>
-                </>
-              ))}
+                {user.pets.map((pet) => (
+                  <>
+                    <Box sx={{ display: "flex", flexDirection: "row" }}>
+                      <Box>
+                        <Avatar
+                          key={pet.id}
+                          src={pet.photo_url}
+                          alt="pet avatar"
+                          sx={{ width: 70, height: 70 }}
+                        />
+                      </Box>
+                      <Box>
+                        <Typography
+                          gutterBottom
+                          variant="h6"
+                          component="div"
+                          sx={{ p: 2 }}
+                          >
+                          {pet.name}
+                        </Typography>
+                      </Box>
+                      <Box sx={{ p: 2.5 }}>
+                        <AddCircleOutlineIcon size="large" />
+                      </Box>
+                    </Box>
+                  </>
+                ))}
             </CardContent>
           </Box>
-          <CardActions>
-            <Button variant="contained" color="success" sx={{borderRadius: '16px', width: '100px'}}>Edit</Button>
-          </CardActions>
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <CardActions>
+              <Button variant="contained" color="success" sx={{borderRadius: '16px', width: '100px'}}>Edit</Button>
+            </CardActions>
+          </Box>
         </Card>
         <Card
           sx={{

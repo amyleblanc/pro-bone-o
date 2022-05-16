@@ -11,7 +11,7 @@ async function allFiltersListings(
   accepted,
   archived
 ) {
-  const isSitterListing = sitterListing ? sitterListing : false;
+  const requestForSitter = sitterListing ? sitterListing : false;
   const start = startTime ? startTime : "2010-02-12T08:00:00.000Z";
   const end = endTime ? endTime : "2030-02-12T08:00:00.000Z";
   const acceptedListing = accepted ? accepted : false;
@@ -20,7 +20,7 @@ async function allFiltersListings(
   if (searchExists === "Anything!") searchExists = "";
   const listings = await prisma.listing.findMany({
     where: {
-      sitter_listing: isSitterListing,
+      sitter_listing: requestForSitter,
       accepted: acceptedListing,
       archived: archivedListing,
       start_time: {
@@ -46,10 +46,10 @@ async function allFiltersListings(
 // GET ONLY open listings with input searchString in additional details or activity type; can search either sitter listings or dog availability
 //Required fields in body: searchString {string}; optional: sitterListing {boolean}
 async function filterSitterListings(searchString, sitterListing) {
-  const isSitterListing = sitterListing ? sitterListing : false;
+  const requestForSitter = sitterListing ? sitterListing : false;
   const listings = await prisma.listing.findMany({
     where: {
-      sitter_listing: isSitterListing,
+      sitter_listing: requestForSitter,
       accepted: false,
       archived: false,
       OR: [
@@ -70,10 +70,10 @@ async function filterSitterListings(searchString, sitterListing) {
 async function openRequestsForSitterFilter(startTime, endTime, sitterListing) {
   const start = startTime ? startTime : "2010-02-12T08:00:00.000Z";
   const end = endTime ? endTime : "2010-02-12T08:00:00.000Z";
-  const isSitterListing = sitterListing ? sitterListing : false;
+  const requestForSitter = sitterListing ? sitterListing : false;
   const listings = await prisma.listing.findMany({
     where: {
-      sitter_listing: isSitterListing,
+      sitter_listing: requestForSitter,
       accepted: false,
       archived: false,
       start_time: {

@@ -44,20 +44,22 @@ export default function Listing(props) {
       const res = await axios
         .post(`/api/listing/filter`)
         .then((res) => setListing(res.data));
-      console.log("res data", res.data);
-      console.log("res only", res);
+      // console.log("res data", res.data);
+      //console.log("res only", res);
     };
     getSearch();
   }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(search);
+    console.log("this is the search", search);
+    //const updatedSearch = search;
+    //updatedSearch["type"] = search["type"] === "sitter-request" ? true : false;
     const getSearch = async () => {
       const res = await axios
         .post(`/api/listing/filter`, search)
         .then((res) => setListing(res.data));
-      console.log("res data", res.data);
+      // console.log("res data", res.data);
       console.log("res only", res);
     };
     getSearch();
@@ -73,10 +75,12 @@ export default function Listing(props) {
       const res = await axios
         .post(`/api/listing/filter`)
         .then((res) => setListing(res.data));
-      console.log("res data", res.data);
-      console.log("res only", res);
+      // console.log("res data", res.data);
+      //console.log("res only", res);
     };
     getSearch();
+    setSearch({});
+    console.log("reset search", search);
     // updateSearch(search);
     //   // setListing(res);
     // });
@@ -180,7 +184,7 @@ export default function Listing(props) {
         <div> */}
       <h1>Current Listings</h1>
       {/* search state button confirms that state is being updated */}
-      {/* <Button onClick={getSearchState}>Search State</Button> */}
+      <Button onClick={getSearchState}>Search State</Button>
       <FilterBar />
       <Button onClick={handleReset}>Reset Search</Button>
       <Button onClick={handleSubmit}>Execute Search</Button>

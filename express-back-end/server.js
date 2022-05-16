@@ -63,12 +63,12 @@ app.post("/api/listing/filter", (req, res) => {
   const { activity, start, end, postal } = body;
   const type = body["type"] === "sitter-request" ? true : false;
   //const params = req.params;
-  console.log("body:", body);
+  //console.log("body:", body);
   //console.log("params:", params);
   dataqueries.listingFilter
     .allFiltersListings(activity, type, start, end)
     .then((listing) => {
-      console.log(listing);
+      //console.log(listing);
       res.json(listing);
     })
     .catch((err) => {

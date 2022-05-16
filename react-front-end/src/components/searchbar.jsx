@@ -18,8 +18,8 @@ const axios = require("axios").default;
 const formReducer = (state, event) => {
   if (event.reset) {
     return {
-      type: "Available Dogs",
-      activity: "Anything!",
+      type: "sitter-request",
+      activity: "any-activity!",
       start: "",
       end: "",
       postal: "",
@@ -90,7 +90,13 @@ export default function FilterBar() {
       name: event.target.name,
       value: isCheckbox ? event.target.checked : event.target.value,
     });
+    console.log("this should show updated data.", formData);
+    // setSearch((prevState) => ({
+    //   ...prevState,
+    //   [event.target.name]: event.target.value,
+    // }));
     setSearch(formData);
+    console.log("this is search after prevstate");
   };
 
   const handleStartTimeRangePickerChange = (_value) => {

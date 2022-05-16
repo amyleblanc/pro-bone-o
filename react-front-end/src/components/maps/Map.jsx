@@ -1,6 +1,15 @@
-import React from 'react'
-import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
-import './Map.css'
+import { useMemo } from "react";
+import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
+import './Map.css';
+
+export default function Map() {
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
+  });
+
+  if (!isLoaded) return <div>Loading...</div>;
+  return <Mapa />;
+}
 
 const containerStyle = {
   width: '800px',
@@ -8,41 +17,12 @@ const containerStyle = {
   margin: '20px'
 };
 
-const center = {
-  lat: 49.279046,
-  lng: -123.051898,
-};
+function Mapa() {
+  const center = useMemo(() => ({ lat: 49.279115, lng: -123.051945 }), []);
 
-function Map() {
-  const { isLoaded } = useJsApiLoader({
-    id: 'google-map-script',
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY
-  })
-
-  const [map, setMap] = React.useState(null)
-
-  const onLoad = React.useCallback(function callback(map) {
-    const bounds = new window.google.maps.LatLngBounds(center);
-    map.fitBounds(bounds);
-    setMap(map)
-  }, [])
-
-  const onUnmount = React.useCallback(function callback(map) {
-    setMap(null)
-  }, [])
-
-  return isLoaded ? (
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={{lat:44, lng:-80}}
-        zoom={5}
-        onLoad={onLoad}
-        onUnmount={onUnmount}
-      >
-        <Marker position={{lat: 49.279046, lng: -123.051898}} />
-        <></>
-      </GoogleMap>
-  ) : <>Error Loading Map</>
+  return (
+    <GoogleMap zoom={13} center={center} mapContainerStyle={containerStyle}>
+      <Marker position={center} />
+    </GoogleMap>
+  );
 }
-
-export default React.memo(Map)

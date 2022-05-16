@@ -66,9 +66,16 @@ export default function MyListings(props) {
                   <Typography gutterBottom>
                     <b>End Time: </b>{moment(list.end_time).format('LLL')} {/* NEEDS TO BE DISPLAYED PROPERLY */}
                   </Typography>
-                  <Typography gutterBottom>
-                    <b>Status: </b>{list.accepted ? "Accepted" : "Pending"}
-                  </Typography>
+                  {!list.archived && (
+                    <Typography gutterBottom>
+                      <b>Status: </b>{list.accepted ? "Accepted" : "Pending"}
+                    </Typography>
+                  )}
+                  {list.archived && (
+                    <Typography gutterBottom>
+                      <b>Status: </b> Archived
+                    </Typography>
+                  )}
                 </CardContent>
               </Box>
               <CardActions sx={{width: 200}}>

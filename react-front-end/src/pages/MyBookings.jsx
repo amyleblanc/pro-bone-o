@@ -4,6 +4,7 @@ import { Avatar, Box, Button, Card, CardActions, CardContent, CardMedia, Grid, T
 import userState from "../components/atoms";
 import axiosRequest from "../helper/axios";
 import moment from "moment";
+import SendIcon from '@mui/icons-material/Send';
 
 export default function MyBookings(props) {
   const [listings, setListings] = useState([]);
@@ -94,8 +95,8 @@ export default function MyBookings(props) {
               </Box>
               <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap' }}>
                 <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                  <CardActions sx={{ width: 156 }}>
-                    <Button variant="contained" color="success" sx={{borderRadius: '16px'}}>Send Message</Button>
+                  <CardActions sx={{ width: 170 }}>
+                    <Button variant="contained" color="success" endIcon={<SendIcon />} sx={{borderRadius: '16px'}}>Send Message</Button>
                   </CardActions>
                 </Box>
                 <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>

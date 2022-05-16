@@ -1,14 +1,15 @@
 import React from 'react'
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
+import './Map.css'
 
 const containerStyle = {
-  width: '400px',
+  width: '800px',
   height: '400px'
 };
 
 const center = {
-  lat: -3.745,
-  lng: -38.523
+  lat: 44,
+  lng: -80
 };
 
 function Map() {
@@ -32,15 +33,15 @@ function Map() {
   return isLoaded ? (
       <GoogleMap
         mapContainerStyle={containerStyle}
-        center={center}
-        zoom={10}
+        center={{lat:44, lng:-80}}
+        zoom={9}
         onLoad={onLoad}
         onUnmount={onUnmount}
       >
-        { /* Child components, such as markers, info windows, etc. */ }
+        <Marker></Marker>
         <></>
       </GoogleMap>
-  ) : <></>
+  ) : <>Error Loading Map</>
 }
 
 export default React.memo(Map)

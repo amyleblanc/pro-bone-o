@@ -53,7 +53,7 @@ export default function Listing(props) {
     return (
       // <Grid container justifyContent="space-around">
       <Grid item xs={12} sm={4} md={4}>
-        <Map />
+
         <Card
           sx={{
             bgcolor: "background.paper",
@@ -132,7 +132,6 @@ export default function Listing(props) {
             )}
           </CardActions>
         </Card>
-        {/* <initMap /> */}
       </Grid>
     );
   });
@@ -147,8 +146,9 @@ export default function Listing(props) {
       >
         {listing && useListing}
       </Grid>
-      {/* </div>
-      </section> */}
+     <div>
+        <Map></Map>
+     </div>
     </main>
   );
 }

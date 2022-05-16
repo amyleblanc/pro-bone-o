@@ -8,13 +8,14 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { DateTimePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import Listing from "../components/Listing";
+import { Button } from "react-scroll/modules";
 const axios = require("axios").default;
 
 const formReducer = (state, event) => {
   if (event.reset) {
     return {
-      type: "sitter-available",
-      activity: "any-activity!",
+      type: "sitter-request",
+      activity: "any-activity",
       start: "",
       end: "",
       postal: "",
@@ -45,19 +46,7 @@ export default function AllListings() {
   const [formData, setFormData] = useReducer(formReducer, {});
   const [startValue, setStartValue] = React.useState(new Date());
   const [endValue, setEndValue] = React.useState(new Date());
-  const [user, setUser] = useRecoilState(userState);
-  const [pets, setPets] = React.useState([]);
-  const [search, setSearch] = useRecoilState(searchState);
-
   const [url, setUrl] = React.useState("/api/listing/filter");
-
-  const [payload, setPayload] = React.useState({
-    type: "",
-    activity: "Anything!",
-    start: "",
-    end: "",
-    postal: "",
-  });
 
   const [submitting, setSubmitting] = useState(false);
 
@@ -67,6 +56,29 @@ export default function AllListings() {
     setFormData({
       name: event.target.name,
       value: isCheckbox ? event.target.checked : event.target.value,
+    });
+  };
+
+  const handleReset = () => {
+    setFormData({
+      name: "type",
+      value: "sitter-request",
+    });
+    setFormData({
+      name: "activity",
+      value: "any-activity",
+    });
+    setFormData({
+      name: "start",
+      value: "",
+    });
+    setFormData({
+      name: "end",
+      value: "",
+    });
+    setFormData({
+      name: "postal",
+      value: "",
     });
   };
 
@@ -199,13 +211,14 @@ export default function AllListings() {
                   </LocalizationProvider>
                 </label>
               </Grid>
+              <button disabled={submitting} onClick={handleReset}>
+                Reset
+              </button>
             </Grid>
           </fieldset>
-          {/* <button type="submit" disabled={submitting}>
-            Search
-          </button> */}
         </form>
       </Grid>
+
       <Listing url={url} payload={formData} />
     </div>
   );

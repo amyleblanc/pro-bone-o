@@ -14,6 +14,7 @@ import FilterBar from "./searchbar";
 import searchState from "./atom-search";
 import axios from "axios";
 import { useRecoilState } from "recoil";
+import Map from "./maps/Map";
 
 //const getListingState(//)
 
@@ -52,6 +53,7 @@ export default function Listing(props) {
     return (
       // <Grid container justifyContent="space-around">
       <Grid item xs={12} sm={4} md={4}>
+        <Map />
         <Card
           sx={{
             bgcolor: "background.paper",

@@ -52,7 +52,7 @@ export default function NavTabs() {
       <MyListings url={"/api/listing"} />
     </TabPanel>
     <TabPanel value={value} index={2}>
-      <MyBookings />
+      <MyBookings url={"/api/listing"} />
     </TabPanel>
     </>
   );

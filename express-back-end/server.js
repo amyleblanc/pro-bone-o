@@ -60,8 +60,11 @@ app.get("/api/data", (req, res) => {
 //currently does not use postal
 app.post("/api/listing/filter", (req, res) => {
   const body = req.body;
+  console.log(body["type"]);
+  console.log(body);
   const { activity, start, end, postal } = body;
-  const type = body["type"] === "sitter-request" ? true : false;
+  let type = body["type"] !== "sitter-request" ? true : false;
+  if (!body["type"]) type = false;
   //const params = req.params;
   //console.log("body:", body);
   //console.log("params:", params);

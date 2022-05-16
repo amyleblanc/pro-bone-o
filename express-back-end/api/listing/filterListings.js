@@ -17,7 +17,7 @@ async function allFiltersListings(
   const acceptedListing = accepted ? accepted : false;
   const archivedListing = archived ? archived : false;
   let searchExists = searchString ? searchString : "";
-  if (searchExists === "Anything!") searchExists = "";
+  if (searchExists === "any-activity") searchExists = "";
   const listings = await prisma.listing.findMany({
     where: {
       sitter_listing: requestForSitter,

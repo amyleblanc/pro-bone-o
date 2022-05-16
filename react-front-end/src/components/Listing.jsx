@@ -29,7 +29,7 @@ import { useRecoilState } from "recoil";
  */
 export default function Listing(props) {
   const [listing, setListing] = useState([]);
-  const { url } = props;
+  const { url, payload } = props;
   //const search = useRecoilValue(searchState);
   const [search, setSearch] = useRecoilState(searchState);
 
@@ -37,58 +37,15 @@ export default function Listing(props) {
     console.log(search);
   };
 
-  //searchString, sitterListing, startTime, endTime, accepted, archived;
-
   useEffect(() => {
     const getSearch = async () => {
       const res = await axios
-        .post(`/api/listing/filter`)
+        .post(url, payload)
         .then((res) => setListing(res.data));
-      // console.log("res data", res.data);
-      //console.log("res only", res);
-    };
-    getSearch();
-  }, []);
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log("this is the search", search);
-    //const updatedSearch = search;
-    //updatedSearch["type"] = search["type"] === "sitter-request" ? true : false;
-    const getSearch = async () => {
-      const res = await axios
-        .post(`/api/listing/filter`, search)
-        .then((res) => setListing(res.data));
-      // console.log("res data", res.data);
       console.log("res only", res);
     };
     getSearch();
-    // updateSearch(search);
-    //   // setListing(res);
-    // });
-  };
-
-  const handleReset = (event) => {
-    event.preventDefault();
-    console.log(search);
-    const getSearch = async () => {
-      const res = await axios
-        .post(`/api/listing/filter`)
-        .then((res) => setListing(res.data));
-      // console.log("res data", res.data);
-      //console.log("res only", res);
-    };
-    getSearch();
-    setSearch({});
-    console.log("reset search", search);
-    // updateSearch(search);
-    //   // setListing(res);
-    // });
-  };
-
-  // useEffect(() => {
-  //   axiosRequest("/api/listing", "GET").then((res) => setListing(res));
-  // });
+  }, [url, payload]);
 
   const useListing = listing.map((listing) => {
     console.log(listing);
@@ -180,23 +137,13 @@ export default function Listing(props) {
 
   return (
     <main>
-      {/* <section>
-        <div> */}
       <h1>Current Listings</h1>
-      {/* search state button confirms that state is being updated */}
-      <Button onClick={getSearchState}>Search State</Button>
-      <FilterBar />
-      <Button onClick={handleReset}>Reset Search</Button>
-      <Button onClick={handleSubmit}>Execute Search</Button>
-      {/* <FilterBar /> */}
-      {/* <Grid container justifyContent="space-around"> */}
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}
         columns={{ xs: 4, sm: 8, md: 12 }}
       >
         {listing && useListing}
-        {/* <div className="container">{listing && useListing}</div> */}
       </Grid>
       {/* </div>
       </section> */}

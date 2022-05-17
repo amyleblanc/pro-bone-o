@@ -19,10 +19,15 @@ const containerStyle = {
 
 function Mapa() {
   const center = useMemo(() => ({ lat: 49.279115, lng: -123.051945 }), []);
+  const markerTest = useMemo(() => ({ lat: 49.277535969084596, lng: -123.05256805076216 }), []);
 
   return (
     <GoogleMap zoom={13} center={center} mapContainerStyle={containerStyle}>
-      <Marker position={center} />
+      <Marker
+        title={'The marker`s title will appear as a tooltip.'}
+        name={'SOMA'}
+        position={markerTest} 
+      />
     </GoogleMap>
   );
 }

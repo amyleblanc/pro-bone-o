@@ -90,7 +90,7 @@ export default function ResponsiveDialog(props) {
     };
 
     const getUser = async () => {
-      const res = await axios.get(`/login/${id}`);
+      const res = await axios.get(`/login/${userName.id}`);
       //console.log(res.data);
       setUser(res.data);
     };

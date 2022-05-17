@@ -71,7 +71,9 @@ app.post("/api/listing/filter", (req, res) => {
   dataqueries.listingFilter
     .allFiltersListings(activity, type, start, end)
     .then((listing) => {
-      //console.log(listing);
+      for (let each in listing) {
+        if (listing[each]["users"]) delete listing[each]["users"]["password"];
+      }
       res.json(listing);
     })
     .catch((err) => {

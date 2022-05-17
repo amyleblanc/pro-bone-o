@@ -42,13 +42,11 @@ export default function Listing(props) {
       const res = await axios
         .post(url, payload)
         .then((res) => setListing(res.data));
-      console.log("res only", res);
     };
     getSearch();
   }, [url, payload]);
 
   const useListing = listing.map((listing) => {
-    console.log(listing.pets);
     console.log(listing.users);
     // const photo = listing.pets.photo_url
     //   ? listing.pets.photo_url

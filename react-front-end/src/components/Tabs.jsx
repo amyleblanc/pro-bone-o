@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { Box, Tab, Tabs } from "@mui/material/";
-import { Link } from "react-router-dom";
+import { Box, Tab, Tabs, Typography } from "@mui/material/";
+import MyListings from "../pages/MyListings";
+import ProfileProtec from "../pages/ProfileProtec";
+import MyBookings from "../pages/MyBookings";
 
 export default function NavTabs() {
   const [value, setValue] = useState(0);
@@ -9,13 +11,50 @@ export default function NavTabs() {
     setValue(newValue);
   };
 
+  function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+  
+    return (
+      <div
+        role="tabpanel"
+        hidden={value !== index}
+        id={`simple-tabpanel-${index}`}
+        aria-labelledby={`simple-tab-${index}`}
+        {...other}
+      >
+        {value === index && (
+          <Box sx={{ p: 3 }}>
+            <Typography>{children}</Typography>
+          </Box>
+        )}
+      </div>
+    );
+  }
+
   return (
+    <>
     <Box sx={{ width: '100%', align: 'center' }}>
-      <Tabs value={value} onChange={handleChange} aria-label="nav tabs" centered>
-        <Tab label="Profile" component={Link} to={"/profile"} />
-        <Tab label="My Listings" component={Link} to={"/mylistings"} />
-        <Tab label="My Bookings" component={Link} to={"/mybookings"} />
+      <Tabs 
+        value={value}
+        onChange={handleChange}
+        aria-label="nav tabs"
+        centered
+      >
+        <Tab label="Profile"  />
+        <Tab label="My Listings"  />
+        <Tab label="My Bookings"  />
       </Tabs>
     </Box>
+    <TabPanel value={value} index={0}>
+      <ProfileProtec />
+    </TabPanel>
+    <TabPanel value={value} index={1}>
+      <MyListings url={"/api/listing"} />
+    </TabPanel>
+    <TabPanel value={value} index={2}>
+      <MyBookings url={"/api/listing"} />
+    </TabPanel>
+    </>
   );
 }
+

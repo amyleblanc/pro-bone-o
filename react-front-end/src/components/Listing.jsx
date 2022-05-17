@@ -49,7 +49,11 @@ export default function Listing(props) {
   }, [url, payload]);
 
   const useListing = listing.map((listing) => {
-    console.log(listing);
+    console.log(listing.pets);
+    console.log(listing.users);
+    // const photo = listing.pets.photo_url
+    //   ? listing.pets.photo_url
+    //   : listing.users.photo_url;
     return (
       // <Grid container justifyContent="space-around">
       <Grid item xs={12} sm={4} md={4}>
@@ -74,7 +78,7 @@ export default function Listing(props) {
               alt="Dog"
             />
           )}
-          {!listing.pets.photo_url && (
+          {!listing.pets && (
             <CardMedia
               component="img"
               height="140"
@@ -83,12 +87,12 @@ export default function Listing(props) {
             />
           )}
           <CardContent>
-            {listing.pets.name && (
+            {listing.pets && (
               <Typography gutterBottom variant="h5" component="div">
                 {listing.activity_type} - {listing.pets.name}
               </Typography>
             )}
-            {!listing.pets.name && (
+            {!listing.pets && (
               <Typography gutterBottom variant="h5" component="div">
                 {listing.activity_type} - {listing.users.first_name}{" "}
                 {listing.users.last_name}

@@ -10,9 +10,8 @@ import {
   Typography,
   Container,
 } from "@mui/material/";
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import userState from "../components/atoms";
-import Chat from "../components/Chat";
 
 export default function Profile() {
   const user = useRecoilValue(userState);
@@ -24,12 +23,13 @@ export default function Profile() {
   return (
     <div>
       <Container
-          sx={{
+        sx={{
           display: "flex",
           flexDirection: "column",
           maxWidth: "sm",
           bgcolor: "background.paper",
-        }}>
+        }}
+      >
         <Card
           sx={{
             display: "flex",
@@ -56,51 +56,54 @@ export default function Profile() {
                 <b>email: </b> {user.email_address}
               </Typography>
               <Typography gutterBottom variant="p" component="div">
-                <b>phone: </b>{phoneNumber}
+                <b>phone: </b>
+                {phoneNumber}
               </Typography>
             </CardContent>
           </Box>
           <Box>
             <CardContent>
-              <Typography
-                gutterBottom
-                variant="h5"
-                component="div"
-              >
+              <Typography gutterBottom variant="h5" component="div">
                 My Furry Friends:
               </Typography>
-                {user.pets.map((pet) => (
-                  <>
-                    <Box sx={{ display: "flex", flexDirection: "row" }}>
-                      <Box>
-                        <Avatar
-                          key={pet.id}
-                          src={pet.photo_url}
-                          alt="pet avatar"
-                          sx={{ width: 70, height: 70 }}
-                        />
-                      </Box>
-                      <Box>
-                        <Typography
-                          gutterBottom
-                          variant="h6"
-                          component="div"
-                          sx={{ p: 2 }}
-                          >
-                          {pet.name}
-                        </Typography>
-                      </Box>
-                      <Box sx={{ p: 2.5 }}>
-                        <AddCircleOutlineIcon size="large" />
-                      </Box>
+              {user.pets.map((pet) => (
+                <>
+                  <Box sx={{ display: "flex", flexDirection: "row" }}>
+                    <Box>
+                      <Avatar
+                        key={pet.id}
+                        src={pet.photo_url}
+                        alt="pet avatar"
+                        sx={{ width: 70, height: 70 }}
+                      />
                     </Box>
-                  </>
-                ))}
+                    <Box>
+                      <Typography
+                        gutterBottom
+                        variant="h6"
+                        component="div"
+                        sx={{ p: 2 }}
+                      >
+                        {pet.name}
+                      </Typography>
+                    </Box>
+                    <Box sx={{ p: 2.5 }}>
+                      <AddCircleOutlineIcon size="large" />
+                    </Box>
+                  </Box>
+                </>
+              ))}
             </CardContent>
           </Box>
-          <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
             <CardActions>
-              <Button variant="contained" color="success" sx={{borderRadius: '16px', width: '100px'}}>Edit</Button>
+              <Button
+                variant="contained"
+                color="success"
+                sx={{ borderRadius: "16px", width: "100px" }}
+              >
+                Edit
+              </Button>
             </CardActions>
           </Box>
         </Card>
@@ -117,13 +120,7 @@ export default function Profile() {
             mt: 5,
           }}
         >
-          <Box sx={{ display: "flex", flexDirection: "row" }}>
-            <Chat
-              first_name={user.first_name}
-              last_name={user.last_name}
-              id={user.id} //just needs to be updated to booking.id in real booking
-            ></Chat>
-          </Box>
+          <Box sx={{ display: "flex", flexDirection: "row" }}></Box>
         </Card>
       </Container>
     </div>

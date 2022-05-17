@@ -104,19 +104,13 @@ class Chat extends Component {
     return (
       <div className="Chat">
         <Grid container spacing={1}>
-          <Grid item xs={12} md={2}>
-            <article className="post">
-              <h1>Listing Details</h1>
-              <p>This is your conversation regarding the listing: </p>
-            </article>
-          </Grid>
-          <Grid item xs={12} md={10}>
+          <Grid item xs={12} md={12}>
             <Paper style={{ minHeight: 400, maxHeight: 400, overflow: "auto" }}>
               <section className="comments-section">
                 {userComments}
                 <article name="final-comment"></article>
               </section>
-              {/* <this.AlwaysScrollToBottom /> */}
+              <this.AlwaysScrollToBottom />
             </Paper>
           </Grid>
           <Grid item xs={12} md={12}>

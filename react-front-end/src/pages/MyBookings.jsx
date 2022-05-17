@@ -1,10 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { useRecoilValue } from "recoil";
-import { Avatar, Box, Button, Card, CardActions, CardContent, CardMedia, Grid, Typography, Container } from "@mui/material/";
+import {
+  Avatar,
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Grid,
+  Typography,
+  Container,
+} from "@mui/material/";
 import userState from "../components/atoms";
 import axiosRequest from "../helper/axios";
 import moment from "moment";
-import SendIcon from '@mui/icons-material/Send';
+import SendIcon from "@mui/icons-material/Send";
+import ResponsiveBooking from "../components/modal-booking";
 
 export default function MyBookings(props) {
   const [listings, setListings] = useState([]);
@@ -27,8 +39,8 @@ export default function MyBookings(props) {
       for (let booking of bookings) {
         if (booking.listing_id === listing.id && !listing.archived)
           filtered.push(listing);
-        }
       }
+    }
     return filtered;
   };
 
@@ -38,12 +50,11 @@ export default function MyBookings(props) {
       for (let booking of bookings) {
         if (booking.listing_id === listing.id && listing.archived)
           filtered.push(listing);
-        }
       }
+    }
     return filtered;
   };
 
-  
   const userBookings = filterBookings(listings, bookings);
   console.log("userBookings Info: ", userBookings);
 
@@ -53,106 +64,173 @@ export default function MyBookings(props) {
   return (
     <div>
       <Container maxWidth="sm">
-        {userBookings.map(booking => (
+        {userBookings.map((booking) => (
           <>
             <Card
               sx={{
                 display: "flex",
-                flexDirection: 'column',
+                flexDirection: "column",
                 maxWidth: 552,
                 minWidth: 200,
                 bgcolor: "#ffde5a",
                 boxShadow: 1,
-                borderRadius: '16px',
+                borderRadius: "16px",
                 p: 2,
                 mb: 4,
               }}
             >
-              <Box sx={{ display: 'flex', flexDirection: 'row-reverse' }}>
-                <Box sx={{ display: 'flex', mt: '20px' }}>
+              <Box sx={{ display: "flex", flexDirection: "row-reverse" }}>
+                <Box sx={{ display: "flex", mt: "20px" }}>
                   <Avatar
                     src={booking.pets.photo_url}
                     alt="pet avatar"
                     sx={{ width: 120, height: 120, marginRight: 5 }}
                   />
                 </Box>
-                <CardContent sx={{width: 280}}>
+                <CardContent sx={{ width: 280 }}>
                   <Typography variant="h6" gutterBottom>
-                    {moment(booking.start_time).format('LL')}
+                    {moment(booking.start_time).format("LL")}
                   </Typography>
-                  <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-                    <Typography align="center"  gutterBottom>
-                      {`${moment(booking.start_time).format('LT')} to ${moment(booking.end_time).format('LT')}`}
+                  <Box sx={{ display: "flex", flexDirection: "row" }}>
+                    <Typography align="center" gutterBottom>
+                      {`${moment(booking.start_time).format("LT")} to ${moment(
+                        booking.end_time
+                      ).format("LT")}`}
                     </Typography>
                   </Box>
                   <Typography gutterBottom>
-                    {`${booking.activity_type.charAt(0).toUpperCase() + booking.activity_type.slice(1)} with ${booking.pets.name}`}
+                    {`${
+                      booking.activity_type.charAt(0).toUpperCase() +
+                      booking.activity_type.slice(1)
+                    } with ${booking.pets.name}`}
                   </Typography>
                   <Typography mt="20px">
-                    <b>Status: </b>{booking.accepted ? "Accepted" : "Pending"}
+                    <b>Status: </b>
+                    {booking.accepted ? "Accepted" : "Pending"}
                   </Typography>
                 </CardContent>
               </Box>
-              <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap' }}>
-                <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexWrap: "wrap",
+                }}
+              >
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
                   <CardActions sx={{ width: 170 }}>
-                    <Button variant="contained" color="success" endIcon={<SendIcon />} sx={{borderRadius: '16px'}}>Send Message</Button>
+                    <ResponsiveBooking
+                      booking_id={booking.id}
+                      first_name={booking.users.first_name}
+                      last_name={booking.users.last_name}
+                      profile_photo={booking.users.photo_url}
+                    />
                   </CardActions>
                 </Box>
-                <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
                   <CardActions sx={{ width: 170 }}>
-                    <Button variant="contained" color="error" sx={{borderRadius: '16px'}}>Cancel Booking</Button>
+                    <Button
+                      variant="contained"
+                      color="error"
+                      sx={{ borderRadius: "16px" }}
+                    >
+                      Cancel Booking
+                    </Button>
                   </CardActions>
                 </Box>
               </Box>
             </Card>
           </>
         ))}
-        <Typography variant="h5" m="30px">Past Bookings</Typography>
-        {archivedBookings.map(booking => (
+        <Typography variant="h5" m="30px">
+          Past Bookings
+        </Typography>
+        {archivedBookings.map((booking) => (
           <>
             <Card
               sx={{
                 display: "flex",
-                flexDirection: 'column',
+                flexDirection: "column",
                 maxWidth: 552,
                 minWidth: 200,
                 bgcolor: "#ffde5a",
                 boxShadow: 1,
-                borderRadius: '16px',
+                borderRadius: "16px",
                 p: 2,
                 mb: 4,
               }}
             >
-              <Box sx={{ display: 'flex', flexDirection: 'row-reverse' }}>
-                <Box sx={{ display: 'flex', mt: '20px' }}>
+              <Box sx={{ display: "flex", flexDirection: "row-reverse" }}>
+                <Box sx={{ display: "flex", mt: "20px" }}>
                   <Avatar
                     src={booking.pets.photo_url}
                     alt="pet avatar"
                     sx={{ width: 120, height: 120, marginRight: 5 }}
                   />
                 </Box>
-                <CardContent sx={{width: 280}}>
+                <CardContent sx={{ width: 280 }}>
                   <Typography variant="h6" gutterBottom>
-                    {moment(booking.start_time).format('LL')}
+                    {moment(booking.start_time).format("LL")}
                   </Typography>
-                  <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-                    <Typography align="center"  gutterBottom>
-                      {`${moment(booking.start_time).format('LT')} to ${moment(booking.end_time).format('LT')}`}
+                  <Box sx={{ display: "flex", flexDirection: "row" }}>
+                    <Typography align="center" gutterBottom>
+                      {`${moment(booking.start_time).format("LT")} to ${moment(
+                        booking.end_time
+                      ).format("LT")}`}
                     </Typography>
                   </Box>
                   <Typography gutterBottom>
-                    {`${booking.activity_type.charAt(0).toUpperCase() + booking.activity_type.slice(1)} with ${booking.pets.name}`}
+                    {`${
+                      booking.activity_type.charAt(0).toUpperCase() +
+                      booking.activity_type.slice(1)
+                    } with ${booking.pets.name}`}
                   </Typography>
                   <Typography mt="20px">
                     <b>Status: </b> Archived
                   </Typography>
                 </CardContent>
               </Box>
-              <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap' }}>
-                <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexWrap: "wrap",
+                }}
+              >
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
                   <CardActions sx={{ width: 170 }}>
-                    <Button variant="contained" color="success" sx={{borderRadius: '16px'}}>Leave a Review</Button>
+                    <Button
+                      variant="contained"
+                      color="success"
+                      sx={{ borderRadius: "16px" }}
+                    >
+                      Leave a Review
+                    </Button>
                   </CardActions>
                 </Box>
               </Box>

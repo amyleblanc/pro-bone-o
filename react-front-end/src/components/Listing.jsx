@@ -15,6 +15,7 @@ import searchState from "./atom-search";
 import axios from "axios";
 import { useRecoilState } from "recoil";
 import Map from "./maps/Map";
+import ClickReveal from "./ClickReveal";
 
 //const getListingState(//)
 
@@ -143,6 +144,9 @@ export default function Listing(props) {
   return (
     <main>
       <h1>Current Listings</h1>
+      <div>
+      <ClickReveal />
+      </div>
       <div className="mapsTop">
         <Map></Map>
      </div>

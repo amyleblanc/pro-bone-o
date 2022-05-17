@@ -2,6 +2,11 @@ h1 {
   text-align: center;
 }
 
+.mapsTop{
+  width: 100%;
+  margin-top: 20px;
+}
+
 .card {
   text-align: center;
 }
@@ -12,5 +17,5 @@ h1 {
 }
 
 #listings {
-  width: 50%;
+  width: 100%;
 }

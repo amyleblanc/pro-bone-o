@@ -143,6 +143,9 @@ export default function Listing(props) {
   return (
     <main>
       <h1>Current Listings</h1>
+      <div className="mapsTop">
+        <Map></Map>
+     </div>
       <div className="flexbox-container">
         <div id="listings">
       <Grid
@@ -153,9 +156,6 @@ export default function Listing(props) {
         {listing && useListing}
       </Grid>
       </div>
-     <div>
-        <Map></Map>
-     </div>
      </div>
     </main>
   );

@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
+import { Wrapper, Status } from "@googlemaps/react-wrapper";
 import './Map.css';
 
 export default function Map() {
@@ -12,9 +13,8 @@ export default function Map() {
 }
 
 const containerStyle = {
-  width: '800px',
-  height: '600px',
-  margin: '20px'
+  width: '100%',
+  height: '400px'
 };
 
 function Mapa() {

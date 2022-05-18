@@ -1,16 +1,18 @@
 import { useMemo, useEffect, useState } from "react";
 import axios from "axios";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
-import { Wrapper, Status } from "@googlemaps/react-wrapper";
+import coords from "./GeoCode";
 import "./Map.css";
 
 export default function Map(props) {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
   });
+
   const [listing, setListing] = useState([]);
   const { url, payload } = props;
   const center = useMemo(() => ({ lat: 49.279115, lng: -123.051945 }), []);
+
   const containerStyle = {
     width: "100%",
     height: "400px",
@@ -26,22 +28,26 @@ export default function Map(props) {
   }, [url, payload]);
 
   const useListing = listing.map((listing) => {
+    let listingcoords;
+    if (listing.users.postal_code) {
+      listingcoords = coords(listing.users.postal_code);
+    }
+    console.log(listing.users.postal_code);
     let title = listing.activity_type + " with ";
     title += listing.sitter_listing
       ? listing.pets.name
       : listing.users.first_name;
-    //console.log(listing);
-    const latitude = 49.277535969084596;
-    const longitude = -123.05256805076216;
     return (
       <Marker
-        title={title}
-        name={"SOMA"}
-        position={{ lat: 49.277535969084596, lng: -123.05256805076216 }}
+        title={{ title }}
+        name={listing.pets.name[0]}
+        key={listing.id}
+        position={listingcoords}
       />
     );
   });
 
+  if (!isLoaded) return <div>Loading...</div>;
   return (
     <main>
       <h1>Map of Listings</h1>

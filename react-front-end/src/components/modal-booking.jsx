@@ -10,6 +10,11 @@ import { useRecoilValue } from "recoil";
 import userState from "./atoms";
 import Chat from "./Chat";
 import SendIcon from "@mui/icons-material/Send";
+import axiosRequest from "../helper/axios";
+
+const updateMessageCountDB = async (bookingID) => {
+  axiosRequest(`/booking/status/${bookingID}`, "PUT", { viewed: true });
+};
 
 export default function ResponsiveBooking(props) {
   const [open, setOpen] = React.useState(false);
@@ -20,16 +25,12 @@ export default function ResponsiveBooking(props) {
 
   const handleClickOpen = () => {
     setOpen(true);
+    updateMessageCountDB(booking_id);
   };
 
   const handleClose = () => {
     setOpen(false);
   };
-
-  // useEffect(() => {
-  //   const url = `/api/listing/${id}`;
-  //   axiosRequest(url, "GET", {}).then((res) => setListing(res));
-  // }, [id]);
 
   return (
     <>
@@ -49,6 +50,8 @@ export default function ResponsiveBooking(props) {
         open={open}
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
+        fullWidth
+        maxWidth="md"
       >
         <Button autoFocus onClick={handleClose}>
           <CloseIcon />

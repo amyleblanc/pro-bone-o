@@ -305,6 +305,21 @@ app.post("/booking/comment/:id", (req, res) => {
   });
 });
 
+//update a booking with a message status of unread
+app.put("/booking/status/:id", (req, res) => {
+  const id = req.params.id;
+  const payload = req.body;
+  dataqueries.bookingID
+    .updatebooking(id, payload)
+    .then((petInfo) => {
+      res.json(petInfo);
+    })
+    .catch((err) => {
+      console.log(err.message);
+      return null;
+    });
+});
+
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
   console.log(

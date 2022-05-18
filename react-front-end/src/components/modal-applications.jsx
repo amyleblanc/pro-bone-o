@@ -1,17 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import CloseIcon from "@mui/icons-material/Close";
-import { useRecoilValue } from "recoil";
-import userState from "./atoms";
+
 import SendIcon from "@mui/icons-material/Send";
 import {
-  Avatar,
-  Box,
   Card,
   CardActions,
   CardContent,
@@ -21,9 +17,12 @@ import {
   Container,
 } from "@mui/material/";
 import ResponsiveBooking from "./modal-booking";
-import moment from "moment";
 import axios from "axios";
-import ResponsiveDialog from "./modal-popup";
+import axiosRequest from "../helper/axios";
+
+const acceptBooking = async (bookingID, payload) => {
+  axiosRequest(`/booking/status/${bookingID}`, "PUT", payload);
+};
 
 export default function ResponsiveApplications(props) {
   const [open, setOpen] = React.useState(false);
@@ -42,9 +41,9 @@ export default function ResponsiveApplications(props) {
     setOpen(false);
   };
 
-  // useEffect(() => {
-  //   axiosRequest(url, "GET").then((res) => setListings(res));
-  // }, [url]);
+  const handleAcceptance = (bookingID) => {
+    acceptBooking(bookingID, { accepted: true });
+  };
 
   useEffect(() => {
     const getSearch = async () => {
@@ -92,53 +91,64 @@ export default function ResponsiveApplications(props) {
     const unread = each["viewed"] ? true : false;
     const personal_message = each["personal_message"]
       ? each["personal_message"]
-      : "";
+      : " ";
 
     return (
-      <Card
-        sx={{
-          bgcolor: "background.paper",
-          boxShadow: 1,
-          borderRadius: 2,
-          p: 2,
-          //minWidth: 300,
-          //maxWidth: 345,
-          // ml: 30,
-          mt: 5,
-        }}
-      >
-        <CardMedia
-          component="img"
-          height="140"
-          image={each.users.photo_url}
-          alt="Dog"
-        />
-        {!listing.pets && (
+      <Grid item>
+        <Card
+          sx={{
+            bgcolor: "background.paper",
+            boxShadow: 1,
+            borderRadius: 2,
+            p: 2,
+            //minWidth: 300,
+            //maxWidth: 345,
+            // ml: 30,
+            mt: 5,
+          }}
+        >
           <CardMedia
             component="img"
             height="140"
-            image={listing.users.photo_url}
-            alt="Sitter"
+            image={each.users.photo_url}
+            alt="Dog"
           />
-        )}
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {listing.activity_type} - {each.users.first_name}{" "}
-            {each.users.last_name}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {personal_message}
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <ResponsiveBooking
-            booking_id={each.id}
-            first_name={each.users.first_name}
-            last_name={each.users.last_name}
-            profile_photo={each.users.photo_url}
-          />
-        </CardActions>
-      </Card>
+          {!listing.pets && (
+            <CardMedia
+              component="img"
+              height="140"
+              image={listing.users.photo_url}
+              alt="Sitter"
+            />
+          )}
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              {listing.activity_type} - {each.users.first_name}{" "}
+              {each.users.last_name}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {personal_message}
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <ResponsiveBooking
+              booking_id={each.id}
+              first_name={each.users.first_name}
+              last_name={each.users.last_name}
+              profile_photo={each.users.photo_url}
+            />
+          </CardActions>
+          <Button
+            variant="contained"
+            color="success"
+            endIcon={<SendIcon />}
+            onClick={handleAcceptance(each.id)}
+            sx={{ borderRadius: "16px" }}
+          >
+            Accept Application
+          </Button>
+        </Card>
+      </Grid>
     );
   });
 
@@ -165,7 +175,11 @@ export default function ResponsiveApplications(props) {
         <Button autoFocus onClick={handleClose}>
           <CloseIcon />
         </Button>
-        <Grid item xs={12} sm={4} md={4}>
+        <Grid
+          container
+          spacing={{ xs: 2, md: 3 }}
+          columns={{ xs: 4, sm: 8, md: 12 }}
+        >
           {useBooking}
         </Grid>
       </Dialog>

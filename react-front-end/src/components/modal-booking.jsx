@@ -32,14 +32,13 @@ export default function ResponsiveBooking(props) {
   // }, [id]);
 
   return (
-    <div>
+    <>
       <DialogContent>
         <Button
           variant="contained"
-          color="success"
           endIcon={<SendIcon />}
           onClick={handleClickOpen}
-          sx={{ borderRadius: "16px" }}
+          sx={{ borderRadius: "16px", bgcolor: "#00A8A8", p: "8px", width: "155px" }}
         >
           Send Message
         </Button>
@@ -66,6 +65,6 @@ export default function ResponsiveBooking(props) {
           photo={profile_photo}
         ></Chat>
       </Dialog>
-    </div>
+    </>
   );
 }

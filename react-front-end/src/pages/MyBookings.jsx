@@ -15,7 +15,6 @@ import {
 import userState from "../components/atoms";
 import axiosRequest from "../helper/axios";
 import moment from "moment";
-import SendIcon from "@mui/icons-material/Send";
 import ResponsiveBooking from "../components/modal-booking";
 
 export default function MyBookings(props) {
@@ -73,7 +72,7 @@ export default function MyBookings(props) {
                 maxWidth: 552,
                 minWidth: 200,
                 bgcolor: "#ffde5a",
-                boxShadow: 1,
+                boxShadow: 3,
                 borderRadius: "16px",
                 p: 2,
                 mb: 4,
@@ -84,7 +83,7 @@ export default function MyBookings(props) {
                   <Avatar
                     src={booking.pets.photo_url}
                     alt="pet avatar"
-                    sx={{ width: 120, height: 120, marginRight: 5 }}
+                    sx={{ width: 120, height: 120, marginRight: 5, boxShadow: 3 }}
                   />
                 </Box>
                 <CardContent sx={{ width: 280 }}>
@@ -115,8 +114,8 @@ export default function MyBookings(props) {
                   display: "flex",
                   flexDirection: "row",
                   alignItems: "center",
-                  justifyContent: "center",
-                  flexWrap: "wrap",
+                  justifyContent: "space-evenly",
+                  flexWrap: "wrap"
                 }}
               >
                 <Box
@@ -127,7 +126,7 @@ export default function MyBookings(props) {
                     justifyContent: "center",
                   }}
                 >
-                  <CardActions sx={{ width: 170 }}>
+                  <CardActions sx={{ width: 170, p: 1 }}>
                     <ResponsiveBooking
                       booking_id={booking.id}
                       first_name={booking.users.first_name}
@@ -181,7 +180,7 @@ export default function MyBookings(props) {
                   <Avatar
                     src={booking.pets.photo_url}
                     alt="pet avatar"
-                    sx={{ width: 120, height: 120, marginRight: 5 }}
+                    sx={{ width: 120, height: 120, marginRight: 5, boxShadow: 3 }}
                   />
                 </Box>
                 <CardContent sx={{ width: 280 }}>
@@ -227,7 +226,7 @@ export default function MyBookings(props) {
                     <Button
                       variant="contained"
                       color="success"
-                      sx={{ borderRadius: "16px" }}
+                      sx={{ borderRadius: "16px", bgcolor: "#00A8A8" }}
                     >
                       Leave a Review
                     </Button>

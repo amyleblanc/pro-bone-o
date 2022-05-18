@@ -33,7 +33,7 @@ export default function ResponsiveBooking(props) {
 
   return (
     <>
-      <DialogContent>
+      <DialogContent sx={{p: 1}}>
         <Button
           variant="contained"
           endIcon={<SendIcon />}

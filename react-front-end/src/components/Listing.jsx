@@ -9,20 +9,12 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import axiosRequest from "../helper/axios";
 import ResponsiveDialog from "./modal-popup";
-//import { useRecoilValue } from "recoil";
 import FilterBar from "./searchbar";
 import searchState from "./atom-search";
 import axios from "axios";
 import { useRecoilState } from "recoil";
 import Map from "./maps/Map";
 import ClickReveal from "./ClickReveal";
-
-//const getListingState(//)
-
-// const updateSearch = async (formData) => {
-//   const processedForm = formData;
-//   axiosRequest("/api/listing/filter", "POST", processedForm);
-// };
 
 /**
  *
@@ -32,42 +24,26 @@ import ClickReveal from "./ClickReveal";
 export default function Listing(props) {
   const [listing, setListing] = useState([]);
   const { url, payload } = props;
-  //const search = useRecoilValue(searchState);
-  const [search, setSearch] = useRecoilState(searchState);
-
-  const getSearchState = function () {
-    console.log(search);
-  };
 
   useEffect(() => {
     const getSearch = async () => {
       const res = await axios
         .post(url, payload)
         .then((res) => setListing(res.data));
-      console.log("res only", res);
     };
     getSearch();
   }, [url, payload]);
 
   const useListing = listing.map((listing) => {
-    console.log(listing.pets);
-    console.log(listing.users);
-    // const photo = listing.pets.photo_url
-    //   ? listing.pets.photo_url
-    //   : listing.users.photo_url;
+    //console.log(listing);
     return (
-      // <Grid container justifyContent="space-around">
       <Grid item xs={12} sm={4} md={4}>
-
         <Card
           sx={{
             bgcolor: "background.paper",
             boxShadow: 1,
             borderRadius: 2,
             p: 2,
-            //minWidth: 300,
-            //maxWidth: 345,
-            // ml: 30,
             mt: 5,
           }}
         >
@@ -144,23 +120,18 @@ export default function Listing(props) {
   return (
     <main>
       <h1>Current Listings</h1>
-      <div>
-      <ClickReveal />
-      </div>
-      <div className="mapsTop">
-        <Map></Map>
-     </div>
+      <div className="mapsTop"></div>
       <div className="flexbox-container">
         <div id="listings">
-      <Grid
-        container
-        spacing={{ xs: 2, md: 3 }}
-        columns={{ xs: 4, sm: 8, md: 12 }}
-      >
-        {listing && useListing}
-      </Grid>
+          <Grid
+            container
+            spacing={{ xs: 2, md: 3 }}
+            columns={{ xs: 4, sm: 8, md: 12 }}
+          >
+            {listing && useListing}
+          </Grid>
+        </div>
       </div>
-     </div>
     </main>
   );
 }

@@ -5,7 +5,7 @@ const { prisma } = require("../prisma");
 async function allListings() {
   const listing = await prisma.listing.findMany({
     //include: { pets: true },
-    include: { pets: true, users: true },
+    include: { pets: true, users: true, booking: true },
   });
   return listing;
 }

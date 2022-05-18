@@ -9,6 +9,7 @@ import { DateTimePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import Listing from "../components/Listing";
 import { Button } from "react-scroll/modules";
+import Map from "../components/maps/Map";
 const axios = require("axios").default;
 
 const formReducer = (state, event) => {
@@ -83,13 +84,11 @@ export default function AllListings() {
   };
 
   const handleStartTimeRangePickerChange = (_value) => {
-    console.log(_value);
     setStartValue(_value);
     handleChange({ target: { name: START_TIME, value: _value } });
   };
 
   const handleEndTimeRangePickerChange = (_value) => {
-    console.log(_value);
     setEndValue(_value);
     handleChange({ target: { name: END_TIME, value: _value } });
   };
@@ -98,12 +97,9 @@ export default function AllListings() {
     <div className="search-listings">
       <Grid
         container
-        // spacing={1}
         direction="column"
         alignItems="center"
         justifyContent="center"
-        // columns={{ xs: 4, sm: 8, md: 12 }}
-        // className="mainWrap"
         maxWidth="xl"
       >
         <h1>Search Bar</h1>
@@ -186,7 +182,6 @@ export default function AllListings() {
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DateTimePicker
                       renderInput={(props) => <TextField {...props} />}
-                      label="DateTimePicker"
                       name={START_TIME}
                       value={startValue}
                       onChange={handleStartTimeRangePickerChange}
@@ -202,7 +197,6 @@ export default function AllListings() {
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DateTimePicker
                       renderInput={(props) => <TextField {...props} />}
-                      label="DateTimePicker"
                       name={END_TIME}
                       value={endValue}
                       onChange={handleEndTimeRangePickerChange}
@@ -211,14 +205,14 @@ export default function AllListings() {
                   </LocalizationProvider>
                 </label>
               </Grid>
-              <button disabled={submitting} onClick={handleReset}>
+              {/* <button disabled={submitting} onClick={handleReset}>
                 Reset
-              </button>
+              </button> */}
             </Grid>
           </fieldset>
         </form>
       </Grid>
-
+      <Map url={url} payload={formData} />
       <Listing url={url} payload={formData} />
     </div>
   );

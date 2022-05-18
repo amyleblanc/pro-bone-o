@@ -172,7 +172,7 @@ app.post("/api/listings/apply/:id", (req, res) => {
   const message = listingDetails.personal_message;
   const phone_number = listingDetails.phone_number;
   delete listingDetails["phone_number"];
-  delete listingDetails["personal_message"];
+  //delete listingDetails["personal_message"];
   const userID = req.body.user_id;
 
   console.log(listingDetails);

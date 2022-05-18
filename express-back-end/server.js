@@ -187,6 +187,25 @@ app.post("/api/listings/apply/:id", (req, res) => {
   // });
 });
 
+//used to create a new listing
+app.get("/api/listings/bookings/:id", (req, res) => {
+  const listing_id = req.params.id;
+  //console.log(req);
+  //update later when id validation in place; number for testing
+  //const id = req.session.user_id;
+  //const id = 1;
+  dataqueries.listingID
+    .getListing(listing_id)
+    .then((listingInfo) => {
+      console.log(listingInfo);
+      res.json(listingInfo);
+    })
+    .catch((err) => {
+      console.log(err.message);
+      return null;
+    });
+});
+
 //register a new  pet on a user (currently using placeholder userID param)
 app.post("/api/user/pets/", (req, res) => {
   const petRegistrationDetails = req.body;

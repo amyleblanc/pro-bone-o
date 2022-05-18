@@ -33,9 +33,9 @@ export default function Listing(props) {
   //const search = useRecoilValue(searchState);
   const [search, setSearch] = useRecoilState(searchState);
 
-  const getSearchState = function () {
-    console.log(search);
-  };
+  // const getSearchState = function () {
+  //   console.log(search);
+  // };
 
   useEffect(() => {
     const getSearch = async () => {

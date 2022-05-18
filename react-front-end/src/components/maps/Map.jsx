@@ -42,6 +42,8 @@ export default function Map(props) {
     );
   });
 
+  if (!isLoaded) return <div>Loading...</div>;
+
   return (
     <main>
       <h1>Map of Listings</h1>

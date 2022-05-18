@@ -29,7 +29,7 @@ export default function ResponsiveApplications(props) {
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
-  const user = useRecoilValue(userState);
+  //const user = useRecoilValue(userState);
   const { listing } = props;
   const [booking, setBooking] = React.useState({});
 
@@ -73,8 +73,10 @@ export default function ResponsiveApplications(props) {
   //   console.log("booking each", each);
   // }
 
-  const useBooking = booking["booking"].map((each) => {
-    console.log(each);
+  const useBooking = booking["booking"]?.map((each) => {
+    console.log("users", each["users"]);
+    console.log("regular each", each);
+
     return (
       <Card
         sx={{
@@ -88,14 +90,12 @@ export default function ResponsiveApplications(props) {
           mt: 5,
         }}
       >
-        {listing.pets && (
-          <CardMedia
-            component="img"
-            height="140"
-            image={listing.pets.photo_url}
-            alt="Dog"
-          />
-        )}
+        <CardMedia
+          component="img"
+          height="140"
+          image={each.users.photo_url}
+          alt="Dog"
+        />
         {!listing.pets && (
           <CardMedia
             component="img"
@@ -105,17 +105,11 @@ export default function ResponsiveApplications(props) {
           />
         )}
         <CardContent>
-          {listing.pets && (
-            <Typography gutterBottom variant="h5" component="div">
-              {listing.activity_type} - {listing.pets.name}
-            </Typography>
-          )}
-          {!listing.pets && (
-            <Typography gutterBottom variant="h5" component="div">
-              {listing.activity_type} - {listing.users.first_name}{" "}
-              {listing.users.last_name}
-            </Typography>
-          )}
+          <Typography gutterBottom variant="h5" component="div">
+            {listing.activity_type} - {each.users.first_name}{" "}
+            {each.users.last_name}
+          </Typography>
+          {/* here would add booking personal message */}
           <Typography variant="body2" color="text.secondary">
             {listing.additional_details}
           </Typography>
@@ -123,9 +117,9 @@ export default function ResponsiveApplications(props) {
         <CardActions>
           <ResponsiveBooking
             booking_id={each.id}
-            first_name={listing.users.first_name}
-            last_name={listing.users.last_name}
-            profile_photo={listing.users.photo_url}
+            first_name={each.users.first_name}
+            last_name={each.users.last_name}
+            profile_photo={each.users.photo_url}
           />
         </CardActions>
       </Card>

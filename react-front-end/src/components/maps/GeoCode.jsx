@@ -1,35 +1,22 @@
+import React from "react";
+import Geocode from "react-geocode";
+
+Geocode.setApiKey(process.env.REACT_APP_GOOGLE_API_KEY);
+Geocode.setLanguage("en");
+Geocode.setLocationType("ROOFTOP");
+Geocode.enableDebug();
 
 
-import { useMemo } from "react";
-import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
-import './Map.css';
-
-export default function Map() {
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
-  });
-
-  if (!isLoaded) return <div>Loading...</div>;
-  return <Mapa />;
-}
-
-const containerStyle = {
-  width: '100%',
-  height: '400px'
+const coords = function(postal) {
+    Geocode.fromAddress(postal).then(
+        (response) => {
+          const { lat, lng } = response.results[0].geometry.location;
+          console.log(lat, lng);
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
 };
 
-function Mapa() {
-  const center = useMemo(() => ({ lat: 49.279115, lng: -123.051945 }), []);
-  const markerTest = useMemo(() => ({ lat: 49.277535969084596, lng: -123.05256805076216 }), []);
-
-  return (
-    <GoogleMap zoom={13} center={center} mapContainerStyle={containerStyle}>
-      <Marker
-        title={'The marker`s title will appear as a tooltip.'}
-        name={'SOMA'}
-        key={1}
-        position={markerTest} 
-      />
-    </GoogleMap>
-  );
-}
+export default coords

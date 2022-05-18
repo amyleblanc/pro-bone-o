@@ -5,6 +5,7 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import axiosRequest from "../helper/axios";
@@ -14,6 +15,7 @@ import FilterBar from "./searchbar";
 import searchState from "./atom-search";
 import axios from "axios";
 import { useRecoilState } from "recoil";
+import moment from "moment";
 
 //const getListingState(//)
 
@@ -54,24 +56,29 @@ export default function Listing(props) {
     //   ? listing.pets.photo_url
     //   : listing.users.photo_url;
     return (
-      // <Grid container justifyContent="space-around">
-      <Grid item xs={12} sm={4} md={4}>
+      <Grid 
+        item xs={12} sm={4} md={4}
+        sx={{
+          display: "flex", 
+          justifyContent: "space-around"
+        }}
+      >
         <Card
           sx={{
-            bgcolor: "background.paper",
-            boxShadow: 1,
-            borderRadius: 2,
-            p: 2,
-            //minWidth: 300,
-            //maxWidth: 345,
-            // ml: 30,
-            mt: 5,
+            bgcolor: "#ffde5a",
+            boxShadow: 2,
+            borderRadius: 3,
+            p: 3,
+            maxWidth: 350,
+            minWidth: 350,
+            m: 1
           }}
         >
           {listing.pets && (
             <CardMedia
               component="img"
-              height="140"
+              height="160"
+              width="160"
               image={listing.pets.photo_url}
               alt="Dog"
             />
@@ -79,28 +86,49 @@ export default function Listing(props) {
           {!listing.pets && (
             <CardMedia
               component="img"
-              height="140"
+              height="160"
               image={listing.users.photo_url}
               alt="Sitter"
             />
           )}
           <CardContent>
             {listing.pets && (
-              <Typography gutterBottom variant="h5" component="div">
-                {listing.activity_type} - {listing.pets.name}
-              </Typography>
+              <>
+                <Typography gutterBottom variant="h6" component="div">
+                  Wanted!
+                </Typography>
+                <Typography gutterBottom variant="h5" component="div">
+                  {`${listing.activity_type.charAt(0).toUpperCase() + listing.activity_type.slice(1)} 
+                  for ${listing.pets.name}`}
+                </Typography>
+              </>
             )}
             {!listing.pets && (
-              <Typography gutterBottom variant="h5" component="div">
-                {listing.activity_type} - {listing.users.first_name}{" "}
-                {listing.users.last_name}
-              </Typography>
+              <>
+                <Typography gutterBottom variant="h6" component="div">
+                  Available:
+                </Typography>
+                <Typography gutterBottom variant="h5" component="div">
+                  {`${listing.users.first_name} ${listing.users.last_name} is available for:`}
+                </Typography>
+                <Typography gutterBottom variant="h5" component="div">
+                  {listing.activity_type.charAt(0).toUpperCase() + listing.activity_type.slice(1)}
+                </Typography>
+              </>
             )}
-            <Typography variant="body2" color="text.secondary">
-              {listing.additional_details}
+            <Typography gutterBottom>
+              {moment(listing.start_time).format('dddd MMMM Do YYYY')}
             </Typography>
+            <Typography gutterBottom>
+              {`${moment(listing.start_time).format("LT")} to ${moment(
+                listing.end_time
+              ).format("LT")}`}
+            </Typography>
+            {/* <Typography variant="body2" color="text.secondary">
+              {listing.additional_details}
+            </Typography> */}
           </CardContent>
-          <CardActions>
+          <CardActions sx={{p: 0}}>
             {listing.pets && (
               <ResponsiveDialog
                 id={listing.id}
@@ -142,13 +170,32 @@ export default function Listing(props) {
   return (
     <main>
       <h1>Current Listings</h1>
-      <Grid
-        container
-        spacing={{ xs: 2, md: 3 }}
-        columns={{ xs: 4, sm: 8, md: 12 }}
-      >
-        {listing && useListing}
-      </Grid>
+      <>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+            flexWrap: "wrap",
+          }}
+        >          
+          <Grid
+            container
+            spacing={{ xs: 2, md: 3 }}
+            columns={{ xs: 4, sm: 8, md: 12 }}
+            columnSpacing={{ xs: 1, sm: 2, md: 0.05 }}
+            direction="row" 
+            sx={{
+              display: "flex", 
+              justifyContent: "center", 
+              alignItems: "center"
+            }}
+          >
+            {listing && useListing}
+          </Grid>
+        </Box>
+      </>
       {/* </div>
       </section> */}
     </main>

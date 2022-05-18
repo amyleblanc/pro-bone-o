@@ -14,6 +14,8 @@ import FilterBar from "./searchbar";
 import searchState from "./atom-search";
 import axios from "axios";
 import { useRecoilState } from "recoil";
+import Map from "./maps/Map";
+import ClickReveal from "./ClickReveal";
 
 //const getListingState(//)
 
@@ -54,6 +56,7 @@ export default function Listing(props) {
     return (
       // <Grid container justifyContent="space-around">
       <Grid item xs={12} sm={4} md={4}>
+
         <Card
           sx={{
             bgcolor: "background.paper",
@@ -132,7 +135,6 @@ export default function Listing(props) {
             )}
           </CardActions>
         </Card>
-        {/* <initMap /> */}
       </Grid>
     );
   });
@@ -140,6 +142,14 @@ export default function Listing(props) {
   return (
     <main>
       <h1>Current Listings</h1>
+      <div>
+      <ClickReveal />
+      </div>
+      <div className="mapsTop">
+        <Map></Map>
+     </div>
+      <div className="flexbox-container">
+        <div id="listings">
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}
@@ -147,8 +157,8 @@ export default function Listing(props) {
       >
         {listing && useListing}
       </Grid>
-      {/* </div>
-      </section> */}
+      </div>
+     </div>
     </main>
   );
 }

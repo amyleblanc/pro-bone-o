@@ -2,6 +2,20 @@ h1 {
   text-align: center;
 }
 
+.mapsTop{
+  width: 100%;
+  margin-top: 20px;
+}
+
 .card {
   text-align: center;
+}
+
+.flexbox-container {
+  display: flex;
+  flex-direction: row;
+}
+
+#listings {
+  width: 100%;
 }

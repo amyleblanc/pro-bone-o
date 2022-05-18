@@ -15,6 +15,7 @@ import axiosRequest from "../helper/axios";
 import axios from "axios";
 import { TextField } from "@mui/material";
 import { Link } from "react-router-dom";
+import PetsIcon from '@mui/icons-material/Pets';
 
 const applyToPosting = async (formData) => {
   const processedForm = formData;
@@ -115,14 +116,30 @@ export default function ResponsiveDialog(props) {
     <div>
       {user.id && (
         <DialogContent>
-          <Button variant="outlined" onClick={handleClickOpen}>
+          <Button 
+            variant="contained" 
+            endIcon={<PetsIcon />} 
+            onClick={handleClickOpen} 
+            sx={{
+              bgcolor: "#00A8A8", 
+              borderRadius: "16px"
+            }}
+          >
             Apply Now!
           </Button>
         </DialogContent>
       )}
       {!user.id && (
         <DialogContent>
-          <Button variant="outlined" onClick={handleClickOpen}>
+          <Button 
+            variant="contained" 
+            endIcon={<PetsIcon />} 
+            onClick={handleClickOpen} 
+            sx={{
+              bgcolor: "#00A8A8", 
+              borderRadius: "16px"
+            }}
+          >
             View Posting!
           </Button>
         </DialogContent>

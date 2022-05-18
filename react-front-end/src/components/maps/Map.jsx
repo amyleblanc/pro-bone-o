@@ -1,6 +1,6 @@
+
 import { useMemo } from "react";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
-import { Wrapper, Status } from "@googlemaps/react-wrapper";
 import './Map.css';
 
 export default function Map() {
@@ -26,6 +26,7 @@ function Mapa() {
       <Marker
         title={'The marker`s title will appear as a tooltip.'}
         name={'SOMA'}
+        key={1}
         position={markerTest} 
       />
     </GoogleMap>

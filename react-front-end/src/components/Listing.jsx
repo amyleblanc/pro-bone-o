@@ -47,7 +47,7 @@ export default function Listing(props) {
   }, [url, payload]);
 
   const useListing = listing.map((listing) => {
-    console.log(listing.users);
+    console.log(listing);
     // const photo = listing.pets.photo_url
     //   ? listing.pets.photo_url
     //   : listing.users.photo_url;

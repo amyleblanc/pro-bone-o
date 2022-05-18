@@ -32,6 +32,7 @@ export default function ResponsiveApplications(props) {
   //const user = useRecoilValue(userState);
   const { listing } = props;
   const [booking, setBooking] = React.useState({});
+  const [count, setMessageCount] = React.useState(0);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -57,6 +58,18 @@ export default function ResponsiveApplications(props) {
         });
     };
     getSearch();
+    const messageCount = function () {
+      let messageAmount = 0;
+      if (booking["booking"]) {
+        for (let each of booking["booking"]) {
+          if (each["viewed"] === false) {
+            messageAmount++;
+          }
+        }
+      }
+      return messageAmount;
+    };
+    setMessageCount(messageCount());
     console.log("this is booking", booking);
   }, []);
   // useEffect(() => {
@@ -76,6 +89,10 @@ export default function ResponsiveApplications(props) {
   const useBooking = booking["booking"]?.map((each) => {
     console.log("users", each["users"]);
     console.log("regular each", each);
+    const unread = each["viewed"] ? true : false;
+    const personal_message = each["personal_message"]
+      ? each["personal_message"]
+      : "";
 
     return (
       <Card
@@ -109,9 +126,8 @@ export default function ResponsiveApplications(props) {
             {listing.activity_type} - {each.users.first_name}{" "}
             {each.users.last_name}
           </Typography>
-          {/* here would add booking personal message */}
           <Typography variant="body2" color="text.secondary">
-            {listing.additional_details}
+            {personal_message}
           </Typography>
         </CardContent>
         <CardActions>
@@ -126,100 +142,6 @@ export default function ResponsiveApplications(props) {
     );
   });
 
-  //const useBooking = booking["booking"].map((each) => {
-  //console.log(each);
-  // <Card
-  //   sx={{
-  //     display: "flex",
-  //     flexDirection: "column",
-  //     maxWidth: 552,
-  //     minWidth: 200,
-  //     bgcolor: "#ffde5a",
-  //     boxShadow: 1,
-  //     borderRadius: "16px",
-  //     p: 2,
-  //     mb: 4,
-  //   }}
-  // >
-  //   <Box sx={{ display: "flex", flexDirection: "row-reverse" }}>
-  //     <Box sx={{ display: "flex", mt: "20px" }}>
-  //       <Avatar
-  //         src={booking.pets.photo_url}
-  //         alt="pet avatar"
-  //         sx={{ width: 120, height: 120, marginRight: 5 }}
-  //       />
-  //     </Box>
-  //     <CardContent sx={{ width: 280 }}>
-  //       <Typography variant="h6" gutterBottom>
-  //         {moment(booking.start_time).format("LL")}
-  //       </Typography>
-  //       <Box sx={{ display: "flex", flexDirection: "row" }}>
-  //         <Typography align="center" gutterBottom>
-  //           {`${moment(booking.start_time).format("LT")} to ${moment(
-  //             booking.end_time
-  //           ).format("LT")}`}
-  //         </Typography>
-  //       </Box>
-  //       <Typography gutterBottom>
-  //         {`${
-  //           booking.activity_type.charAt(0).toUpperCase() +
-  //           booking.activity_type.slice(1)
-  //         } with ${booking.pets.name}`}
-  //       </Typography>
-  //       <Typography mt="20px">
-  //         <b>Status: </b>
-  //         {booking.accepted ? "Accepted" : "Pending"}
-  //       </Typography>
-  //     </CardContent>
-  //   </Box>
-  //   <Box
-  //     sx={{
-  //       display: "flex",
-  //       flexDirection: "row",
-  //       alignItems: "center",
-  //       justifyContent: "center",
-  //       flexWrap: "wrap",
-  //     }}
-  //   >
-  //     <Box
-  //       sx={{
-  //         display: "flex",
-  //         flexDirection: "row",
-  //         alignItems: "center",
-  //         justifyContent: "center",
-  //       }}
-  //     >
-  //       <CardActions sx={{ width: 170 }}>
-  //         <ResponsiveBooking
-  //           booking_id={booking.id}
-  //           first_name={booking.users.first_name}
-  //           last_name={booking.users.last_name}
-  //           profile_photo={booking.users.photo_url}
-  //         />
-  //       </CardActions>
-  //     </Box>
-  //     <Box
-  //       sx={{
-  //         display: "flex",
-  //         flexDirection: "row",
-  //         alignItems: "center",
-  //         justifyContent: "center",
-  //       }}
-  //     >
-  //       <CardActions sx={{ width: 170 }}>
-  //         <Button
-  //           variant="contained"
-  //           color="error"
-  //           sx={{ borderRadius: "16px" }}
-  //         >
-  //           Cancel Booking
-  //         </Button>
-  //       </CardActions>
-  //     </Box>
-  //   </Box>
-  // </Card>
-  //});
-
   return (
     <div>
       <DialogContent>
@@ -233,7 +155,7 @@ export default function ResponsiveApplications(props) {
           See Applications
         </Button>
       </DialogContent>
-
+      {count} Unread Messages
       <Dialog
         fullScreen={fullScreen}
         open={open}

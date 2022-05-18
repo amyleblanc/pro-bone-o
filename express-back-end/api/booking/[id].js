@@ -8,6 +8,8 @@ async function createbooking(userID, bookingData) {
   bookingData["rating"] = null;
   bookingData["review"] = "";
   bookingData["accepted"] = false;
+  bookingData["viewed"] = false;
+  bookingData["personal_message"] ? bookingData["personal_message"] : "";
   const booking = await prisma.booking.create({
     data: bookingData,
   });

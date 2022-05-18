@@ -10,7 +10,6 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import axiosRequest from "../helper/axios";
 import ResponsiveDialog from "./modal-popup";
-//import { useRecoilValue } from "recoil";
 import FilterBar from "./searchbar";
 import searchState from "./atom-search";
 import axios from "axios";
@@ -23,6 +22,8 @@ import moment from "moment";
 //   const processedForm = formData;
 //   axiosRequest("/api/listing/filter", "POST", processedForm);
 // };
+import Map from "./maps/Map";
+import ClickReveal from "./ClickReveal";
 
 /**
  *
@@ -32,29 +33,18 @@ import moment from "moment";
 export default function Listing(props) {
   const [listing, setListing] = useState([]);
   const { url, payload } = props;
-  //const search = useRecoilValue(searchState);
-  const [search, setSearch] = useRecoilState(searchState);
-
-  const getSearchState = function () {
-    console.log(search);
-  };
 
   useEffect(() => {
     const getSearch = async () => {
       const res = await axios
         .post(url, payload)
         .then((res) => setListing(res.data));
-      console.log("res only", res);
     };
     getSearch();
   }, [url, payload]);
 
   const useListing = listing.map((listing) => {
-    console.log(listing.pets);
-    console.log(listing.users);
-    // const photo = listing.pets.photo_url
-    //   ? listing.pets.photo_url
-    //   : listing.users.photo_url;
+    //console.log(listing);
     return (
       <Grid 
         item xs={12} sm={4} md={4}
@@ -162,7 +152,6 @@ export default function Listing(props) {
             )}
           </CardActions>
         </Card>
-        {/* <initMap /> */}
       </Grid>
     );
   });
@@ -170,34 +159,35 @@ export default function Listing(props) {
   return (
     <main>
       <h1>Current Listings</h1>
-      <>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-            flexWrap: "wrap",
-          }}
-        >          
-          <Grid
-            container
-            spacing={{ xs: 2, md: 3 }}
-            columns={{ xs: 4, sm: 8, md: 12 }}
-            columnSpacing={{ xs: 1, sm: 2, md: 0.05 }}
-            direction="row" 
+      <div className="mapsTop"></div>
+      <div className="flexbox-container">
+        <div id="listings">
+          <Box
             sx={{
-              display: "flex", 
-              justifyContent: "center", 
-              alignItems: "center"
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
+              flexWrap: "wrap",
             }}
-          >
-            {listing && useListing}
-          </Grid>
-        </Box>
-      </>
-      {/* </div>
-      </section> */}
+          >          
+            <Grid
+              container
+              spacing={{ xs: 2, md: 3 }}
+              columns={{ xs: 4, sm: 8, md: 12 }}
+              columnSpacing={{ xs: 1, sm: 2, md: 0.05 }}
+              direction="row" 
+              sx={{
+                display: "flex", 
+                justifyContent: "center", 
+                alignItems: "center"
+              }}
+            >
+              {listing && useListing}
+            </Grid>
+          </Box>
+        </div>
+      </div>
     </main>
   );
 }

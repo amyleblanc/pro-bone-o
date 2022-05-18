@@ -13,7 +13,7 @@ export default function NavTabs() {
 
   function TabPanel(props) {
     const { children, value, index, ...other } = props;
-  
+
     return (
       <div
         role="tabpanel"
@@ -33,28 +33,27 @@ export default function NavTabs() {
 
   return (
     <>
-    <Box sx={{ width: '100%', align: 'center' }}>
-      <Tabs 
-        value={value}
-        onChange={handleChange}
-        aria-label="nav tabs"
-        centered
-      >
-        <Tab label="Profile"  />
-        <Tab label="My Listings"  />
-        <Tab label="My Bookings"  />
-      </Tabs>
-    </Box>
-    <TabPanel value={value} index={0}>
-      <ProfileProtec />
-    </TabPanel>
-    <TabPanel value={value} index={1}>
-      <MyListings url={"/api/listing"} />
-    </TabPanel>
-    <TabPanel value={value} index={2}>
-      <MyBookings url={"/api/listing"} />
-    </TabPanel>
+      <Box sx={{ width: "100%", align: "center" }}>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          aria-label="nav tabs"
+          centered
+        >
+          <Tab label="Profile" />
+          <Tab label="My Listings" />
+          <Tab label="My Bookings" />
+        </Tabs>
+      </Box>
+      <TabPanel value={value} index={0}>
+        <ProfileProtec />
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+        <MyListings url={"/api/listing"} />
+      </TabPanel>
+      <TabPanel value={value} index={2}>
+        <MyBookings url={"/api/listing"} />
+      </TabPanel>
     </>
   );
 }
-

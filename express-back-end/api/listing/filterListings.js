@@ -38,7 +38,7 @@ async function allFiltersListings(
         },
       ],
     },
-    include: { pets: true, users: true },
+    include: { pets: true, users: true, booking: true },
   });
   return listings;
 }

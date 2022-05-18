@@ -5,6 +5,11 @@ import "./Chat.css";
 import { Paper } from "@mui/material";
 import { Grid } from "@mui/material";
 import { scroller, Events } from "react-scroll";
+import axiosRequest from "../helper/axios";
+
+const updateMessageCountDB = async (bookingID) => {
+  axiosRequest(`/booking/status/${bookingID}`, "PUT", { viewed: false });
+};
 
 class Chat extends Component {
   state = {
@@ -45,6 +50,8 @@ class Chat extends Component {
       name: username,
       text: newComment,
     };
+
+    updateMessageCountDB(booking_id);
 
     axios
       .post(`http://localhost:8080/booking/comment/${booking_id}`, data)
@@ -87,7 +94,7 @@ class Chat extends Component {
   }
 
   render() {
-    const { username, newComment, comments } = this.state;
+    const { newComment, comments } = this.state;
 
     const key = "text";
     const arrayUniqueByKey = [

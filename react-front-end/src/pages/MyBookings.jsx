@@ -126,7 +126,7 @@ export default function MyBookings(props) {
                     justifyContent: "center",
                   }}
                 >
-                  <CardActions sx={{ width: 170, p: 1 }}>
+                  <CardActions sx={{ width: 170, p: 0 }}>
                     <ResponsiveBooking
                       booking_id={booking.id}
                       first_name={booking.users.first_name}

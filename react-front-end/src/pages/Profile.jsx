@@ -10,7 +10,10 @@ import {
   Typography,
   Container,
 } from "@mui/material/";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import PetsIcon from '@mui/icons-material/Pets';
+import Tooltip from '@mui/material/Tooltip';
+import IconButton from '@mui/material/IconButton';
 import userState from "../components/atoms";
 
 export default function Profile() {
@@ -37,7 +40,7 @@ export default function Profile() {
             width: "auto",
             minWidth: 200,
             bgcolor: "#ffde5a",
-            boxShadow: 1,
+            boxShadow: 2,
             borderRadius: "16px",
             p: 2,
           }}
@@ -46,7 +49,7 @@ export default function Profile() {
             <Avatar
               src={user.photo_url}
               alt="user avatar"
-              sx={{ width: 150, height: 150, margin: 3 }}
+              sx={{ width: 150, height: 150, margin: 3, boxShadow: 3 }}
             />
             <CardContent sx={{ width: 350 }}>
               <Typography gutterBottom variant="h4" component="div">
@@ -74,7 +77,7 @@ export default function Profile() {
                         key={pet.id}
                         src={pet.photo_url}
                         alt="pet avatar"
-                        sx={{ width: 70, height: 70 }}
+                        sx={{ width: 70, height: 70, boxShadow: 3 }}
                       />
                     </Box>
                     <Box>
@@ -82,13 +85,17 @@ export default function Profile() {
                         gutterBottom
                         variant="h6"
                         component="div"
-                        sx={{ p: 2 }}
+                        sx={{ p: "20px" }}
                       >
                         {pet.name}
                       </Typography>
                     </Box>
                     <Box sx={{ p: 2.5 }}>
-                      <AddCircleOutlineIcon size="large" />
+                      <Tooltip title="Add Pet">
+                        <IconButton aria-label="add pet">
+                          <AddCircleIcon fontSize="large" />
+                        </IconButton>
+                      </Tooltip>
                     </Box>
                   </Box>
                 </>
@@ -99,28 +106,13 @@ export default function Profile() {
             <CardActions>
               <Button
                 variant="contained"
-                color="success"
-                sx={{ borderRadius: "16px", width: "100px" }}
+                endIcon={<PetsIcon />}
+                sx={{ borderRadius: "16px", width: "100px", bgcolor: "#00A8A8" }}
               >
                 Edit
               </Button>
             </CardActions>
           </Box>
-        </Card>
-        <Card
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            maxWidth: 552,
-            minWidth: 200,
-            bgcolor: "background.paper",
-            boxShadow: 1,
-            borderRadius: 0.5,
-            p: 2,
-            mt: 5,
-          }}
-        >
-          <Box sx={{ display: "flex", flexDirection: "row" }}></Box>
         </Card>
       </Container>
     </div>

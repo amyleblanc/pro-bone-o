@@ -127,6 +127,7 @@ app.get("/api/users/:id", (req, res) => {
 
 app.get("/login/:id", (req, res) => {
   const id = req.params.id;
+  console.log(id);
   dataqueries.userID
     .getUserEverything(id)
     .then((user) => {
@@ -254,6 +255,21 @@ app.get("/api/user/register", (req, res) => {
       console.log(userInfo);
       req.session.user_id = userInfo.id;
       res.json(userInfo);
+    })
+    .catch((err) => {
+      console.log(err.message);
+      return null;
+    });
+});
+
+//allow pulling registration information of new user for login
+app.get("/user/listings/:id", (req, res) => {
+  const userID = req.params.id;
+  dataqueries.userID
+    .getUserListings(userID)
+    .then((userListings) => {
+      //console.log(userInfo);
+      res.json(userListings);
     })
     .catch((err) => {
       console.log(err.message);

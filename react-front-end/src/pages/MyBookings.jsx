@@ -83,7 +83,12 @@ export default function MyBookings(props) {
                   <Avatar
                     src={booking.pets.photo_url}
                     alt="pet avatar"
-                    sx={{ width: 120, height: 120, marginRight: 5, boxShadow: 3 }}
+                    sx={{
+                      width: 120,
+                      height: 120,
+                      marginRight: 5,
+                      boxShadow: 3,
+                    }}
                   />
                 </Box>
                 <CardContent sx={{ width: 280 }}>
@@ -115,7 +120,7 @@ export default function MyBookings(props) {
                   flexDirection: "row",
                   alignItems: "center",
                   justifyContent: "space-evenly",
-                  flexWrap: "wrap"
+                  flexWrap: "wrap",
                 }}
               >
                 <Box
@@ -180,7 +185,12 @@ export default function MyBookings(props) {
                   <Avatar
                     src={booking.pets.photo_url}
                     alt="pet avatar"
-                    sx={{ width: 120, height: 120, marginRight: 5, boxShadow: 3 }}
+                    sx={{
+                      width: 120,
+                      height: 120,
+                      marginRight: 5,
+                      boxShadow: 3,
+                    }}
                   />
                 </Box>
                 <CardContent sx={{ width: 280 }}>

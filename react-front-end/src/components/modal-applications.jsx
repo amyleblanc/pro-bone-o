@@ -19,6 +19,7 @@ import {
 import ResponsiveBooking from "./modal-booking";
 import axios from "axios";
 import axiosRequest from "../helper/axios";
+import Badge from "@mui/material/Badge";
 
 const acceptBooking = async (bookingID, payload) => {
   axiosRequest(`/booking/status/${bookingID}`, "PUT", payload);
@@ -51,17 +52,6 @@ export default function ResponsiveApplications(props) {
   };
 
   useEffect(() => {
-    const getSearch = async () => {
-      const id = listing.id;
-      //console.log("this is id", id);
-      const res = await axios
-        .get(`/api/listings/bookings/${id}`)
-        .then((res) => {
-          //console.log("this is res", res.data);
-          setBooking(res.data);
-        });
-    };
-    getSearch();
     const messageCount = function () {
       let messageAmount = 0;
       if (booking["booking"]) {
@@ -73,7 +63,19 @@ export default function ResponsiveApplications(props) {
       }
       return messageAmount;
     };
-    setMessageCount(messageCount());
+    const getSearch = async () => {
+      const id = listing.id;
+      //console.log("this is id", id);
+      const res = await axios
+        .get(`/api/listings/bookings/${id}`)
+        .then((res) => {
+          //console.log("this is res", res.data);
+          setBooking(res.data);
+        });
+    };
+    getSearch().then(() => setMessageCount(messageCount()));
+
+    // setMessageCount(messageCount());
     console.log("this is booking", booking);
   }, []);
 
@@ -201,29 +203,32 @@ export default function ResponsiveApplications(props) {
     <div>
       <DialogContent>
         {acceptedStatus && (
-          <Button
-            variant="contained"
-            color="success"
-            endIcon={<SendIcon />}
-            onClick={handleClickOpen}
-            sx={{ borderRadius: "16px" }}
-          >
-            See Accepted Booking
-          </Button>
+          <Badge badgeContent={count} color="primary">
+            <Button
+              variant="contained"
+              color="success"
+              endIcon={<SendIcon />}
+              onClick={handleClickOpen}
+              sx={{ borderRadius: "16px" }}
+            >
+              See Accepted Booking
+            </Button>
+          </Badge>
         )}
         {!acceptedStatus && (
-          <Button
-            variant="contained"
-            color="success"
-            endIcon={<SendIcon />}
-            onClick={handleClickOpen}
-            sx={{ borderRadius: "16px" }}
-          >
-            See Applications
-          </Button>
+          <Badge badgeContent={count} color="primary">
+            <Button
+              variant="contained"
+              color="success"
+              endIcon={<SendIcon />}
+              onClick={handleClickOpen}
+              sx={{ borderRadius: "16px" }}
+            >
+              See Applications
+            </Button>
+          </Badge>
         )}
       </DialogContent>
-      {count} Unread Messages
       <Dialog
         fullScreen={fullScreen}
         open={open}

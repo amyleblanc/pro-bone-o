@@ -139,6 +139,7 @@ const usersArray = [rhys, bryson];
 
 const newUserArray = [amy];
 
+//create listings with a user id of 1, 2, or 3
 const archivedListings = [
   //requests for sitter
   {
@@ -389,6 +390,7 @@ const activeListings = [
   },
 ];
 
+//create bookings with a user id of 1, 2, or 3
 const bookings = [
   {
     user_id: 2,

@@ -11,9 +11,9 @@ import {
   Container,
 } from "@mui/material/";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import PetsIcon from '@mui/icons-material/Pets';
-import Tooltip from '@mui/material/Tooltip';
-import IconButton from '@mui/material/IconButton';
+import PetsIcon from "@mui/icons-material/Pets";
+import Tooltip from "@mui/material/Tooltip";
+import IconButton from "@mui/material/IconButton";
 import userState from "../components/atoms";
 
 export default function Profile() {
@@ -26,6 +26,8 @@ export default function Profile() {
   return (
     <div>
       <Container
+        maxWidth="sm"
+        style={{ marginTop: "70px" }}
         sx={{
           display: "flex",
           flexDirection: "column",
@@ -107,7 +109,11 @@ export default function Profile() {
               <Button
                 variant="contained"
                 endIcon={<PetsIcon />}
-                sx={{ borderRadius: "16px", width: "100px", bgcolor: "#00A8A8" }}
+                sx={{
+                  borderRadius: "16px",
+                  width: "100px",
+                  bgcolor: "#00A8A8",
+                }}
               >
                 Edit
               </Button>

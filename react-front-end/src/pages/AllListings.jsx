@@ -213,7 +213,7 @@ export default function AllListings() {
         </form>
       </Grid>
       <Map url={url} payload={formData} />
-      <Listing url={url} payload={formData} />
+      <Listing url={url} payload={formData} type={"POST"} />
     </div>
   );
 }

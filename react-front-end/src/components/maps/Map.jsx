@@ -34,13 +34,19 @@ export default function Map(props) {
     }
     console.log(listing.users.postal_code);
     let title = listing.activity_type + " with ";
-    title += listing.sitter_listing
-      ? listing.pets.name
-      : listing.users.first_name;
+    let name = "";
+    if (listing.pets) {
+      title += listing.pets.name;
+      name = listing.pets.name[0];
+    } else {
+      title += listing.users.first_name;
+      name = listing.users.first_name;
+    }
+
     return (
       <Marker
         title={{ title }}
-        name={listing.pets.name[0]}
+        name={name}
         key={listing.id}
         position={listingcoords}
       />

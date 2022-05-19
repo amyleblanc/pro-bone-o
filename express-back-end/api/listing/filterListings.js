@@ -38,7 +38,13 @@ async function allFiltersListings(
         },
       ],
     },
-    include: { pets: true, users: true, booking: true },
+    include: {
+      pets: true,
+      users: true,
+      booking: {
+        include: { users: { select: { first_name: true, last_name: true } } },
+      },
+    },
   });
   return listings;
 }

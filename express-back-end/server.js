@@ -127,6 +127,7 @@ app.get("/api/users/:id", (req, res) => {
 
 app.get("/login/:id", (req, res) => {
   const id = req.params.id;
+  console.log(id);
   dataqueries.userID
     .getUserEverything(id)
     .then((user) => {
@@ -261,6 +262,21 @@ app.get("/api/user/register", (req, res) => {
     });
 });
 
+//allow pulling listings for a specific user
+app.get("/user/listings/:id", (req, res) => {
+  const userID = req.params.id;
+  dataqueries.userID
+    .getUserListings(userID)
+    .then((userListings) => {
+      //console.log(userInfo);
+      res.json(userListings);
+    })
+    .catch((err) => {
+      console.log(err.message);
+      return null;
+    });
+});
+
 app.post("/message", (req, res) => {
   const payload = req.body;
   pusher.trigger("chat", "message", payload);
@@ -305,7 +321,7 @@ app.post("/booking/comment/:id", (req, res) => {
   });
 });
 
-//update a booking with a message status of unread
+//update a booking status
 app.put("/booking/status/:id", (req, res) => {
   const id = req.params.id;
   const payload = req.body;
@@ -313,6 +329,21 @@ app.put("/booking/status/:id", (req, res) => {
     .updatebooking(id, payload)
     .then((petInfo) => {
       res.json(petInfo);
+    })
+    .catch((err) => {
+      console.log(err.message);
+      return null;
+    });
+});
+
+//update a listing status
+app.put("/listing/status/:id", (req, res) => {
+  const id = req.params.id;
+  const payload = req.body;
+  dataqueries.listingID
+    .updateListing(id, payload)
+    .then((listingInfo) => {
+      res.json(listingInfo);
     })
     .catch((err) => {
       console.log(err.message);

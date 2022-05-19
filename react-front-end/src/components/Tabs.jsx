@@ -49,7 +49,7 @@ export default function NavTabs() {
         <ProfileProtec />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <MyListings url={"/api/listing"} />
+        <MyListings />
       </TabPanel>
       <TabPanel value={value} index={2}>
         <MyBookings url={"/api/listing"} />

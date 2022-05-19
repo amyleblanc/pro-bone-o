@@ -1,7 +1,7 @@
 import React from "react";
 import Geocode from "react-geocode";
 
-Geocode.setApiKey(process.env.REACT_APP_GOOGLE_API_KEY);
+// Geocode.setApiKey(process.env.REACT_APP_GOOGLE_API_KEY);
 Geocode.setLanguage("en");
 Geocode.setLocationType("ROOFTOP");
 Geocode.enableDebug();

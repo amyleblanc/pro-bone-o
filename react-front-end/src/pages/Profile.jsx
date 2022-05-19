@@ -60,7 +60,7 @@ export default function Profile() {
             sx={{ display: "flex", flexDirection: "row" }}
           >
             <Grid
-              item xs={9} sm={8} md={6}
+              item xs={9} sm={9} md={9}
               sx={{ display: "flex" }}
             >
               <CardContent sx={{ width: "auto", paddingRight: 0 }}>

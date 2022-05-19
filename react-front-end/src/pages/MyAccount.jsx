@@ -9,7 +9,7 @@ export default function MyAccount() {
 
   return (
     <div>
-      <Container maxWidth="sm" style={{ marginTop: "70px" }}>
+      <Container style={{ marginTop: "70px" }}>
         <Typography
           paddingBottom="40px"
           variant="h3"

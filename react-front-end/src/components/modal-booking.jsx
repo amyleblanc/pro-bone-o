@@ -21,7 +21,7 @@ export default function ResponsiveBooking(props) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   const user = useRecoilValue(userState);
-  const { booking_id, first_name, last_name, profile_photo } = props;
+  const { booking_id, first_name, last_name, profile_photo, view } = props;
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -34,14 +34,19 @@ export default function ResponsiveBooking(props) {
 
   return (
     <>
-      <DialogContent sx={{p: 1}}>
+      <DialogContent sx={{ p: 1 }}>
         <Button
           variant="contained"
           endIcon={<SendIcon />}
           onClick={handleClickOpen}
-          sx={{ borderRadius: "16px", bgcolor: "#00A8A8", p: "8px", width: "155px" }}
+          sx={{
+            borderRadius: "16px",
+            bgcolor: "#00A8A8",
+            p: "8px",
+            width: "155px",
+          }}
         >
-          Send Message
+          {view}
         </Button>
       </DialogContent>
 
@@ -50,7 +55,7 @@ export default function ResponsiveBooking(props) {
         open={open}
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
-        fullWidth
+        fullWidth={true}
         maxWidth="md"
       >
         <Button autoFocus onClick={handleClose}>

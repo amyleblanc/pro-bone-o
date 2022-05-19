@@ -15,15 +15,10 @@ import searchState from "./atom-search";
 import axios from "axios";
 import { useRecoilState } from "recoil";
 import moment from "moment";
-
-//const getListingState(//)
-
-// const updateSearch = async (formData) => {
-//   const processedForm = formData;
-//   axiosRequest("/api/listing/filter", "POST", processedForm);
-// };
-import Map from "./maps/Map";
-import ClickReveal from "./ClickReveal";
+import { useRecoilValue } from "recoil";
+import userState from "./atoms";
+import ResponsiveApplications from "./modal-applications";
+import ResponsiveBooking from "./modal-booking";
 
 /**
  *
@@ -32,7 +27,8 @@ import ClickReveal from "./ClickReveal";
  */
 export default function Listing(props) {
   const [listing, setListing] = useState([]);
-  const { url, payload } = props;
+  const { url, payload, type } = props;
+  const user = useRecoilValue(userState);
 
   useEffect(() => {
     const getSearch = async () => {
@@ -43,14 +39,51 @@ export default function Listing(props) {
     getSearch();
   }, [url, payload]);
 
-  const useListing = listing.map((listing) => {
-    //console.log(listing);
+  useEffect(() => {
+    const getSearch = async () => {
+      if (type === "GET") {
+        const res = await axios.get(url).then((res) => setListing(res.data));
+      } else {
+        const res = await axios
+          .post(url, payload)
+          .then((res) => setListing(res.data));
+      }
+    };
+    getSearch();
+  }, [url, payload, type]);
+
+  // useEffect(() => {
+  //   // const getSearch = async () => {
+  //   axiosRequest(url, type, payload).then((res) =>
+  //     console.log("this is test", res.data)
+  //   ); //setListing(res.data));
+  //   // };
+  //   // getSearch();
+  // }, [url, type, payload]);
+
+  const useListing = listing?.map((listing) => {
+    console.log("testing", listing);
+    let confirmedBooking = 0;
+    let first_name = "";
+    let last_name = "";
+    if (listing["booking"]) {
+      for (let each of listing["booking"]) {
+        if (each["accepted"] === true) {
+          confirmedBooking = each["id"];
+          first_name = each["users"]["first_name"];
+          last_name = each["users"]["last_name"];
+        }
+      }
+    }
     return (
-      <Grid 
-        item xs={12} sm={4} md={4}
+      <Grid
+        item
+        xs={12}
+        sm={4}
+        md={4}
         sx={{
-          display: "flex", 
-          justifyContent: "space-around"
+          display: "flex",
+          justifyContent: "space-around",
         }}
       >
         <Card
@@ -61,10 +94,10 @@ export default function Listing(props) {
             p: 3,
             maxWidth: 350,
             minWidth: 350,
-            m: 1
+            m: 1,
           }}
         >
-          {listing.pets && (
+          {listing.pets !== null && (
             <CardMedia
               component="img"
               height="160"
@@ -82,13 +115,16 @@ export default function Listing(props) {
             />
           )}
           <CardContent>
-            {listing.pets && (
+            {listing.pets !== null && (
               <>
                 <Typography gutterBottom variant="h6" component="div">
                   Wanted!
                 </Typography>
                 <Typography gutterBottom variant="h5" component="div">
-                  {`${listing.activity_type.charAt(0).toUpperCase() + listing.activity_type.slice(1)} 
+                  {`${
+                    listing.activity_type.charAt(0).toUpperCase() +
+                    listing.activity_type.slice(1)
+                  } 
                   for ${listing.pets.name}`}
                 </Typography>
               </>
@@ -102,12 +138,13 @@ export default function Listing(props) {
                   {`${listing.users.first_name} ${listing.users.last_name} is available for:`}
                 </Typography>
                 <Typography gutterBottom variant="h5" component="div">
-                  {listing.activity_type.charAt(0).toUpperCase() + listing.activity_type.slice(1)}
+                  {listing.activity_type.charAt(0).toUpperCase() +
+                    listing.activity_type.slice(1)}
                 </Typography>
               </>
             )}
             <Typography gutterBottom>
-              {moment(listing.start_time).format('dddd MMMM Do YYYY')}
+              {moment(listing.start_time).format("dddd MMMM Do YYYY")}
             </Typography>
             <Typography gutterBottom>
               {`${moment(listing.start_time).format("LT")} to ${moment(
@@ -118,39 +155,49 @@ export default function Listing(props) {
               {listing.additional_details}
             </Typography> */}
           </CardContent>
-          <CardActions sx={{p: 0}}>
-            {listing.pets && (
-              <ResponsiveDialog
-                id={listing.id}
-                sitter_listing={listing.sitter_listing}
-                user_id={listing.user_id}
-                additional_details={listing.additional_details}
-                postal_code={listing.postal_code}
-                start_time={listing.start_time}
-                end_time={listing.end_time}
-                pet_id={listing.pet_id}
-                activity_type={listing.activity_type}
-                pet_name={listing.pets.name}
-                pet_photo={listing.pets.photo_url}
-                phone_number={listing.users.phone_number}
-              ></ResponsiveDialog>
-            )}
-            {!listing.pets && (
-              <ResponsiveDialog
-                id={listing.id}
-                sitter_listing={listing.sitter_listing}
-                user_id={listing.user_id}
-                additional_details={listing.additional_details}
-                postal_code={listing.postal_code}
-                start_time={listing.start_time}
-                end_time={listing.end_time}
-                //pet_id={listing.pet_id}
-                activity_type={listing.activity_type}
-                pet_name={listing.users.name}
-                pet_photo={listing.users.photo_url}
-              ></ResponsiveDialog>
-            )}
-          </CardActions>
+          {listing.user_id === user.id && listing.booking.length > 0 && (
+            <CardActions>
+              <ResponsiveApplications listing={listing} />
+            </CardActions>
+          )}
+          {listing.user_id === user.id &&
+            listing.booking.length === 0 &&
+            !listing.accepted && <Typography>No Applications Yet.</Typography>}
+          {listing.user_id !== user.id && (
+            <CardActions sx={{ p: 0 }}>
+              {listing.pets !== null && (
+                <ResponsiveDialog
+                  id={listing.id}
+                  sitter_listing={listing.sitter_listing}
+                  user_id={listing.user_id}
+                  additional_details={listing.additional_details}
+                  postal_code={listing.postal_code}
+                  start_time={listing.start_time}
+                  end_time={listing.end_time}
+                  pet_id={listing.pet_id}
+                  activity_type={listing.activity_type}
+                  pet_name={listing.pets.name}
+                  pet_photo={listing.pets.photo_url}
+                  phone_number={listing.users.phone_number}
+                ></ResponsiveDialog>
+              )}
+              {!listing.pets && (
+                <ResponsiveDialog
+                  id={listing.id}
+                  sitter_listing={listing.sitter_listing}
+                  user_id={listing.user_id}
+                  additional_details={listing.additional_details}
+                  postal_code={listing.postal_code}
+                  start_time={listing.start_time}
+                  end_time={listing.end_time}
+                  //pet_id={listing.pet_id}
+                  activity_type={listing.activity_type}
+                  pet_name={listing.users.name}
+                  pet_photo={listing.users.photo_url}
+                ></ResponsiveDialog>
+              )}
+            </CardActions>
+          )}
         </Card>
       </Grid>
     );
@@ -158,7 +205,6 @@ export default function Listing(props) {
 
   return (
     <main>
-      <h1>Current Listings</h1>
       <div className="mapsTop"></div>
       <div className="flexbox-container">
         <div id="listings">
@@ -170,17 +216,17 @@ export default function Listing(props) {
               justifyContent: "center",
               flexWrap: "wrap",
             }}
-          >          
+          >
             <Grid
               container
               spacing={{ xs: 2, md: 3 }}
               columns={{ xs: 4, sm: 8, md: 12 }}
               columnSpacing={{ xs: 1, sm: 2, md: 0.05 }}
-              direction="row" 
+              direction="row"
               sx={{
-                display: "flex", 
-                justifyContent: "center", 
-                alignItems: "center"
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
               {listing && useListing}

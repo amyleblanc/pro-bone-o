@@ -57,9 +57,15 @@ async function getUserEverything(userID) {
 // GET a user and all bookings and listings they have
 // Required fields in body: none
 async function getUserListings(userID) {
-  const user = await prisma.users.findUnique({
-    where: { id: Number(userID) },
-    include: { listing: true, booking: true },
+  const user = await prisma.listing.findMany({
+    where: { user_id: Number(userID) },
+    include: {
+      pets: true,
+      users: true,
+      booking: {
+        include: { users: { select: { first_name: true, last_name: true } } },
+      },
+    },
   });
   return user;
 }

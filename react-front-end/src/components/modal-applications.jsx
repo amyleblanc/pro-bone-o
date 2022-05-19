@@ -111,16 +111,8 @@ export default function ResponsiveApplications(props) {
             component="img"
             height="140"
             image={each.users.photo_url}
-            alt="Dog"
+            alt="Sitter"
           />
-          {!listing.pets && (
-            <CardMedia
-              component="img"
-              height="140"
-              image={listing.users.photo_url}
-              alt="Sitter"
-            />
-          )}
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
               {listing.activity_type} - {each.users.first_name}{" "}
@@ -135,7 +127,6 @@ export default function ResponsiveApplications(props) {
               booking_id={each.id}
               first_name={each.users.first_name}
               last_name={each.users.last_name}
-              profile_photo={each.users.photo_url}
             />
           </CardActions>
           <Button
@@ -171,6 +162,8 @@ export default function ResponsiveApplications(props) {
         open={open}
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
+        fullWidth={true}
+        maxWidth="md"
       >
         <Button autoFocus onClick={handleClose}>
           <CloseIcon />

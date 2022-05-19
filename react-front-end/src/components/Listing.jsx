@@ -151,10 +151,13 @@ export default function Listing(props) {
               {listing.additional_details}
             </Typography> */}
           </CardContent>
-          {listing.user_id === user.id && (
+          {listing.user_id === user.id && listing.booking.length > 0 && (
             <CardActions>
               <ResponsiveApplications listing={listing} />
             </CardActions>
+          )}
+          {listing.user_id === user.id && listing.booking.length === 0 && (
+            <Typography>No Applications Yet.</Typography>
           )}
           {listing.user_id !== user.id && (
             <CardActions sx={{ p: 0 }}>

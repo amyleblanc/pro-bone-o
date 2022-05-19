@@ -262,7 +262,7 @@ app.get("/api/user/register", (req, res) => {
     });
 });
 
-//allow pulling registration information of new user for login
+//allow pulling listings for a specific user
 app.get("/user/listings/:id", (req, res) => {
   const userID = req.params.id;
   dataqueries.userID

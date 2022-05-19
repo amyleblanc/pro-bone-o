@@ -122,7 +122,6 @@ const ResponsiveAppBar = () => {
               </Link>
             ))}
           </Box>
-
           <Greeting />
           <LoginSlider />
         </Toolbar>

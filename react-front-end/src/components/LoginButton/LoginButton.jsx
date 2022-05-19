@@ -1,14 +1,12 @@
 import * as React from 'react';
 import { useTheme } from '@mui/material/styles';
-import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useRecoilState } from "recoil";
 import userState from '../atoms';
-import Button from "@mui/material/Button";
-import { border } from '@mui/system';
+
 
 const axios = require("axios").default;
 
@@ -44,17 +42,7 @@ function getStyles(name, personName, theme) {
 }
 
 export default function MultipleSelect() {
-    const theme = useTheme({
-        components: {
-            MuiOutlinedInput: {
-                styleOverrides:{
-                    root: {
-                        backgroundColor:'#fhwy',
-                    }
-                }
-            }
-        }
-      }) 
+    const theme = useTheme() 
   const [personName, setPersonName] = React.useState([]);
   const [user, setUser] = useRecoilState(userState);
 
@@ -76,8 +64,8 @@ export default function MultipleSelect() {
 
   return (
     <div>
-      <FormControl   alignItems="center" sx={{ m: 1, width: 100}} >
-        <InputLabel id="demo-multiple-name-label"> Login </InputLabel>
+      <FormControl fullWidth size="small" sx={{ m: 1}} >
+        <InputLabel id="demo-multiple-name-label" sx={{color: 'white', fontWeight: 'medium',}}> Login </InputLabel>
         <Select
             labelId="demo-multiple-name-label"
             id="demo-multiple-name"
@@ -86,7 +74,6 @@ export default function MultipleSelect() {
             sx={{
             width: 100,
             height: 40,
-            marginRight: 15,
             border: "1px solid darkgrey",
             borderRadius: 35,
             backgroundColor: "#32a85c",

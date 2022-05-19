@@ -243,12 +243,22 @@ export default function MyBookings(props) {
                   ).format("LT")}`}
                 </Typography>
               </Box>
-              <Typography gutterBottom>
-                {`${
-                  booking.activity_type.charAt(0).toUpperCase() +
-                  booking.activity_type.slice(1)
-                } with ${booking.pets.name}`}
-              </Typography>
+              {booking.pets !== null && (
+                <Typography gutterBottom>
+                  {`${
+                    booking.activity_type.charAt(0).toUpperCase() +
+                    booking.activity_type.slice(1)
+                  } with ${booking.pets.name}`}
+                </Typography>
+              )}
+              {booking.pets === null && (
+                <Typography gutterBottom>
+                  {`${
+                    booking.activity_type.charAt(0).toUpperCase() +
+                    booking.activity_type.slice(1)
+                  } with ${booking.users.first_name}`}
+                </Typography>
+              )}
               <Typography mt="20px">
                 <b>Status: </b> Archived
               </Typography>

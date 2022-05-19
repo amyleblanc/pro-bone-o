@@ -7,8 +7,8 @@ import {
   Card,
   CardActions,
   CardContent,
+  Grid,
   Typography,
-  Container,
 } from "@mui/material/";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import PetsIcon from '@mui/icons-material/Pets';
@@ -25,12 +25,22 @@ export default function Profile() {
 
   return (
     <div>
-      <Container
+      <Grid
+        item
+        container
+        direction="row" 
         sx={{
-          display: "flex",
+          display: "flex", 
           flexDirection: "column",
-          maxWidth: "sm",
+          justifyContent: "center", 
+          alignItems: "center",
           bgcolor: "background.paper",
+        }}
+        >
+      <Grid
+        item xs={12} sm={10} md={10}
+        sx={{
+          display: "flex", 
         }}
       >
         <Card
@@ -45,28 +55,42 @@ export default function Profile() {
             p: 2,
           }}
         >
-          <Box sx={{ display: "flex", flexDirection: "row-reverse" }}>
-            <Avatar
-              src={user.photo_url}
-              alt="user avatar"
-              sx={{ width: 150, height: 150, margin: 3, boxShadow: 3 }}
-            />
-            <CardContent sx={{ width: 350 }}>
-              <Typography gutterBottom variant="h4" component="div">
-                {user.first_name} {user.last_name}
-              </Typography>
-              <Typography gutterBottom variant="p" component="div">
-                <b>email: </b> {user.email_address}
-              </Typography>
-              <Typography gutterBottom variant="p" component="div">
-                <b>phone: </b>
-                {phoneNumber}
-              </Typography>
-            </CardContent>
-          </Box>
+          <Grid 
+            item xs={12} sm={12} md={12}
+            sx={{ display: "flex", flexDirection: "row" }}
+          >
+            <Grid
+              item xs={9} sm={8} md={6}
+              sx={{ display: "flex" }}
+            >
+              <CardContent sx={{ width: "auto", paddingRight: 0 }}>
+                <Typography gutterBottom variant="h4" component="div">
+                  {user.first_name} {user.last_name}
+                </Typography>
+                <Typography gutterBottom variant="p" component="div">
+                  <b>email: </b> {user.email_address}
+                </Typography>
+                <Typography gutterBottom variant="p" component="div">
+                  <b>phone: </b>
+                  {phoneNumber}
+                </Typography>
+              </CardContent>
+            </Grid>
+            <Grid
+              item xs={3} sm={2} md={10}
+              sx={{ display: "flex", flexDirection: "row-reverse"  }}
+            >
+              <Avatar
+                src={user.photo_url}
+                alt="user avatar"
+                sx={{ width: "auto", height: 0.5, margin: 1, boxShadow: 3 }}
+              />
+            </Grid>
+
+          </Grid>
           <Box>
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
+            <CardContent sx={{pt: 0}}>
+              <Typography gutterBottom variant="h5" component="div" pb="10px">
                 My Furry Friends:
               </Typography>
               {user.pets.map((pet) => (
@@ -85,12 +109,12 @@ export default function Profile() {
                         gutterBottom
                         variant="h6"
                         component="div"
-                        sx={{ p: "20px" }}
+                        sx={{ p: "20px", pb: 0 }}
                       >
                         {pet.name}
                       </Typography>
                     </Box>
-                    <Box sx={{ p: 2.5 }}>
+                    <Box sx={{ p: 2.5, pb: 0, pt: "17px" }}>
                       <Tooltip title="Add Pet">
                         <IconButton aria-label="add pet">
                           <AddCircleIcon fontSize="large" />
@@ -114,7 +138,8 @@ export default function Profile() {
             </CardActions>
           </Box>
         </Card>
-      </Container>
+        </Grid>
+      </Grid>
     </div>
   );
 }

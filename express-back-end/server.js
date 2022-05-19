@@ -321,7 +321,7 @@ app.post("/booking/comment/:id", (req, res) => {
   });
 });
 
-//update a booking with a message status of unread
+//update a booking status
 app.put("/booking/status/:id", (req, res) => {
   const id = req.params.id;
   const payload = req.body;
@@ -329,6 +329,21 @@ app.put("/booking/status/:id", (req, res) => {
     .updatebooking(id, payload)
     .then((petInfo) => {
       res.json(petInfo);
+    })
+    .catch((err) => {
+      console.log(err.message);
+      return null;
+    });
+});
+
+//update a listing status
+app.put("/listing/status/:id", (req, res) => {
+  const id = req.params.id;
+  const payload = req.body;
+  dataqueries.listingID
+    .updateListing(id, payload)
+    .then((listingInfo) => {
+      res.json(listingInfo);
     })
     .catch((err) => {
       console.log(err.message);

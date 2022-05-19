@@ -21,7 +21,7 @@ export default function ResponsiveBooking(props) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   const user = useRecoilValue(userState);
-  const { booking_id, first_name, last_name, profile_photo } = props;
+  const { booking_id, first_name, last_name, profile_photo, view } = props;
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -46,7 +46,7 @@ export default function ResponsiveBooking(props) {
             width: "155px",
           }}
         >
-          Send Message
+          {view}
         </Button>
       </DialogContent>
 

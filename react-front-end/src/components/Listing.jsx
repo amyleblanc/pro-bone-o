@@ -18,15 +18,7 @@ import moment from "moment";
 import { useRecoilValue } from "recoil";
 import userState from "./atoms";
 import ResponsiveApplications from "./modal-applications";
-
-//const getListingState(//)
-
-// const updateSearch = async (formData) => {
-//   const processedForm = formData;
-//   axiosRequest("/api/listing/filter", "POST", processedForm);
-// };
-import Map from "./maps/Map";
-import ClickReveal from "./ClickReveal";
+import ResponsiveBooking from "./modal-booking";
 
 /**
  *
@@ -71,6 +63,18 @@ export default function Listing(props) {
 
   const useListing = listing?.map((listing) => {
     console.log("testing", listing);
+    let confirmedBooking = 0;
+    let first_name = "";
+    let last_name = "";
+    if (listing["booking"]) {
+      for (let each of listing["booking"]) {
+        if (each["accepted"] === true) {
+          confirmedBooking = each["id"];
+          first_name = each["users"]["first_name"];
+          last_name = each["users"]["last_name"];
+        }
+      }
+    }
     return (
       <Grid
         item
@@ -156,9 +160,9 @@ export default function Listing(props) {
               <ResponsiveApplications listing={listing} />
             </CardActions>
           )}
-          {listing.user_id === user.id && listing.booking.length === 0 && (
-            <Typography>No Applications Yet.</Typography>
-          )}
+          {listing.user_id === user.id &&
+            listing.booking.length === 0 &&
+            !listing.accepted && <Typography>No Applications Yet.</Typography>}
           {listing.user_id !== user.id && (
             <CardActions sx={{ p: 0 }}>
               {listing.pets !== null && (

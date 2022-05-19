@@ -59,7 +59,13 @@ async function getUserEverything(userID) {
 async function getUserListings(userID) {
   const user = await prisma.listing.findMany({
     where: { user_id: Number(userID) },
-    include: { pets: true, users: true, booking: true },
+    include: {
+      pets: true,
+      users: true,
+      booking: {
+        include: { users: { select: { first_name: true, last_name: true } } },
+      },
+    },
   });
   return user;
 }

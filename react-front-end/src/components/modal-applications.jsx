@@ -24,6 +24,10 @@ const acceptBooking = async (bookingID, payload) => {
   axiosRequest(`/booking/status/${bookingID}`, "PUT", payload);
 };
 
+const acceptListing = async (listingID, payload) => {
+  axiosRequest(`/listing/status/${listingID}`, "PUT", payload);
+};
+
 export default function ResponsiveApplications(props) {
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
@@ -41,8 +45,9 @@ export default function ResponsiveApplications(props) {
     setOpen(false);
   };
 
-  const handleAcceptance = (bookingID) => {
+  const handleAcceptance = (bookingID, listingID) => {
     acceptBooking(bookingID, { accepted: true });
+    acceptListing(listingID, { accepted: true });
   };
 
   useEffect(() => {
@@ -71,39 +76,31 @@ export default function ResponsiveApplications(props) {
     setMessageCount(messageCount());
     console.log("this is booking", booking);
   }, []);
-  // useEffect(() => {
-  //   const url = `/api/listing/${id}`;
-  //   axiosRequest(url, "GET", {}).then((res) => setListing(res));
-  // }, [id]);
 
-  // const useBooking = booking["booking"].map((listing) => {
-  //   console.log(listing);
-  // });
-  //console.log("booking test two", booking["booking"]);
+  let acceptedStatus = false;
 
-  // for (let each of booking["booking"]) {
-  //   console.log("booking each", each);
-  // }
-
-  const useBooking = booking["booking"]?.map((each) => {
-    console.log("users", each["users"]);
-    console.log("regular each", each);
-    const unread = each["viewed"] ? true : false;
+  const accepted = booking["booking"]?.map((each) => {
     const personal_message = each["personal_message"]
       ? each["personal_message"]
       : " ";
-
+    if (each["accepted"]) acceptedStatus = true;
     return (
-      <Grid item>
+      <Grid
+        item
+        xs={12}
+        sm={4}
+        md={4}
+        sx={{
+          display: "flex",
+          justifyContent: "space-around",
+        }}
+      >
         <Card
           sx={{
             bgcolor: "background.paper",
             boxShadow: 1,
             borderRadius: 2,
             p: 2,
-            //minWidth: 300,
-            //maxWidth: 345,
-            // ml: 30,
             mt: 5,
           }}
         >
@@ -127,13 +124,70 @@ export default function ResponsiveApplications(props) {
               booking_id={each.id}
               first_name={each.users.first_name}
               last_name={each.users.last_name}
+              view={"Chat"}
+            />
+          </CardActions>
+        </Card>
+      </Grid>
+    );
+  });
+
+  const useBooking = booking["booking"]?.map((each) => {
+    console.log("users", each["users"]);
+    console.log("regular each", each);
+    console.log("booking", each["accepted"]);
+    const personal_message = each["personal_message"]
+      ? each["personal_message"]
+      : " ";
+
+    return (
+      <Grid
+        item
+        xs={12}
+        sm={4}
+        md={4}
+        sx={{
+          display: "flex",
+          justifyContent: "space-around",
+        }}
+      >
+        <Card
+          sx={{
+            bgcolor: "background.paper",
+            boxShadow: 1,
+            borderRadius: 2,
+            p: 2,
+            mt: 5,
+          }}
+        >
+          <CardMedia
+            component="img"
+            height="140"
+            image={each.users.photo_url}
+            alt="Sitter"
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              {listing.activity_type} - {each.users.first_name}{" "}
+              {each.users.last_name}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {personal_message}
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <ResponsiveBooking
+              booking_id={each.id}
+              first_name={each.users.first_name}
+              last_name={each.users.last_name}
+              view={"Send Message"}
             />
           </CardActions>
           <Button
             variant="contained"
             color="success"
             endIcon={<SendIcon />}
-            onClick={handleAcceptance(each.id)}
+            onClick={handleAcceptance(each.id, listing.id)}
             sx={{ borderRadius: "16px" }}
           >
             Accept Application
@@ -146,15 +200,28 @@ export default function ResponsiveApplications(props) {
   return (
     <div>
       <DialogContent>
-        <Button
-          variant="contained"
-          color="success"
-          endIcon={<SendIcon />}
-          onClick={handleClickOpen}
-          sx={{ borderRadius: "16px" }}
-        >
-          See Applications
-        </Button>
+        {acceptedStatus && (
+          <Button
+            variant="contained"
+            color="success"
+            endIcon={<SendIcon />}
+            onClick={handleClickOpen}
+            sx={{ borderRadius: "16px" }}
+          >
+            See Accepted Booking
+          </Button>
+        )}
+        {!acceptedStatus && (
+          <Button
+            variant="contained"
+            color="success"
+            endIcon={<SendIcon />}
+            onClick={handleClickOpen}
+            sx={{ borderRadius: "16px" }}
+          >
+            See Applications
+          </Button>
+        )}
       </DialogContent>
       {count} Unread Messages
       <Dialog
@@ -173,7 +240,8 @@ export default function ResponsiveApplications(props) {
           spacing={{ xs: 2, md: 3 }}
           columns={{ xs: 4, sm: 8, md: 12 }}
         >
-          {useBooking}
+          {acceptedStatus && accepted}
+          {!acceptedStatus && useBooking}
         </Grid>
       </Dialog>
     </div>

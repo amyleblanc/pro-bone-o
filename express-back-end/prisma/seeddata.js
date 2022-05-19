@@ -289,16 +289,6 @@ const activeListings = [
   },
 ];
 
-const pets = [
-  {
-    name: randFirstName(),
-    photo_url: dogUrl,
-    breed: randomDog,
-    description: randSentence(),
-    difficulty: randNumber({ min: 0, max: 5 }),
-  },
-];
-
 //create bookings with a user id of 1, 2, or 3
 const bookings = [
   {

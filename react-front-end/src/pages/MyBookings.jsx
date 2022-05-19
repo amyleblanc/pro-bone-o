@@ -47,7 +47,10 @@ export default function MyBookings(props) {
     const filtered = [];
     for (let listing of listings) {
       for (let booking of bookings) {
-        if (booking.listing_id === listing.id && listing.archived)
+        if (
+          booking.listing_id === listing.id &&
+          (listing.archived || booking.archived)
+        )
           filtered.push(listing);
       }
     }

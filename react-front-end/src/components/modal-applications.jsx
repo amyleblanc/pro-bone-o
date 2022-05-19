@@ -21,11 +21,11 @@ import axios from "axios";
 import axiosRequest from "../helper/axios";
 import Badge from "@mui/material/Badge";
 
-const acceptBooking = async (bookingID, payload) => {
+const updateBooking = async (bookingID, payload) => {
   axiosRequest(`/booking/status/${bookingID}`, "PUT", payload);
 };
 
-const acceptListing = async (listingID, payload) => {
+const updateListing = async (listingID, payload) => {
   axiosRequest(`/listing/status/${listingID}`, "PUT", payload);
 };
 
@@ -46,9 +46,13 @@ export default function ResponsiveApplications(props) {
     setOpen(false);
   };
 
-  const handleAcceptance = (bookingID, listingID) => {
-    acceptBooking(bookingID, { accepted: true });
-    acceptListing(listingID, { accepted: true });
+  const handleAcceptance = (bookingID, listingID, cancelArray) => {
+    updateBooking(bookingID, { accepted: true });
+    updateListing(listingID, { accepted: true });
+    for (let each of cancelArray) {
+      updateBooking(each["id"], { archived: true });
+    }
+    updateBooking(bookingID, { accepted: true, archived: false });
   };
 
   useEffect(() => {
@@ -85,53 +89,55 @@ export default function ResponsiveApplications(props) {
     const personal_message = each["personal_message"]
       ? each["personal_message"]
       : " ";
-    if (each["accepted"]) acceptedStatus = true;
-    return (
-      <Grid
-        item
-        xs={12}
-        sm={4}
-        md={4}
-        sx={{
-          display: "flex",
-          justifyContent: "space-around",
-        }}
-      >
-        <Card
+    if (each["accepted"]) {
+      acceptedStatus = true;
+      return (
+        <Grid
+          item
+          xs={12}
+          sm={4}
+          md={4}
           sx={{
-            bgcolor: "background.paper",
-            boxShadow: 1,
-            borderRadius: 2,
-            p: 2,
-            mt: 5,
+            display: "flex",
+            justifyContent: "space-around",
           }}
         >
-          <CardMedia
-            component="img"
-            height="140"
-            image={each.users.photo_url}
-            alt="Sitter"
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              {listing.activity_type} - {each.users.first_name}{" "}
-              {each.users.last_name}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {personal_message}
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <ResponsiveBooking
-              booking_id={each.id}
-              first_name={each.users.first_name}
-              last_name={each.users.last_name}
-              view={"Chat"}
+          <Card
+            sx={{
+              bgcolor: "background.paper",
+              boxShadow: 1,
+              borderRadius: 2,
+              p: 2,
+              mt: 5,
+            }}
+          >
+            <CardMedia
+              component="img"
+              height="140"
+              image={each.users.photo_url}
+              alt="Sitter"
             />
-          </CardActions>
-        </Card>
-      </Grid>
-    );
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div">
+                {listing.activity_type} - {each.users.first_name}{" "}
+                {each.users.last_name}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {personal_message}
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <ResponsiveBooking
+                booking_id={each.id}
+                first_name={each.users.first_name}
+                last_name={each.users.last_name}
+                view={"Chat"}
+              />
+            </CardActions>
+          </Card>
+        </Grid>
+      );
+    }
   });
 
   const useBooking = booking["booking"]?.map((each) => {
@@ -189,7 +195,7 @@ export default function ResponsiveApplications(props) {
             variant="contained"
             color="success"
             endIcon={<SendIcon />}
-            onClick={handleAcceptance(each.id, listing.id)}
+            onClick={handleAcceptance(each.id, listing.id, booking["booking"])}
             sx={{ borderRadius: "16px" }}
           >
             Accept Application

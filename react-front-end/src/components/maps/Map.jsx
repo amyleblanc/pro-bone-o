@@ -2,6 +2,7 @@ import { useMemo, useEffect, useState } from "react";
 import axios from "axios";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 import coords from "./GeoCode";
+
 import "./Map.css";
 
 export default function Map(props) {
@@ -28,11 +29,15 @@ export default function Map(props) {
   }, [url, payload]);
 
   const useListing = listing.map((listing) => {
-    let listingcoords;
-    if (listing.users.postal_code) {
-      listingcoords = coords(listing.users.postal_code);
-    }
-    console.log(listing.users.postal_code);
+    let postal = listing.users.postal_code
+    console.log(postal);
+    let listingcoords = coords(postal);
+    console.log(listingcoords);
+    // if (listing.users.postal_code) {
+    //   listingcoords = coords(listing.users.postal_code);
+    // }
+    // console.log(listingcoords);
+    
     let title = listing.activity_type + " with ";
     let name = "";
     if (listing.pets) {
@@ -56,7 +61,6 @@ export default function Map(props) {
   if (!isLoaded) return <div>Loading...</div>;
   return (
     <main>
-      <h1>Map of Listings</h1>
       <GoogleMap zoom={13} center={center} mapContainerStyle={containerStyle}>
         {listing && useListing}
       </GoogleMap>

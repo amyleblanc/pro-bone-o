@@ -166,7 +166,7 @@ const archivedListings = [
     user_id: 2,
     activity_type: "Walkies",
     additional_details:
-      "Looking for a a walker to take Alfie and Winston out for a few hours! They have been couped up all day",
+      "Looking for a a walker to take the pups out for a few hours! They have been couped up all day",
     postal_code: "V6A1R8",
     start_time: "2022-05-12T08:00:00.000Z",
     end_time: "2022-05-12T10:00:00.000Z",
@@ -192,7 +192,7 @@ const archivedListings = [
     user_id: 2,
     activity_type: "Doggy Date",
     additional_details:
-      "Looking for a a walker to take Alfie and Winston out for a few hours! They have been couped up all day",
+      "Looking for a someone interested in chaperoning a doggy date as soon as possible!",
     postal_code: "V5T3E5",
     start_time: "2022-05-14T14:00:00.000Z",
     end_time: "2022-05-14T15:00:00.000Z",
@@ -204,8 +204,7 @@ const archivedListings = [
     sitter_listing: false,
     user_id: 3,
     activity_type: "Walkies",
-    additional_details:
-      "Looking for a a walker to take Alfie and Winston out for a few hours! They have been couped up all day",
+    additional_details: "Looking for a a walker.",
     postal_code: "V6Y1M8",
     start_time: "2022-05-19T08:00:00.000Z",
     end_time: "2022-05-19T10:00:00.000Z",
@@ -217,8 +216,7 @@ const archivedListings = [
     sitter_listing: false,
     user_id: 2,
     activity_type: "Doggy Date",
-    additional_details:
-      "Looking for a a walker to take Alfie and Winston out for a few hours! They have been couped up all day",
+    additional_details: "Any cute doggy date ideas? My pets need pampering.",
     postal_code: "V6B1E5",
     start_time: "2022-05-20T13:00:00.000Z",
     end_time: "2022-05-20T16:00:00.000Z",
@@ -266,8 +264,7 @@ const archivedListings = [
     sitter_listing: true,
     user_id: 3,
     activity_type: "Walkies",
-    additional_details:
-      "Open for a walk on the sea wall or maybe in Stanley Park.",
+    additional_details: "Looking for a walk in Stanley Park.",
     postal_code: "V6G1T5",
     start_time: "2022-05-17T18:00:00.000Z",
     end_time: "2022-05-17T20:00:00.000Z",
@@ -278,8 +275,7 @@ const archivedListings = [
     sitter_listing: true,
     user_id: 1,
     activity_type: "Doggy Date",
-    additional_details:
-      "I'm looking after my friend's dog who would love some company!",
+    additional_details: "Would love some to host a doggy date!",
     postal_code: "V6G1T5",
     start_time: "2022-05-18T10:00:00.000Z",
     end_time: "2022-05-18T13:00:00.000Z",
@@ -294,8 +290,7 @@ const activeListings = [
     sitter_listing: false,
     user_id: 3,
     activity_type: "Walkies",
-    additional_details:
-      "Looking for a a walker to take Alfie and Winston out for a few hours! They have been couped up all day",
+    additional_details: "Walker needed ASAP.",
     postal_code: "V6A1R8",
     start_time: "2022-05-26T16:00:00.000Z",
     end_time: "2022-05-26T18:00:00.000Z",
@@ -308,7 +303,7 @@ const activeListings = [
     user_id: 2,
     activity_type: "Dog Sitting",
     additional_details:
-      "Looking for a a walker to take Alfie and Winston out for a few hours! They have been couped up all day",
+      "Looking for a dog sitter who likes a little bit of chaos!",
     postal_code: "V6G3J6",
     start_time: "2022-05-27T08:00:00.000Z",
     end_time: "2022-05-27T10:00:00.000Z",
@@ -320,8 +315,7 @@ const activeListings = [
     sitter_listing: false,
     user_id: 3,
     activity_type: "Doggy Date",
-    additional_details:
-      "Looking for a a walker to take Alfie and Winston out for a few hours! They have been couped up all day",
+    additional_details: "Looking for a cute doggy double date!",
     postal_code: "V5T3E5",
     start_time: "2022-05-27T14:00:00.000Z",
     end_time: "2022-05-27T16:00:00.000Z",
@@ -333,8 +327,7 @@ const activeListings = [
     sitter_listing: false,
     user_id: 2,
     activity_type: "Walkies",
-    additional_details:
-      "Looking for a a walker to take Alfie and Winston out for a few hours! They have been couped up all day",
+    additional_details: "Looking for a walker.",
     postal_code: "V5T3G3",
     start_time: "2022-05-28T09:00:00.000Z",
     end_time: "2022-05-28T11:00:00.000Z",
@@ -347,7 +340,7 @@ const activeListings = [
     user_id: 3,
     activity_type: "Dog Sitting",
     additional_details:
-      "Looking for a a walker to take Alfie and Winston out for a few hours! They have been couped up all day",
+      "Dog sitter needed to facilitate some well-needed down-time!",
     postal_code: "V5Y1P3",
     start_time: "2022-05-29T10:00:00.000Z",
     end_time: "2022-05-29T12:00:00.000Z",
@@ -371,8 +364,7 @@ const activeListings = [
     sitter_listing: true,
     user_id: 1,
     activity_type: "Doggy Date",
-    additional_details:
-      "I'm looking after my friend's dog who would love some company!",
+    additional_details: "My dogs would love some more company!",
     postal_code: "V5Y1N2",
     start_time: "2022-05-28T08:00:00.000Z",
     end_time: "2022-05-28T16:00:00.000Z",
@@ -383,7 +375,7 @@ const activeListings = [
     sitter_listing: true,
     user_id: 3,
     activity_type: "Dog Sitting",
-    additional_details: "Will be home all day today",
+    additional_details: "Will be home all day.",
     postal_code: "V6B2N4",
     start_time: "2022-05-27T09:00:00.000Z",
     end_time: "2022-05-27T18:00:00.000Z",
@@ -394,8 +386,7 @@ const activeListings = [
     sitter_listing: true,
     user_id: 2,
     activity_type: "Walkies",
-    additional_details:
-      "Open for a walk on the sea wall or maybe in Stanley Park.",
+    additional_details: "Sea wall run?",
     postal_code: "V6Z1Y7",
     start_time: "2022-05-26T18:00:00.000Z",
     end_time: "2022-05-26T20:00:00.000Z",
@@ -406,8 +397,7 @@ const activeListings = [
     sitter_listing: true,
     user_id: 1,
     activity_type: "Doggy Date",
-    additional_details:
-      "I'm looking after my friend's dog who would love some company!",
+    additional_details: "The more the merrier!",
     postal_code: "V6B3L4",
     start_time: "2022-05-29T10:00:00.000Z",
     end_time: "2022-05-29T13:00:00.000Z",
@@ -429,7 +419,7 @@ const bookings = [
     viewed: true,
   },
   {
-    user_id: 2,
+    user_id: 3,
     listing_id: 2,
     rating: 5,
     review: "Great dogs!",
@@ -438,7 +428,7 @@ const bookings = [
     viewed: true,
   },
   {
-    user_id: 3,
+    user_id: 2,
     listing_id: 3,
     rating: 5,
     review: "Fantastic Time!",
@@ -456,7 +446,7 @@ const bookings = [
     viewed: true,
   },
   {
-    user_id: 2,
+    user_id: 1,
     listing_id: 5,
     rating: 4,
     review: "Who wouldn't love this dog?!",
@@ -520,7 +510,7 @@ const bookings = [
     viewed: true,
   },
   {
-    user_id: 3,
+    user_id: 2,
     listing_id: 12,
     accepted: false,
     archived: false,

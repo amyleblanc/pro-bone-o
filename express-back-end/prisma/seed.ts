@@ -30,25 +30,6 @@ async function main() {
     });
   }
 
-  for (let each of brysonArray) {
-    await prisma.users.create({
-      data: {
-        first_name: each.first_name,
-        last_name: each.last_name,
-        password: each.password,
-        email_address: each.email_address,
-        postal_code: each.postal_code,
-        photo_url: each.photo_url,
-        phone_number: String(each.phone_number),
-        rating: each.rating,
-        is_dog_owner: true,
-        pets: {
-          create: pets1,
-        },
-      },
-    });
-  }
-
   for (let each of rhysArray) {
     await prisma.users.create({
       data: {
@@ -63,6 +44,25 @@ async function main() {
         is_dog_owner: true,
         pets: {
           create: pets2,
+        },
+      },
+    });
+  }
+
+  for (let each of brysonArray) {
+    await prisma.users.create({
+      data: {
+        first_name: each.first_name,
+        last_name: each.last_name,
+        password: each.password,
+        email_address: each.email_address,
+        postal_code: each.postal_code,
+        photo_url: each.photo_url,
+        phone_number: String(each.phone_number),
+        rating: each.rating,
+        is_dog_owner: true,
+        pets: {
+          create: pets1,
         },
       },
     });

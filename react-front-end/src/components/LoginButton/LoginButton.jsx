@@ -6,6 +6,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useRecoilState } from "recoil";
 import userState from '../atoms';
+import { elementAcceptingRef } from '@mui/utils';
 
 
 const axios = require("axios").default;
@@ -46,7 +47,7 @@ export default function MultipleSelect() {
   const [personName, setPersonName] = React.useState([]);
   const [user, setUser] = useRecoilState(userState);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event, id) => {
     event.preventDefault();
     const getUser = async () => {
       const res = await axios.get(`/login/${id}`);
@@ -65,7 +66,7 @@ export default function MultipleSelect() {
   return (
     <div>
       <FormControl fullWidth size="small" sx={{ m: 1}} >
-        <InputLabel id="demo-multiple-name-label" sx={{color: 'white', fontWeight: 'medium',}}> Login </InputLabel>
+        <InputLabel id="demo-multiple-name-label" sx={{color: 'white', fontWeight: 'medium',}}> LOGIN </InputLabel>
         <Select
             labelId="demo-multiple-name-label"
             id="demo-multiple-name"
@@ -93,7 +94,7 @@ export default function MultipleSelect() {
               key={name}
               value={name}
               style={getStyles(name, personName, theme)}
-              onClick={handleSubmit}
+              onClick={event => handleChange(event, name.id)}
             >
               {name}
             </MenuItem>

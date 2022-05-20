@@ -1,9 +1,15 @@
 import { useMemo, useEffect, useState } from "react";
 import axios from "axios";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
-import coords from "./GeoCode";
-
+import React from "react";
+import Geocode from "react-geocode";
 import "./Map.css";
+
+Geocode.setApiKey(process.env.REACT_APP_GOOGLE_API_KEY);
+Geocode.setLanguage("en");
+Geocode.setLocationType("ROOFTOP");
+Geocode.enableDebug();
+
 
 export default function Map(props) {
   const { isLoaded } = useLoadScript({
@@ -28,41 +34,38 @@ export default function Map(props) {
     getSearch();
   }, [url, payload]);
 
-  const useListing = listing.map((listing) => {
-    let postal = listing.users.postal_code
-    console.log(postal);
-    let listingcoords = coords(postal);
-    console.log(listingcoords);
-    // if (listing.users.postal_code) {
-    //   listingcoords = coords(listing.users.postal_code);
-    // }
-    // console.log(listingcoords);
-    
-    let title = listing.activity_type + " with ";
-    let name = "";
-    if (listing.pets) {
-      title += listing.pets.name;
-      name = listing.pets.name[0];
-    } else {
-      title += listing.users.first_name;
-      name = listing.users.first_name;
-    }
-
+  const MarkersList = () => {
+    const [markerCoords, setMarkerCoords] = useState([]);
+  
+    useEffect(() => {
+      for (let listItem of listing) {
+        let postal = listItem.postal_code;
+        Geocode.fromAddress(postal).then(
+          response => {
+            const {lat, lng} = response.results[0].geometry.location;
+            setMarkerCoords(coords => [...coords, {lat, lng}]);
+          },
+          error => {
+            console.error(error);
+          },
+        );
+      }
+    }, []);
+  
     return (
-      <Marker
-        title={{ title }}
-        name={name}
-        key={listing.id}
-        position={listingcoords}
-      />
+      <>
+        {markerCoords.map((coords, index) => (
+          <Marker title={'marker'} name={'name'} key={index} position={coords} />
+        ))}
+      </>
     );
-  });
+  };
 
   if (!isLoaded) return <div>Loading...</div>;
   return (
     <main>
       <GoogleMap zoom={13} center={center} mapContainerStyle={containerStyle}>
-        {listing && useListing}
+        {listing && <MarkersList />}
       </GoogleMap>
     </main>
   );

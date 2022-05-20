@@ -10,11 +10,9 @@ import {
   Typography,
   Container,
 } from "@mui/material/";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
 import PetsIcon from "@mui/icons-material/Pets";
-import Tooltip from "@mui/material/Tooltip";
-import IconButton from "@mui/material/IconButton";
 import userState from "../components/atoms";
+import PetRegisterModal from "../components/register-modal";
 
 export default function Profile() {
   const user = useRecoilValue(userState);
@@ -92,16 +90,10 @@ export default function Profile() {
                         {pet.name}
                       </Typography>
                     </Box>
-                    <Box sx={{ p: 2.5 }}>
-                      <Tooltip title="Add Pet">
-                        <IconButton aria-label="add pet">
-                          <AddCircleIcon fontSize="large" />
-                        </IconButton>
-                      </Tooltip>
-                    </Box>
                   </Box>
                 </>
               ))}
+              <PetRegisterModal />
             </CardContent>
           </Box>
           <Box sx={{ display: "flex", justifyContent: "flex-end" }}>

@@ -52,7 +52,7 @@ export default function MultipleSelect() {
         setUser(res.data);
       };
       getUser(id)
-
+      console.log(user);
   };
 
   const handleChange = (event) => {

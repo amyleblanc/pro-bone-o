@@ -10,7 +10,20 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import Listing from "../components/Listing";
 import { Button } from "react-scroll/modules";
 import Map from "../components/maps/Map";
+import CreateListingModal from "../components/listing-modal";
+import Box from "@mui/material/Box";
+import Switch from "@mui/material/Switch";
+import Paper from "@mui/material/Paper";
+import Slide from "@mui/material/Slide";
+import FormControlLabel from "@mui/material/FormControlLabel";
+
 const axios = require("axios").default;
+
+const icon = (
+  <Paper sx={{ m: 1 }} elevation={4}>
+    <Box component="svg" sx={{ width: 100, height: 100 }}></Box>
+  </Paper>
+);
 
 const formReducer = (state, event) => {
   if (event.reset) {
@@ -50,6 +63,11 @@ export default function AllListings() {
   const [url, setUrl] = React.useState("/api/listing/filter");
 
   const [submitting, setSubmitting] = useState(false);
+  const [checked, setChecked] = React.useState(false);
+
+  const handleHide = () => {
+    setChecked((prev) => !prev);
+  };
 
   const handleChange = (event) => {
     const isCheckbox = event.target.type === "checkbox";
@@ -102,115 +120,118 @@ export default function AllListings() {
         justifyContent="center"
         maxWidth="xl"
       >
-        <h1>Search Bar</h1>
-        {submitting && (
-          <div>
-            You are submitting the following:
-            <ul>
-              {Object.entries(formData).map(([name, value]) => (
-                <li key={name}>
-                  <strong>{name}</strong>:{value.toString()}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        <form disabled={submitting}>
-          <fieldset disabled={submitting}>
-            <Grid
-              item
-              container
-              spacing={1}
-              direction="row"
-              columns={{ xs: 1, sm: 7, md: 7 }}
-              // className="mainWrap"
-              maxWidth="xl"
-            >
-              <Grid item>
-                <Grid item xs={12} sm={1} md={1}>
-                  <label>
-                    <span>Type</span>
-                    <select
-                      name="type"
-                      onChange={handleChange}
-                      required
-                      value={formData.type || ""}
+        <CreateListingModal />{" "}
+        <FormControlLabel
+          control={<Switch checked={checked} onChange={handleHide} />}
+          label="Show Search"
+        />
+        <Box>
+          <Box>
+            <Slide direction="right" in={checked} mountOnEnter unmountOnExit>
+              <Paper>
+                {/* <Box elevation={4}> */}
+                <form disabled={submitting}>
+                  <fieldset disabled={submitting}>
+                    <Grid
+                      item
+                      container
+                      spacing={1}
+                      direction="row"
+                      columns={{ xs: 1, sm: 7, md: 7 }}
+                      // className="mainWrap"
+                      maxWidth="xl"
                     >
-                      <option value="sitter-request">Available Dogs</option>
-                      <option value="sitter-available">
-                        Available Sitters
-                      </option>
-                    </select>
-                  </label>
-                </Grid>
-                <Grid item xs={12} sm={1} md={1}>
-                  <label>
-                    <span>Activity</span>
-                    <select
-                      name="activity"
-                      onChange={handleChange}
-                      required
-                      value={formData.activity || ""}
-                    >
-                      <option value="any-activity">Anything!</option>
-                      <option value="walkies">Walk</option>
-                      <option value="sitting">Sitting</option>
-                      <option value="doggy-date">Doggy Date</option>
-                    </select>
-                  </label>
-                </Grid>
-              </Grid>
-              <Grid item xs={6} sm={1} md={1}>
-                <label>
-                  <span>Postal Code</span>
-                  <br></br>
-                  <input
-                    type="text"
-                    maxLength={6}
-                    name="postal"
-                    onChange={handleChange}
-                    placeholder="A1B2C3"
-                    value={formData.postal || ""}
-                  />
-                </label>
-              </Grid>
-              <Grid item xs={12} sm={2} md={2}>
-                <label>
-                  <span>Start</span>
-                  <br></br>
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DateTimePicker
-                      renderInput={(props) => <TextField {...props} />}
-                      name={START_TIME}
-                      value={startValue}
-                      onChange={handleStartTimeRangePickerChange}
-                      required
-                    />
-                  </LocalizationProvider>
-                </label>
-              </Grid>
-              <Grid item xs={12} sm={2} md={2}>
-                <label>
-                  <span>End</span>
-                  <br></br>
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DateTimePicker
-                      renderInput={(props) => <TextField {...props} />}
-                      name={END_TIME}
-                      value={endValue}
-                      onChange={handleEndTimeRangePickerChange}
-                      required
-                    />
-                  </LocalizationProvider>
-                </label>
-              </Grid>
-              {/* <button disabled={submitting} onClick={handleReset}>
+                      <Grid item>
+                        <Grid item xs={12} sm={1} md={1}>
+                          <label>
+                            <span>Type</span>
+                            <select
+                              name="type"
+                              onChange={handleChange}
+                              required
+                              value={formData.type || ""}
+                            >
+                              <option value="sitter-request">
+                                Available Dogs
+                              </option>
+                              <option value="sitter-available">
+                                Available Sitters
+                              </option>
+                            </select>
+                          </label>
+                        </Grid>
+                        <Grid item xs={12} sm={1} md={1}>
+                          <label>
+                            <span>Activity</span>
+                            <select
+                              name="activity"
+                              onChange={handleChange}
+                              required
+                              value={formData.activity || ""}
+                            >
+                              <option value="any-activity">Anything!</option>
+                              <option value="walkies">Walk</option>
+                              <option value="sitting">Sitting</option>
+                              <option value="doggy-date">Doggy Date</option>
+                            </select>
+                          </label>
+                        </Grid>
+                      </Grid>
+                      <Grid item xs={6} sm={1} md={1}>
+                        <label>
+                          <span>Postal Code</span>
+                          <br></br>
+                          <input
+                            type="text"
+                            maxLength={6}
+                            name="postal"
+                            onChange={handleChange}
+                            placeholder="A1B2C3"
+                            value={formData.postal || ""}
+                          />
+                        </label>
+                      </Grid>
+                      <Grid item xs={12} sm={2} md={2}>
+                        <label>
+                          <span>Start</span>
+                          <br></br>
+                          <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DateTimePicker
+                              renderInput={(props) => <TextField {...props} />}
+                              name={START_TIME}
+                              value={startValue}
+                              onChange={handleStartTimeRangePickerChange}
+                              required
+                            />
+                          </LocalizationProvider>
+                        </label>
+                      </Grid>
+                      <Grid item xs={12} sm={2} md={2}>
+                        <label>
+                          <span>End</span>
+                          <br></br>
+                          <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DateTimePicker
+                              renderInput={(props) => <TextField {...props} />}
+                              name={END_TIME}
+                              value={endValue}
+                              onChange={handleEndTimeRangePickerChange}
+                              required
+                            />
+                          </LocalizationProvider>
+                        </label>
+                      </Grid>
+                      {/* <button disabled={submitting} onClick={handleReset}>
                 Reset
               </button> */}
-            </Grid>
-          </fieldset>
-        </form>
+                    </Grid>
+                  </fieldset>
+                </form>
+                {/* </Box> */}
+              </Paper>
+            </Slide>
+          </Box>
+        </Box>
       </Grid>
       <Map url={url} payload={formData} />
       <Listing url={url} payload={formData} type={"POST"} />

@@ -135,7 +135,7 @@ export default function Listing(props) {
                   Available:
                 </Typography>
                 <Typography gutterBottom variant="h5" component="div">
-                  {`${listing.users.first_name} ${listing.users.last_name} is available for:`}
+                  {`${listing.users.first_name} ${listing.users.last_name} for`}
                 </Typography>
                 <Typography gutterBottom variant="h5" component="div">
                   {listing.activity_type.charAt(0).toUpperCase() +

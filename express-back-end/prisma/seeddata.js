@@ -17,7 +17,7 @@ const amy = {
   password: "$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.",
   phone_number: 7783217654,
   postal_code: "V6G1T5",
-  photo_url: "https://ibb.co/yyWbL5t",
+  photo_url: "https://randomuser.me/api/portraits/women/76.jpg",
   rating: 5.0,
   is_dog_owner: false,
 };
@@ -351,8 +351,8 @@ const activeListings = [
     user_id: 1,
     activity_type: "Walkies",
     additional_details:
-      "Open for a walk on the sea wall or maybe in Stanley Park.",
-    postal_code: "V6G1T5",
+      "Available for a long walk in Confederation Park.",
+    postal_code: "V5C5S8",
     start_time: "2022-05-12T08:00:00.000Z",
     end_time: "2022-05-12T10:00:00.000Z",
     accepted: false,
@@ -374,8 +374,9 @@ const activeListings = [
     sitter_listing: true,
     user_id: 1,
     activity_type: "Dog Sitting",
-    additional_details: "Will be home all day today",
-    postal_code: "V6G1T5",
+    additional_details:
+      "Will be home all day today",
+    postal_code: "V5L3K9",
     start_time: "2022-05-16T09:00:00.000Z",
     end_time: "2022-05-16T18:00:00.000Z",
     accepted: false,
@@ -387,7 +388,7 @@ const activeListings = [
     activity_type: "Walkies",
     additional_details:
       "Open for a walk on the sea wall or maybe in Stanley Park.",
-    postal_code: "V6G1T5",
+    postal_code: "V6B1C8",
     start_time: "2022-05-17T18:00:00.000Z",
     end_time: "2022-05-17T20:00:00.000Z",
     accepted: false,
@@ -399,7 +400,7 @@ const activeListings = [
     activity_type: "Doggy Date",
     additional_details:
       "I'm looking after my friend's dog who would love some company!",
-    postal_code: "V6G1T5",
+    postal_code: "V5K4J4",
     start_time: "2022-05-18T10:00:00.000Z",
     end_time: "2022-05-18T13:00:00.000Z",
     accepted: false,

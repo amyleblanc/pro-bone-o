@@ -27,7 +27,7 @@ import ResponsiveBooking from "./modal-booking";
  */
 export default function Listing(props) {
   const [listing, setListing] = useState([]);
-  const { url, payload, type } = props;
+  const { url, payload, type, direction } = props;
   const user = useRecoilValue(userState);
 
   useEffect(() => {
@@ -81,6 +81,7 @@ export default function Listing(props) {
         xs={12}
         sm={4}
         md={4}
+        direction={direction}
         sx={{
           display: "flex",
           justifyContent: "space-around",

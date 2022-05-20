@@ -9,7 +9,7 @@ export default function MyListings() {
 
   return (
     <>
-      <Listing url={url} type={"GET"} />
+      <Listing url={url} type={"GET"} direction={"reverse"} />
     </>
   );
 }

@@ -49,11 +49,11 @@ export default function ResponsiveApplications(props) {
   const handleAcceptance = (bookingID, listingID, cancelArray) => {
     // updateBooking(bookingID, { accepted: true });
     // updateListing(listingID, { accepted: true });
-    for (let each of cancelArray) {
-      updateBooking(each["id"], { archived: true });
-    }
-    updateBooking(bookingID, { accepted: true, archived: false });
-    updateListing(listingID, { accepted: true });
+    // for (let each of cancelArray) {
+    //   updateBooking(each["id"], { archived: true });
+    // }
+    // updateBooking(bookingID, { accepted: true, archived: false });
+    // updateListing(listingID, { accepted: true });
   };
 
   useEffect(() => {

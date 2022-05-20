@@ -4,7 +4,6 @@ import { useRecoilState } from "recoil";
 import userState from "../atoms";
 const axios = require("axios").default;
 
-const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
 
 function LoginSlider() {

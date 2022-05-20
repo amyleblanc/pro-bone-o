@@ -13,6 +13,7 @@ import {
 import PetsIcon from "@mui/icons-material/Pets";
 import userState from "../components/atoms";
 import PetRegisterModal from "../components/register-modal";
+import CreateListingModal from "../components/listing-modal";
 
 export default function Profile() {
   const user = useRecoilValue(userState);
@@ -65,6 +66,7 @@ export default function Profile() {
             </CardContent>
           </Box>
           <Box>
+            <CreateListingModal />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
                 My Furry Friends:

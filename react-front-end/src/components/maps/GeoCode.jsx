@@ -10,7 +10,7 @@ const coords = function (postal) {
   Geocode.fromAddress(postal).then(
     (response) => {
       const { lat, lng } = response.results[0].geometry.location;
-      console.log(lat, lng);
+      return(lat, lng);
     },
     (error) => {
       console.error(error);

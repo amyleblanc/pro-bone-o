@@ -27,9 +27,9 @@ const MenuProps = {
 };
 
 const names = [
-  {name: 'Rhys Wood', id: 2},
+  {name: 'Rhys Wood', id: 3},
   {name: 'Amy McCarthy', id: 1},  
-  {name: 'Bryson Best', id: 3},];
+  {name: 'Bryson Best', id: 2},];
 
 function getStyles(name, personName, theme) {
   return {
@@ -52,7 +52,7 @@ export default function MultipleSelect() {
         setUser(res.data);
       };
       getUser(id)
-
+      console.log(user);
   };
 
   const handleChange = (event) => {

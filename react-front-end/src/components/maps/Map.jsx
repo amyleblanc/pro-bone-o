@@ -51,11 +51,18 @@ export default function Map(props) {
         );
       }
     }, []);
+
+    const handleClick = () => {
+      return(
+        <>
+        </>
+      )
+    }
   
     return (
       <>
         {markerCoords.map((coords, index) => (
-          <Marker title={'marker'} name={'name'} key={index} position={coords} />
+          <Marker title={'marker'} name={'name'} key={index} position={coords} onClick={handleClick} />
         ))}
       </>
     );

@@ -223,7 +223,7 @@ export default function Listing(props) {
               spacing={{ xs: 2, md: 3 }}
               columns={{ xs: 4, sm: 8, md: 12 }}
               columnSpacing={{ xs: 1, sm: 2, md: 0.05 }}
-              direction="row"
+              direction={direction}
               sx={{
                 display: "flex",
                 justifyContent: "center",

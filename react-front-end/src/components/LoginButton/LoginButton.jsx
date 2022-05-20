@@ -6,7 +6,6 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useRecoilState } from "recoil";
 import userState from '../atoms';
-import { elementAcceptingRef } from '@mui/utils';
 
 
 const axios = require("axios").default;
@@ -28,10 +27,9 @@ const MenuProps = {
 };
 
 const names = [
-  'Rhys Wood',
-  'Amy McCarthy',
-  'Bryson Best',
-];
+  {name: 'Rhys Wood', id: 2},
+  {name: 'Amy McCarthy', id: 1},  
+  {name: 'Bryson Best', id: 3},];
 
 function getStyles(name, personName, theme) {
   return {
@@ -48,19 +46,23 @@ export default function MultipleSelect() {
   const [user, setUser] = useRecoilState(userState);
 
   const handleSubmit = (event, id) => {
-    event.preventDefault();
-    const getUser = async () => {
-      const res = await axios.get(`/login/${id}`);
-      console.log(res.data);
-      setUser(res.data);
-    };
-    getUser();
-    console.log(user);
+      event.preventDefault();
+      const getUser = async (id) => {
+        const res = await axios.get(`/login/${id}`);
+        setUser(res.data);
+      };
+      getUser(id)
+
   };
 
-  const [id, setID] = React.useState("");
   const handleChange = (event) => {
-    setID(event.target.value);
+    const {
+      target: { value },
+    } = event;
+    setPersonName(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value,
+    );
   };
 
   return (
@@ -91,12 +93,12 @@ export default function MultipleSelect() {
         >
           {names.map((name) => (
             <MenuItem
-              key={name}
-              value={name}
-              style={getStyles(name, personName, theme)}
-              onClick={event => handleChange(event, name.id)}
+              key={name.name}
+              value={name.name}
+              style={getStyles(name.name, personName, theme)}
+              onClick={event => handleSubmit(event, name.id)}
             >
-              {name}
+              {name.name}
             </MenuItem>
           ))}
         </Select>

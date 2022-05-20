@@ -167,25 +167,29 @@ app.post("/api/listings/create", (req, res) => {
 });
 
 //create a new booking
-//update with phone number and make live
+//update with active user phone number on production
 app.post("/api/listings/apply/:id", (req, res) => {
   const listingDetails = req.body;
-  const message = listingDetails.personal_message;
-  const phone_number = listingDetails.phone_number;
+  const message =
+    `A new application for your listing has been submitted by: ${listingDetails.name}.` +
+    " For more details please visit the Pro-Bone-O web-app. They sent this message: " +
+    listingDetails.personal_message;
+  //const phone_number = listingDetails.phone_number;
+  const phone_number = process.env.phone_number;
+  console.log(phone_number);
+  delete listingDetails["name"];
   delete listingDetails["phone_number"];
   //delete listingDetails["personal_message"];
   const userID = req.body.user_id;
-
-  console.log(listingDetails);
-  console.log(userID);
+  console.log(message);
   dataqueries.bookingID
     .createbooking(userID, listingDetails)
     .then((bookingInfo) => {
       res.json(bookingInfo);
+    })
+    .then(() => {
+      sendMessage(phone_number, message);
     });
-  // .then(() => {
-  //   sendMessage(phone_number, message);
-  // });
 });
 
 //used to create a new listing
@@ -283,19 +287,6 @@ app.post("/message", (req, res) => {
   res.send(payload);
 });
 
-//update pusher trigger to use comments; update url to include id for params
-// app.post("/booking/comment/", function (req, res) {
-//   console.log(req.body);
-//   //const bookingChannel = req.params.id;
-//   const newComment = {
-//     name: req.body.name,
-//     email: req.body.email,
-//     comment: req.body.comment,
-//   };
-//   pusher.trigger("flash-comments", "new_comment", newComment);
-//   res.json({ created: true });
-// });
-
 //gets a booking's conversation history
 app.get("/booking/comment/:id", (req, res) => {
   const id = req.params.id;
@@ -307,9 +298,15 @@ app.get("/booking/comment/:id", (req, res) => {
 });
 
 //posts a new comment to a booking's conversation history
+//update with sendMessage active
 app.post("/booking/comment/:id", (req, res) => {
   const id = req.params.id;
+  const message = req.body;
+  const fullMessage = `${message.name} sent you a message on Pro-Bone-O: ${message.text}`;
+  const phone_number = process.env.phone_number;
   db.insert(Object.assign({ id }, req.body), (err, newComment) => {
+    dataqueries.bookingID.updatebooking(id, { viewed: false });
+    // sendMessage(phone_number, fullMessage);
     if (err) {
       return res.status(500).send(err);
     }

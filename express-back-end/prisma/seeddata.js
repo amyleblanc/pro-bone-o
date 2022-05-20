@@ -34,110 +34,129 @@ const bryson = {
   is_dog_owner: true,
 };
 
-const pets = [
+const pets1 = [
   {
-    name: 'Milo',
-    photo_url: 'https://images.dog.ceo/breeds/chow/n02112137_10792.jpg',
-    breed: 'Chow',
-    description: 'Strong-willed and stubborn, Milo may become the boss of you if you allow him to!',
-    difficulty: 3,
-  },
-  {
-    name: 'Rufus',
-    photo_url: 'https://images.dog.ceo/breeds/havanese/00100trPORTRAIT_00100_BURST20191222103956878_COVER.jpg',
-    breed: 'Havanese',
-    description: 'Rufus is playful, affectionate, intelligent, responsive, companionable, gentle',
+    name: "Alfie",
+    photo_url: "https://images.dog.ceo/breeds/pomeranian/n02112018_3126.jpg",
+    breed: "Pomeranian",
+    description:
+      "Alfie is Playful, Extroverted, Intelligent, Friendly, Sociable, Active",
     difficulty: 5,
   },
   {
-    name: 'Otto',
-    photo_url: 'https://images.dog.ceo/breeds/kelpie/n02105412_4948.jpg',
-    breed: 'Kelpie',
-    description: 'Kelpie is intelligent, friendly, energetic, alert, eager, loyal',
-    difficulty: 1,
-  },
-  {
-    name: 'Mr Bigglesworth',
-    photo_url: 'https://images.dog.ceo/breeds/labrador/n02099712_5263.jpg',
-    breed: 'Labrador',
-    description: 'Mr Bigglesworth is outgoing, even tempered, Intelligent, kind, agile, trusting, gentle',
-    difficulty: 2,
-  },
-  {
-    name: 'Edgar',
-    photo_url: 'https://images.dog.ceo/breeds/pug/n02110958_9642.jpg',
-    breed: 'Pug',
-    description: 'Edgar is Charming, Playful, Clever, Docile, Mischievous, Sociable, Affectionate, Stubborn, Loving, Attentive, Quiet, Calm',
-    difficulty: 1,
-  },
-  {
-    name: 'Floof',
-    photo_url: 'https://images.dog.ceo/breeds/shiba/shiba-3i.jpg',
-    breed: 'Shiba',
-    description: 'Floof is charming, fearless, keen, alert, confident, faithful',
+    name: "Burnie",
+    photo_url: "https://images.dog.ceo/breeds/redbone/n02090379_3410.jpg",
+    breed: "Redbone",
+    description:
+      "Burnie is Unflappable, Affectionate, Energetic, Independent, Companionable, Familial",
     difficulty: 4,
   },
   {
-    name: 'Winson',
-    photo_url: 'https://images.dog.ceo/breeds/tervuren/maverick.JPG',
-    breed: 'Tervuren',
-    description: 'Winston is Attentive, Intelligent, Energetic, Alert, Loyal, Protective',
-    difficulty: 1,
-  },
-  {
-    name: 'Alfie',
-    photo_url: 'https://images.dog.ceo/breeds/pomeranian/n02112018_3126.jpg',
-    breed: 'Pomeranian',
-    description: 'Alfie is Playful, Extroverted, Intelligent, Friendly, Sociable, Active',
-    difficulty: 5,
-  },
-  {
-    name: 'Burnie',
-    photo_url: 'https://images.dog.ceo/breeds/redbone/n02090379_3410.jpg',
-    breed: 'Redbone',
-    description: 'Burnie is Unflappable, Affectionate, Energetic, Independent, Companionable, Familial',
-    difficulty: 4,
-  },
-  {
-    name: 'Acorn',
-    photo_url: 'https://images.dog.ceo/breeds/dingo/n02115641_8578.jpg',
-    breed: 'Dingo',
-    description: 'Acorn is Loyal, Reserved, Gentle, Adaptable, Primitive',
+    name: "Acorn",
+    photo_url: "https://images.dog.ceo/breeds/dingo/n02115641_8578.jpg",
+    breed: "Dingo",
+    description: "Acorn is Loyal, Reserved, Gentle, Adaptable, Primitive",
     difficulty: 3,
   },
   {
-    name: 'Lilly',
-    photo_url: 'https://images.dog.ceo/breeds/beagle/n02088364_9825.jpg',
-    breed: 'Beagle',
-    description: 'Lilly is Amiable, Even Tempered, Intelligent, Determined, Excitable, Gentle',
+    name: "Lilly",
+    photo_url: "https://images.dog.ceo/breeds/beagle/n02088364_9825.jpg",
+    breed: "Beagle",
+    description:
+      "Lilly is Amiable, Even Tempered, Intelligent, Determined, Excitable, Gentle",
     difficulty: 1,
   },
   {
-    name: 'Patrick',
-    photo_url: 'https://images.dog.ceo/breeds/husky/n02110185_11783.jpg',
-    breed: 'Husky',
-    description: 'Patrick is Outgoing, Friendly, Intelligent, Alert, Gentle',
+    name: "Patrick",
+    photo_url: "https://images.dog.ceo/breeds/husky/n02110185_11783.jpg",
+    breed: "Husky",
+    description: "Patrick is Outgoing, Friendly, Intelligent, Alert, Gentle",
     difficulty: 2,
   },
   {
-    name: 'Sparkles',
-    photo_url: 'https://images.dog.ceo/breeds/pitbull/IMG_20190826_121528_876.jpg',
-    breed: 'Pitbull',
-    description: 'Sparkles is Friendly, Intelligent, Clownish, Strong Willed, Affectionate, Stubborn, Obedient, Loyal, Gentle, Courageous',
+    name: "Sparkles",
+    photo_url:
+      "https://images.dog.ceo/breeds/pitbull/IMG_20190826_121528_876.jpg",
+    breed: "Pitbull",
+    description:
+      "Sparkles is Friendly, Intelligent, Clownish, Strong Willed, Affectionate, Stubborn, Obedient, Loyal, Gentle, Courageous",
     difficulty: 2,
   },
   {
-    name: 'Chonks',
-    photo_url: 'https://images.dog.ceo/breeds/akita/Japaneseakita.jpg',
-    breed: 'Akita',
-    description: 'Chonks is a bold and willful dog, naturally wary of strangers but extremely loyal to his family',
+    name: "Chonks",
+    photo_url: "https://images.dog.ceo/breeds/akita/Japaneseakita.jpg",
+    breed: "Akita",
+    description:
+      "Chonks is a bold and willful dog, naturally wary of strangers but extremely loyal to his family",
     difficulty: 4,
   },
 ];
 
-const usersArray = [rhys, bryson];
+const pets2 = [
+  {
+    name: "Milo",
+    photo_url: "https://images.dog.ceo/breeds/chow/n02112137_10792.jpg",
+    breed: "Chow",
+    description:
+      "Strong-willed and stubborn, Milo may become the boss of you if you allow him to!",
+    difficulty: 3,
+  },
+  {
+    name: "Rufus",
+    photo_url:
+      "https://images.dog.ceo/breeds/havanese/00100trPORTRAIT_00100_BURST20191222103956878_COVER.jpg",
+    breed: "Havanese",
+    description:
+      "Rufus is playful, affectionate, intelligent, responsive, companionable, gentle",
+    difficulty: 5,
+  },
+  {
+    name: "Otto",
+    photo_url: "https://images.dog.ceo/breeds/kelpie/n02105412_4948.jpg",
+    breed: "Kelpie",
+    description:
+      "Kelpie is intelligent, friendly, energetic, alert, eager, loyal",
+    difficulty: 1,
+  },
+  {
+    name: "Mr Bigglesworth",
+    photo_url: "https://images.dog.ceo/breeds/labrador/n02099712_5263.jpg",
+    breed: "Labrador",
+    description:
+      "Mr Bigglesworth is outgoing, even tempered, Intelligent, kind, agile, trusting, gentle",
+    difficulty: 2,
+  },
+  {
+    name: "Edgar",
+    photo_url: "https://images.dog.ceo/breeds/pug/n02110958_9642.jpg",
+    breed: "Pug",
+    description:
+      "Edgar is Charming, Playful, Clever, Docile, Mischievous, Sociable, Affectionate, Stubborn, Loving, Attentive, Quiet, Calm",
+    difficulty: 1,
+  },
+  {
+    name: "Floof",
+    photo_url: "https://images.dog.ceo/breeds/shiba/shiba-3i.jpg",
+    breed: "Shiba",
+    description:
+      "Floof is charming, fearless, keen, alert, confident, faithful",
+    difficulty: 4,
+  },
+  {
+    name: "Winson",
+    photo_url: "https://images.dog.ceo/breeds/tervuren/maverick.JPG",
+    breed: "Tervuren",
+    description:
+      "Winston is Attentive, Intelligent, Energetic, Alert, Loyal, Protective",
+    difficulty: 1,
+  },
+];
 
-const newUserArray = [amy];
+const rhysArray = [rhys];
+
+const brysonArray = [bryson];
+
+const amyArray = [amy];
 
 //create listings with a user id of 1, 2, or 3
 const archivedListings = [
@@ -231,8 +250,7 @@ const archivedListings = [
     sitter_listing: true,
     user_id: 1,
     activity_type: "Dog Sitting",
-    additional_details:
-      "Will be home all day today",
+    additional_details: "Will be home all day today",
     postal_code: "V6G1T5",
     start_time: "2022-05-16T09:00:00.000Z",
     end_time: "2022-05-16T18:00:00.000Z",
@@ -356,8 +374,7 @@ const activeListings = [
     sitter_listing: true,
     user_id: 1,
     activity_type: "Dog Sitting",
-    additional_details:
-      "Will be home all day today",
+    additional_details: "Will be home all day today",
     postal_code: "V6G1T5",
     start_time: "2022-05-16T09:00:00.000Z",
     end_time: "2022-05-16T18:00:00.000Z",
@@ -466,4 +483,4 @@ const bookings = [
   },
 ];
 
-module.exports = { usersArray, bookings, newUserArray };
+module.exports = { rhysArray, brysonArray, amyArray, pets1, pets2 };

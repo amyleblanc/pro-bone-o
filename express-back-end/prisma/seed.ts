@@ -66,19 +66,18 @@ async function main() {
         },
       },
     });
-
-    await prisma.listing.createMany({
-      data: activeListings,
-    });
-
-    await prisma.listing.createMany({
-      data: archivedListings,
-    });
-
-    await prisma.booking.createMany({
-      data: bookings,
-    });
   }
+  await prisma.listing.createMany({
+    data: activeListings,
+  });
+
+  await prisma.listing.createMany({
+    data: archivedListings,
+  });
+
+  await prisma.booking.createMany({
+    data: bookings,
+  });
 }
 
 main()

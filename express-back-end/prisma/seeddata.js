@@ -411,7 +411,7 @@ const bookings = [
   //archived dog bookings (dog listing with open avail) - 5
   {
     user_id: 1,
-    listing_id: 1,
+    listing_id: 11,
     rating: 4,
     review: "Loved your dogs!",
     accepted: true,
@@ -419,8 +419,8 @@ const bookings = [
     viewed: true,
   },
   {
-    user_id: 3,
-    listing_id: 2,
+    user_id: 2,
+    listing_id: 12,
     rating: 5,
     review: "Great dogs!",
     accepted: true,
@@ -428,8 +428,8 @@ const bookings = [
     viewed: true,
   },
   {
-    user_id: 2,
-    listing_id: 3,
+    user_id: 1,
+    listing_id: 13,
     rating: 5,
     review: "Fantastic Time!",
     accepted: true,
@@ -438,7 +438,7 @@ const bookings = [
   },
   {
     user_id: 1,
-    listing_id: 4,
+    listing_id: 14,
     rating: 4,
     review: "Lovely Experience!",
     accepted: true,
@@ -447,7 +447,7 @@ const bookings = [
   },
   {
     user_id: 1,
-    listing_id: 5,
+    listing_id: 15,
     rating: 4,
     review: "Who wouldn't love this dog?!",
     accepted: true,
@@ -457,7 +457,7 @@ const bookings = [
   //archived sitter bookings (from applying to the sitter with open avail) - 5
   {
     user_id: 2,
-    listing_id: 6,
+    listing_id: 16,
     rating: 4,
     review: "Great experience!",
     accepted: true,
@@ -466,7 +466,7 @@ const bookings = [
   },
   {
     user_id: 3,
-    listing_id: 7,
+    listing_id: 17,
     rating: 5,
     review: "My dog loves her!",
     accepted: true,
@@ -474,8 +474,8 @@ const bookings = [
     viewed: true,
   },
   {
-    user_id: 2,
-    listing_id: 8,
+    user_id: 3,
+    listing_id: 18,
     rating: 5,
     review: "Fantastic sitter!",
     accepted: true,
@@ -483,8 +483,8 @@ const bookings = [
     viewed: true,
   },
   {
-    user_id: 3,
-    listing_id: 9,
+    user_id: 2,
+    listing_id: 19,
     rating: 4,
     review: "Amazing sitter!",
     accepted: true,
@@ -493,7 +493,7 @@ const bookings = [
   },
   {
     user_id: 2,
-    listing_id: 10,
+    listing_id: 20,
     rating: 4,
     review: "Great job!",
     accepted: true,
@@ -503,15 +503,15 @@ const bookings = [
   //future/open dog bookings - 5
   {
     user_id: 1,
-    listing_id: 11,
+    listing_id: 1,
     accepted: false,
     archived: false,
     personal_message: "Excited to see your dog!",
     viewed: true,
   },
   {
-    user_id: 2,
-    listing_id: 12,
+    user_id: 3,
+    listing_id: 2,
     accepted: false,
     archived: false,
     personal_message: "I am available!",
@@ -519,15 +519,15 @@ const bookings = [
   },
   {
     user_id: 1,
-    listing_id: 13,
+    listing_id: 3,
     accepted: false,
     archived: false,
     personal_message: "When can I come by?",
     viewed: true,
   },
   {
-    user_id: 2,
-    listing_id: 14,
+    user_id: 3,
+    listing_id: 4,
     accepted: false,
     archived: false,
     personal_message: "Let's have a fun day!",
@@ -535,7 +535,7 @@ const bookings = [
   },
   {
     user_id: 1,
-    listing_id: 15,
+    listing_id: 5,
     accepted: false,
     archived: false,
     personal_message: "What time would be the best for you?",
@@ -544,7 +544,7 @@ const bookings = [
   //future/open sitter bookings - 5
   {
     user_id: 3,
-    listing_id: 16,
+    listing_id: 6,
     accepted: false,
     archived: false,
     personal_message: "What time works?",
@@ -552,23 +552,23 @@ const bookings = [
   },
   {
     user_id: 2,
-    listing_id: 17,
+    listing_id: 7,
     accepted: false,
     archived: false,
     personal_message: "Can't wait to visit!",
     viewed: true,
   },
   {
-    user_id: 3,
-    listing_id: 18,
+    user_id: 2,
+    listing_id: 8,
     accepted: false,
     archived: false,
     personal_message: "We will have an amazing time!",
     viewed: true,
   },
   {
-    user_id: 2,
-    listing_id: 19,
+    user_id: 3,
+    listing_id: 9,
     accepted: false,
     archived: false,
     personal_message: "So excited to meet you!",
@@ -576,7 +576,7 @@ const bookings = [
   },
   {
     user_id: 3,
-    listing_id: 20,
+    listing_id: 10,
     accepted: false,
     archived: false,
     personal_message: "I am available right away!",

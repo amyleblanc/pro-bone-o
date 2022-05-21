@@ -21,6 +21,9 @@
     "schema": "npx prisma migrate dev --name init",
     "seed": "npx prisma migrate reset"
   },
+  "engines": {
+    "node": "17.9"
+  },
   "prisma": {
     "seed": "ts-node ./prisma/seed.ts"
   },

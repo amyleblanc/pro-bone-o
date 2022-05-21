@@ -30,13 +30,21 @@ const formReducer = (state, event) => {
 const registerNewUser = async (formData) => {
   const processedForm = formData;
   delete processedForm["verified"];
-  axiosRequest(`/api/user/register`, "POST", processedForm);
+  axiosRequest(
+    `${process.env.REACT_APP_host}/api/user/register`,
+    "POST",
+    processedForm
+  );
 };
 
 const getLoggedIn = async (formData) => {
   const processedForm = formData;
   delete processedForm["verified"];
-  axiosRequest(`/api/user/register`, "GET", processedForm);
+  axiosRequest(
+    `${process.env.REACT_APP_host}/api/user/register`,
+    "GET",
+    processedForm
+  );
 };
 
 //still need to add styling to image as well
@@ -59,7 +67,7 @@ export default function RegisterUser() {
     }
 
     const getUser = async (id) => {
-      const res = await axios.get(`/login/${id}`);
+      const res = await axios.get(`${process.env.REACT_APP_host}/login/${id}`);
       console.log(res.data);
       setUser(res.data);
     };

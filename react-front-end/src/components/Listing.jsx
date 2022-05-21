@@ -58,148 +58,154 @@ export default function Listing(props) {
   //   // getSearch();
   // }, [url, type, payload]);
 
-  const useListing = listing?.map((listing) => {
-    console.log("testing", listing);
-    // let confirmedBooking = 0;
-    // let first_name = "";
-    // let last_name = "";
-    // if (listing["booking"]) {
-    //   for (let each of listing["booking"]) {
-    //     if (each["accepted"] === true) {
-    //       confirmedBooking = each["id"];
-    //       first_name = each["users"]["first_name"];
-    //       last_name = each["users"]["last_name"];
-    //     }
-    //   }
-    // }
-    return (
-      <Grid
-        item
-        xs={12}
-        sm={4}
-        md={4}
-        direction={direction}
-        sx={{
-          display: "flex",
-          justifyContent: "space-around",
-        }}
-      >
-        <Card
+  let useListing = [];
+
+  if (listing) {
+    useListing = listing?.map((listing) => {
+      console.log("testing", listing);
+      // let confirmedBooking = 0;
+      // let first_name = "";
+      // let last_name = "";
+      // if (listing["booking"]) {
+      //   for (let each of listing["booking"]) {
+      //     if (each["accepted"] === true) {
+      //       confirmedBooking = each["id"];
+      //       first_name = each["users"]["first_name"];
+      //       last_name = each["users"]["last_name"];
+      //     }
+      //   }
+      // }
+      return (
+        <Grid
+          item
+          xs={12}
+          sm={4}
+          md={4}
+          direction={direction}
           sx={{
-            bgcolor: "#ffde5a",
-            boxShadow: 2,
-            borderRadius: 3,
-            p: 3,
-            maxWidth: 350,
-            minWidth: 350,
-            m: 1,
+            display: "flex",
+            justifyContent: "space-around",
           }}
         >
-          {listing.pets !== null && (
-            <CardMedia
-              component="img"
-              height="160"
-              width="160"
-              image={listing.pets.photo_url}
-              alt="Dog"
-            />
-          )}
-          {!listing.pets && (
-            <CardMedia
-              component="img"
-              height="160"
-              image={listing.users.photo_url}
-              alt="Sitter"
-            />
-          )}
-          <CardContent>
+          <Card
+            sx={{
+              bgcolor: "#ffde5a",
+              boxShadow: 2,
+              borderRadius: 3,
+              p: 3,
+              maxWidth: 350,
+              minWidth: 350,
+              m: 1,
+            }}
+          >
             {listing.pets !== null && (
-              <>
-                <Typography gutterBottom variant="h6" component="div">
-                  Wanted!
-                </Typography>
-                <Typography gutterBottom variant="h5" component="div">
-                  {`${
-                    listing.activity_type.charAt(0).toUpperCase() +
-                    listing.activity_type.slice(1)
-                  } 
-                  for ${listing.pets.name}`}
-                </Typography>
-              </>
+              <CardMedia
+                component="img"
+                height="160"
+                width="160"
+                image={listing.pets.photo_url}
+                alt="Dog"
+              />
             )}
             {!listing.pets && (
-              <>
-                <Typography gutterBottom variant="h6" component="div">
-                  Available:
-                </Typography>
-                <Typography gutterBottom variant="h5" component="div">
-                  {`${listing.users.first_name} ${listing.users.last_name} for`}
-                </Typography>
-                <Typography gutterBottom variant="h5" component="div">
-                  {listing.activity_type.charAt(0).toUpperCase() +
-                    listing.activity_type.slice(1)}
-                </Typography>
-              </>
+              <CardMedia
+                component="img"
+                height="160"
+                image={listing.users.photo_url}
+                alt="Sitter"
+              />
             )}
-            <Typography gutterBottom>
-              {moment(listing.start_time).format("dddd MMMM Do YYYY")}
-            </Typography>
-            <Typography gutterBottom>
-              {`${moment(listing.start_time).format("LT")} to ${moment(
-                listing.end_time
-              ).format("LT")}`}
-            </Typography>
-            {/* <Typography variant="body2" color="text.secondary">
-              {listing.additional_details}
-            </Typography> */}
-          </CardContent>
-          {listing.user_id === user.id && listing.booking.length > 0 && (
-            <CardActions>
-              <ResponsiveApplications listing={listing} />
-            </CardActions>
-          )}
-          {listing.user_id === user.id &&
-            listing.booking.length === 0 &&
-            !listing.accepted && <Typography>No Applications Yet.</Typography>}
-          {listing.user_id !== user.id && (
-            <CardActions sx={{ p: 0 }}>
+            <CardContent>
               {listing.pets !== null && (
-                <ResponsiveDialog
-                  id={listing.id}
-                  sitter_listing={listing.sitter_listing}
-                  user_id={listing.user_id}
-                  additional_details={listing.additional_details}
-                  postal_code={listing.postal_code}
-                  start_time={listing.start_time}
-                  end_time={listing.end_time}
-                  pet_id={listing.pet_id}
-                  activity_type={listing.activity_type}
-                  pet_name={listing.pets.name}
-                  pet_photo={listing.pets.photo_url}
-                  phone_number={listing.users.phone_number}
-                ></ResponsiveDialog>
+                <>
+                  <Typography gutterBottom variant="h6" component="div">
+                    Wanted!
+                  </Typography>
+                  <Typography gutterBottom variant="h5" component="div">
+                    {`${
+                      listing.activity_type.charAt(0).toUpperCase() +
+                      listing.activity_type.slice(1)
+                    } 
+                    for ${listing.pets.name}`}
+                  </Typography>
+                </>
               )}
               {!listing.pets && (
-                <ResponsiveDialog
-                  id={listing.id}
-                  sitter_listing={listing.sitter_listing}
-                  user_id={listing.user_id}
-                  additional_details={listing.additional_details}
-                  postal_code={listing.postal_code}
-                  start_time={listing.start_time}
-                  end_time={listing.end_time}
-                  //pet_id={listing.pet_id}
-                  activity_type={listing.activity_type}
-                  pet_name={listing.users.name}
-                  pet_photo={listing.users.photo_url}
-                ></ResponsiveDialog>
+                <>
+                  <Typography gutterBottom variant="h6" component="div">
+                    Available:
+                  </Typography>
+                  <Typography gutterBottom variant="h5" component="div">
+                    {`${listing.users.first_name} ${listing.users.last_name} for`}
+                  </Typography>
+                  <Typography gutterBottom variant="h5" component="div">
+                    {listing.activity_type.charAt(0).toUpperCase() +
+                      listing.activity_type.slice(1)}
+                  </Typography>
+                </>
               )}
-            </CardActions>
-          )}
-        </Card>
-      </Grid>
-    );
-  });
+              <Typography gutterBottom>
+                {moment(listing.start_time).format("dddd MMMM Do YYYY")}
+              </Typography>
+              <Typography gutterBottom>
+                {`${moment(listing.start_time).format("LT")} to ${moment(
+                  listing.end_time
+                ).format("LT")}`}
+              </Typography>
+              {/* <Typography variant="body2" color="text.secondary">
+                {listing.additional_details}
+              </Typography> */}
+            </CardContent>
+            {listing.user_id === user.id && listing.booking.length > 0 && (
+              <CardActions>
+                <ResponsiveApplications listing={listing} />
+              </CardActions>
+            )}
+            {listing.user_id === user.id &&
+              listing.booking.length === 0 &&
+              !listing.accepted && (
+                <Typography>No Applications Yet.</Typography>
+              )}
+            {listing.user_id !== user.id && (
+              <CardActions sx={{ p: 0 }}>
+                {listing.pets !== null && (
+                  <ResponsiveDialog
+                    id={listing.id}
+                    sitter_listing={listing.sitter_listing}
+                    user_id={listing.user_id}
+                    additional_details={listing.additional_details}
+                    postal_code={listing.postal_code}
+                    start_time={listing.start_time}
+                    end_time={listing.end_time}
+                    pet_id={listing.pet_id}
+                    activity_type={listing.activity_type}
+                    pet_name={listing.pets.name}
+                    pet_photo={listing.pets.photo_url}
+                    phone_number={listing.users.phone_number}
+                  ></ResponsiveDialog>
+                )}
+                {!listing.pets && (
+                  <ResponsiveDialog
+                    id={listing.id}
+                    sitter_listing={listing.sitter_listing}
+                    user_id={listing.user_id}
+                    additional_details={listing.additional_details}
+                    postal_code={listing.postal_code}
+                    start_time={listing.start_time}
+                    end_time={listing.end_time}
+                    //pet_id={listing.pet_id}
+                    activity_type={listing.activity_type}
+                    pet_name={listing.users.name}
+                    pet_photo={listing.users.photo_url}
+                  ></ResponsiveDialog>
+                )}
+              </CardActions>
+            )}
+          </Card>
+        </Grid>
+      );
+    });
+  }
 
   return (
     <main>

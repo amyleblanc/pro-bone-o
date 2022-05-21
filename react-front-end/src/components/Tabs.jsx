@@ -52,7 +52,7 @@ export default function NavTabs() {
         <MyListings />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <MyBookings url={"/api/listing"} />
+        <MyBookings url={`${process.env.REACT_APP_host}/api/listing`} />
       </TabPanel>
     </>
   );

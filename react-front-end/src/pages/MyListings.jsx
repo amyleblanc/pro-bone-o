@@ -9,7 +9,11 @@ export default function MyListings() {
 
   return (
     <>
-      <Listing url={url} type={"GET"} direction={"row-reverse"} />
+      <Listing
+        url={`${process.env.REACT_APP_host}${url}`}
+        type={"GET"}
+        direction={"row-reverse"}
+      />
     </>
   );
 }

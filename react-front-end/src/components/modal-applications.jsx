@@ -21,11 +21,19 @@ import axiosRequest from "../helper/axios";
 import Badge from "@mui/material/Badge";
 
 const updateBooking = async (bookingID, payload) => {
-  axiosRequest(`/booking/status/${bookingID}`, "PUT", payload);
+  axiosRequest(
+    `${process.env.REACT_APP_host}/booking/status/${bookingID}`,
+    "PUT",
+    payload
+  );
 };
 
 const updateListing = async (listingID, payload) => {
-  axiosRequest(`/listing/status/${listingID}`, "PUT", payload);
+  axiosRequest(
+    `${process.env.REACT_APP_host}/listing/status/${listingID}`,
+    "PUT",
+    payload
+  );
 };
 
 export default function ResponsiveApplications(props) {
@@ -70,7 +78,7 @@ export default function ResponsiveApplications(props) {
       //console.log("this is id", id);
       // eslint-disable-next-line
       const res = await axios
-        .get(`/api/listings/bookings/${id}`)
+        .get(`${process.env.REACT_APP_host}/api/listings/bookings/${id}`)
         .then((res) => {
           //console.log("this is res", res.data);
           setBooking(res.data);

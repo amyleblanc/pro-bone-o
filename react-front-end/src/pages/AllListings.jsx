@@ -216,8 +216,12 @@ export default function AllListings() {
           </Box>
         </Box>
       </Grid>
-      <Map url={url} payload={formData} />
-      <Listing url={url} payload={formData} type={"POST"} />
+      <Map url={`${process.env.REACT_APP_host}${url}`} payload={formData} />
+      <Listing
+        url={`${process.env.REACT_APP_host}${url}`}
+        payload={formData}
+        type={"POST"}
+      />
     </div>
   );
 }

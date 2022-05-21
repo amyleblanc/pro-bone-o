@@ -7,7 +7,13 @@ import { Grid } from "@mui/material";
 import axiosRequest from "../helper/axios";
 
 const updateMessageCountDB = async (bookingID) => {
-  axiosRequest(`/booking/status/${bookingID}`, "PUT", { viewed: false });
+  axiosRequest(
+    `${process.env.REACT_APP_host}/booking/status/${bookingID}`,
+    "PUT",
+    {
+      viewed: false,
+    }
+  );
 };
 
 class Chat extends Component {
@@ -17,10 +23,6 @@ class Chat extends Component {
     comments: [],
     booking_id: this.props.id,
   };
-
-  constructor(props) {
-    super(props);
-  }
 
   AlwaysScrollToBottom = () => {
     const elementRef = useRef();
@@ -48,7 +50,7 @@ class Chat extends Component {
     updateMessageCountDB(booking_id);
 
     axios
-      .post(`http://localhost:8080/booking/comment/${booking_id}`, data)
+      .post(`${process.env.REACT_APP_host}/booking/comment/${booking_id}`, data)
       .then(() => {
         this.setState({
           newComment: "",
@@ -65,7 +67,7 @@ class Chat extends Component {
     });
 
     axios
-      .get(`http://localhost:8080/booking/comment/${booking_id}`)
+      .get(`${process.env.REACT_APP_host}/booking/comment/${booking_id}`)
       //.get(`http://localhost:8080/booking/comment/`)
       .then(({ data }) => {
         this.setState({

@@ -63,7 +63,11 @@ const END_TIME = "end";
 
 const createNewListing = async (formData) => {
   const processedForm = formData;
-  axiosRequest("/api/listings/create", "POST", processedForm);
+  axiosRequest(
+    `${process.env.REACT_APP_host}/api/listings/create`,
+    "POST",
+    processedForm
+  );
 };
 
 // const getUpdatedUser = async (userID) => {

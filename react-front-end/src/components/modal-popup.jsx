@@ -19,7 +19,11 @@ import PetsIcon from "@mui/icons-material/Pets";
 
 const applyToPosting = async (formData) => {
   const processedForm = formData;
-  axiosRequest("/api/listings/apply/:id", "POST", processedForm);
+  axiosRequest(
+    `${process.env.REACT_APP_host}/api/listings/apply/:id`,
+    "POST",
+    processedForm
+  );
 };
 
 const formReducer = (state, event) => {
@@ -89,7 +93,9 @@ export default function ResponsiveDialog(props) {
     };
 
     const getUser = async () => {
-      const res = await axios.get(`/login/${userName.id}`);
+      const res = await axios.get(
+        `${process.env.REACT_APP_host}/login/${userName.id}`
+      );
       //console.log(res.data);
       setUser(res.data);
     };

@@ -7,6 +7,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import axiosRequest from "../helper/axios";
 import ResponsiveDialog from "./modal-popup";
@@ -92,7 +93,6 @@ export default function Listing(props) {
             bgcolor: "#ffde5a",
             boxShadow: 2,
             borderRadius: 3,
-            p: 3,
             maxWidth: 350,
             minWidth: 350,
             m: 1,
@@ -101,27 +101,46 @@ export default function Listing(props) {
           {listing.pets !== null && (
             <CardMedia
               component="img"
-              height="160"
-              width="160"
+              height="320px"
+              width="auto"
               image={listing.pets.photo_url}
               alt="Dog"
             />
           )}
           {!listing.pets && (
-            <CardMedia
-              component="img"
-              height="160"
-              image={listing.users.photo_url}
-              alt="Sitter"
-            />
+            <Grid
+              item
+              container
+              direction="row"
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Avatar
+                src={listing.users.photo_url}
+                alt="user avatar"
+                sx={{ width: 0.8, height: "auto", marginTop: 5, boxShadow: 3 }}
+              />
+            </Grid>
+
+
+            // <CardMedia
+            //   component="img"
+            //   height="160"
+            //   image={listing.users.photo_url}
+            //   alt="Sitter"
+            // />
           )}
-          <CardContent>
+          <CardContent sx={{m: 1, p: 3}}>
             {listing.pets !== null && (
               <>
-                <Typography gutterBottom variant="h6" component="div">
+                <Typography gutterBottom variant="h5" component="div">
                   Wanted!
                 </Typography>
-                <Typography gutterBottom variant="h5" component="div">
+                <Typography gutterBottom variant="h6" component="div">
                   {`${
                     listing.activity_type.charAt(0).toUpperCase() +
                     listing.activity_type.slice(1)
@@ -132,15 +151,12 @@ export default function Listing(props) {
             )}
             {!listing.pets && (
               <>
-                <Typography gutterBottom variant="h6" component="div">
+                <Typography gutterBottom variant="h5" component="div">
                   Available:
                 </Typography>
-                <Typography gutterBottom variant="h5" component="div">
-                  {`${listing.users.first_name} ${listing.users.last_name} for`}
-                </Typography>
-                <Typography gutterBottom variant="h5" component="div">
-                  {listing.activity_type.charAt(0).toUpperCase() +
-                    listing.activity_type.slice(1)}
+                <Typography gutterBottom variant="h6" component="div">
+                  {`${listing.users.first_name} for 
+                  ${listing.activity_type.charAt(0).toUpperCase() + listing.activity_type.slice(1)}`}
                 </Typography>
               </>
             )}
@@ -152,18 +168,15 @@ export default function Listing(props) {
                 listing.end_time
               ).format("LT")}`}
             </Typography>
-            {/* <Typography variant="body2" color="text.secondary">
-              {listing.additional_details}
-            </Typography> */}
           </CardContent>
           {listing.user_id === user.id && listing.booking.length > 0 && (
-            <CardActions>
+            <CardActions sx={{padding: 0}}>
               <ResponsiveApplications listing={listing} />
             </CardActions>
           )}
           {listing.user_id === user.id &&
             listing.booking.length === 0 &&
-            !listing.accepted && <Typography>No Applications Yet.</Typography>}
+            !listing.accepted && <Typography sx={{margin: 4}}>No applications yet!</Typography>}
           {listing.user_id !== user.id && (
             <CardActions sx={{ p: 0 }}>
               {listing.pets !== null && (

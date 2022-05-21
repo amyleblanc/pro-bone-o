@@ -13,8 +13,22 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import Greeting from "./Greeting/Greeting";
+import { useMediaQuery } from 'react-responsive';
 
-const pages = [{ page: "Browse Listings", link: "listing" }];
+
+const pages = [
+  { page: "Browse Listings", 
+    link: "listing" 
+  },
+  { page: "Login", 
+    link: "login" 
+  },
+  { 
+    page: "Register", 
+    link: "registerUser" 
+  },
+];
+
 
 const ResponsiveAppBar = () => {
   // const user = useRecoilValue(userState);
@@ -27,6 +41,17 @@ const ResponsiveAppBar = () => {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+
+  const Conditional = () => {
+    const isMobile = useMediaQuery({ query: `(min-width: 900px)` });
+    if (isMobile){
+      return(
+        <>
+        <Greeting />
+        </>
+      )
+    }
+  }
 
   return (
     <AppBar position="static" style={{ background: '#ffde5a' }}>
@@ -109,19 +134,17 @@ const ResponsiveAppBar = () => {
             <img src="/images/pro-bone-o_logo.png" alt="logo" />
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Link style={{ textDecoration: "none" }} to={`/${page.link}`}>
+              <Link style={{ textDecoration: "none" }} to={'/listing'}>
                 <Button
-                  key={page.page}
+                  key={"Browse Listings"}
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: "black", display: "block" }}
                 >
-                  {page.page}
+                  {"Browse Listings"}
                 </Button>
               </Link>
-            ))}
           </Box>
-          <Greeting />
+          <Conditional />
         </Toolbar>
       </Container>
     </AppBar>

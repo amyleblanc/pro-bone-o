@@ -6,8 +6,6 @@ import DialogTitle from "@mui/material/DialogTitle";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import CloseIcon from "@mui/icons-material/Close";
-import { useRecoilValue } from "recoil";
-import userState from "./atoms";
 import ListingForm from "./form";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import Tooltip from "@mui/material/Tooltip";

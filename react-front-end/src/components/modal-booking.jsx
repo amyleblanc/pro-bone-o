@@ -13,7 +13,13 @@ import SendIcon from "@mui/icons-material/Send";
 import axiosRequest from "../helper/axios";
 
 const updateMessageCountDB = async (bookingID) => {
-  axiosRequest(`/booking/status/${bookingID}`, "PUT", { viewed: true });
+  axiosRequest(
+    `${process.env.REACT_APP_host}/booking/status/${bookingID}`,
+    "PUT",
+    {
+      viewed: true,
+    }
+  );
 };
 
 export default function ResponsiveBooking(props) {

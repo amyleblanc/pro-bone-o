@@ -14,7 +14,7 @@ export default function Login() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const getUser = async () => {
-      const res = await axios.get(`/login/${id}`);
+      const res = await axios.get(`${process.env.REACT_APP_host}/login/${id}`);
       console.log(res.data);
       setUser(res.data);
     };
@@ -28,9 +28,9 @@ export default function Login() {
   };
   return (
     <div className="login">
-        <Typography variant="h5" align="center" color="textSecondary" paragraph>
-            Login
-        </Typography>
+      <Typography variant="h5" align="center" color="textSecondary" paragraph>
+        Login
+      </Typography>
       <form onSubmit={handleSubmit}>
         <Box
           component="form"

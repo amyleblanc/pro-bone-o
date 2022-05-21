@@ -174,7 +174,11 @@ const formReducer = (state, event) => {
 const registerNewPet = async (formData) => {
   const processedForm = formData;
   processedForm["difficulty"] = Number(formData["difficulty"]);
-  axiosRequest(`/api/user/pets/`, "POST", processedForm);
+  axiosRequest(
+    `${process.env.REACT_APP_host}/api/user/pets/`,
+    "POST",
+    processedForm
+  );
 };
 
 //still need to add styling to image as well
@@ -190,7 +194,7 @@ export default function RegisterPet() {
     const id = user.id;
     sendData["user_id"] = user.id;
     const getUser = async () => {
-      const res = await axios.get(`/login/${id}`);
+      const res = await axios.get(`${process.env.REACT_APP_host}/login/${id}`);
       console.log(res.data);
       setUser(res.data);
     };

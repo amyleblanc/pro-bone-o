@@ -14,7 +14,7 @@ export default function Logout() {
     }, 1500);
   }, []);
 
-  axios.get("/logout");
+  axios.get(`${process.env.REACT_APP_host}/logout`);
   return (
     <div className="logout">
       Logged Out!

@@ -20,6 +20,7 @@ import {
   Avatar,
   Typography,
 } from "@mui/material";
+import PetsIcon from "@mui/icons-material/Pets";
 const axios = require("axios").default;
 
 const ITEM_HEIGHT = 48;
@@ -205,10 +206,10 @@ export default function ListingForm() {
       direction="column"
       alignItems="center"
       justifyContent="center"
-      s
+      minWidth="400px"
     >
-      <Typography variant="h6" align="center">
-        Create a listing for a dog service "Wanted"<br/>or let people know what services you are available for!
+      <Typography variant="h7" align="center" paddingBottom="15px">
+        Create a listing to let the<br/>Pro-Bone-O community know<br/>what you are looking for!
       </Typography>
       {submitting && (
         <div>
@@ -224,7 +225,7 @@ export default function ListingForm() {
       )}
       {!user.id && <h1>Please Login or Register to Access This Page.</h1>}
       {user.id && (
-        <form onSubmit={handleSubmit} disabled={submitting}>
+        <form onSubmit={handleSubmit} disabled={submitting} padding="20px">
           <fieldset style={{border: "none"}}>
             <label>
               <p>Listing Type</p>
@@ -264,7 +265,7 @@ export default function ListingForm() {
                           <Avatar
                             alt={getPetPhoto(value)}
                             src={getPetPhoto(value)}
-                            sx={{ width: 100, height: 100 }}
+                            sx={{ width: 90, height: 90, margin: 1 }}
                           >
                             <Chip key={value} label={value}></Chip>{" "}
                           </Avatar>
@@ -279,7 +280,7 @@ export default function ListingForm() {
                         value={pet.name}
                         style={getStyles(pet.name, pets, theme)}
                       >
-                        <Avatar alt={pet.name} src={pet.photo_url}>
+                        <Avatar alt={pet.name} src={pet.photo_url} sx={{margin: 1, boxShadow: 3}}>
                           {pet.name}
                         </Avatar>
                         {pet.name}
@@ -356,9 +357,19 @@ export default function ListingForm() {
               />
             </label>
           </fieldset>
-          <button type="submit" disabled={submitting}>
+          <Button
+            variant="contained"
+            endIcon={<PetsIcon />}
+            type="submit"
+            disabled={submitting}
+            sx={{
+              bgcolor: "#00A8A8",
+              borderRadius: "16px",
+              marginBottom: "20px",
+            }}
+          >
             Submit
-          </button>
+          </Button>
         </form>
       )}
     </Grid>

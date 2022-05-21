@@ -10,7 +10,6 @@ Geocode.setLanguage("en");
 Geocode.setLocationType("ROOFTOP");
 Geocode.enableDebug();
 
-
 export default function Map(props) {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
@@ -27,6 +26,7 @@ export default function Map(props) {
 
   useEffect(() => {
     const getSearch = async () => {
+      // eslint-disable-next-line
       const res = await axios
         .post(url, payload)
         .then((res) => setListing(res.data));
@@ -36,33 +36,36 @@ export default function Map(props) {
 
   const MarkersList = () => {
     const [markerCoords, setMarkerCoords] = useState([]);
-  
+
     useEffect(() => {
       for (let listItem of listing) {
         let postal = listItem.postal_code;
         Geocode.fromAddress(postal).then(
-          response => {
-            const {lat, lng} = response.results[0].geometry.location;
-            setMarkerCoords(coords => [...coords, {lat, lng}]);
+          (response) => {
+            const { lat, lng } = response.results[0].geometry.location;
+            setMarkerCoords((coords) => [...coords, { lat, lng }]);
           },
-          error => {
+          (error) => {
             console.error(error);
-          },
+          }
         );
       }
     }, []);
 
     const handleClick = () => {
-      return(
-        <>
-        </>
-      )
-    }
-  
+      return <></>;
+    };
+
     return (
       <>
         {markerCoords.map((coords, index) => (
-          <Marker title={'marker'} name={'name'} key={index} position={coords} onClick={handleClick} />
+          <Marker
+            title={"marker"}
+            name={"name"}
+            key={index}
+            position={coords}
+            onClick={handleClick}
+          />
         ))}
       </>
     );

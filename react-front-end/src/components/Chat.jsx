@@ -4,7 +4,6 @@ import axios from "axios";
 import "./Chat.css";
 import { Paper } from "@mui/material";
 import { Grid } from "@mui/material";
-import { scroller, Events } from "react-scroll";
 import axiosRequest from "../helper/axios";
 
 const updateMessageCountDB = async (bookingID) => {

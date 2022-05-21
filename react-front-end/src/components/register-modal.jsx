@@ -6,14 +6,8 @@ import DialogTitle from "@mui/material/DialogTitle";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import CloseIcon from "@mui/icons-material/Close";
-import { useRecoilValue } from "recoil";
-import userState from "./atoms";
-import Chat from "./Chat";
-import SendIcon from "@mui/icons-material/Send";
-import axiosRequest from "../helper/axios";
 import RegisterPet from "./RegisterPet";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import PetsIcon from "@mui/icons-material/Pets";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 
@@ -21,7 +15,6 @@ export default function PetRegisterModal() {
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
-  const user = useRecoilValue(userState);
 
   const handleClickOpen = () => {
     setOpen(true);

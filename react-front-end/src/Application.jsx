@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Listing from "./components/Listing";
 import ListingForm from "./components/form";
 import Login from "./components/Login";
 import Logout from "./components/Logout";
@@ -11,7 +10,6 @@ import MyAccount from "./pages/MyAccount";
 import CssBaseline from "@mui/material/CssBaseline";
 import ResponsiveAppBar from "./components/NavBar";
 import Chat from "./components/Chat";
-import FilterBar from "./components/searchbar";
 import AllListings from "./pages/AllListings";
 
 export default function Application() {
@@ -31,7 +29,6 @@ export default function Application() {
             <Route path="/logout" element={<Logout />} />
             <Route path="/myaccount" element={<MyAccount />} />
             <Route path="/comments" element={<Chat />} />
-            <Route path="/searchbar" element={<FilterBar />} />
           </Routes>
         </BrowserRouter>
       </main>

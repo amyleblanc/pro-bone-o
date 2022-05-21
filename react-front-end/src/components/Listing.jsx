@@ -6,19 +6,13 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import axiosRequest from "../helper/axios";
 import ResponsiveDialog from "./modal-popup";
-import FilterBar from "./searchbar";
-import searchState from "./atom-search";
 import axios from "axios";
-import { useRecoilState } from "recoil";
 import moment from "moment";
 import { useRecoilValue } from "recoil";
 import userState from "./atoms";
 import ResponsiveApplications from "./modal-applications";
-import ResponsiveBooking from "./modal-booking";
 
 /**
  *
@@ -30,20 +24,23 @@ export default function Listing(props) {
   const { url, payload, type, direction } = props;
   const user = useRecoilValue(userState);
 
-  useEffect(() => {
-    const getSearch = async () => {
-      const res = await axios
-        .post(url, payload)
-        .then((res) => setListing(res.data));
-    };
-    getSearch();
-  }, [url, payload]);
+  // useEffect(() => {
+  //   const getSearch = async () => {
+  //     // eslint-disable-next-line
+  //     const res = await axios
+  //       .post(url, payload)
+  //       .then((res) => setListing(res.data));
+  //   };
+  //   getSearch();
+  // }, [url, payload]);
 
   useEffect(() => {
     const getSearch = async () => {
       if (type === "GET") {
+        // eslint-disable-next-line
         const res = await axios.get(url).then((res) => setListing(res.data));
       } else {
+        // eslint-disable-next-line
         const res = await axios
           .post(url, payload)
           .then((res) => setListing(res.data));
@@ -63,18 +60,18 @@ export default function Listing(props) {
 
   const useListing = listing?.map((listing) => {
     console.log("testing", listing);
-    let confirmedBooking = 0;
-    let first_name = "";
-    let last_name = "";
-    if (listing["booking"]) {
-      for (let each of listing["booking"]) {
-        if (each["accepted"] === true) {
-          confirmedBooking = each["id"];
-          first_name = each["users"]["first_name"];
-          last_name = each["users"]["last_name"];
-        }
-      }
-    }
+    // let confirmedBooking = 0;
+    // let first_name = "";
+    // let last_name = "";
+    // if (listing["booking"]) {
+    //   for (let each of listing["booking"]) {
+    //     if (each["accepted"] === true) {
+    //       confirmedBooking = each["id"];
+    //       first_name = each["users"]["first_name"];
+    //       last_name = each["users"]["last_name"];
+    //     }
+    //   }
+    // }
     return (
       <Grid
         item

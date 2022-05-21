@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useEffect, useReducer } from "react";
+import { useReducer } from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -44,13 +44,10 @@ export default function ResponsiveDialog(props) {
   const {
     id,
     sitter_listing,
-    user_id,
     activity_type,
-    additional_details,
     postal_code,
     start_time,
     end_time,
-    pet_id,
     pet_name,
     pet_photo,
     phone_number,

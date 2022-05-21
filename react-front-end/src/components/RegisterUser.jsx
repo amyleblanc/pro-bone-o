@@ -1,12 +1,11 @@
 import React, { useState, useReducer } from "react";
 import axiosRequest from "../helper/axios";
-import { useRecoilValue, useRecoilState } from "recoil";
-import { Grid, Box, Button, FormControl } from '@mui/material';
-import TextField from '@mui/material/TextField';
+import { useRecoilState } from "recoil";
+import { Grid, Box, Button, FormControl } from "@mui/material";
+import TextField from "@mui/material/TextField";
 import userState from "../components/atoms";
 import axios from "axios";
-import { border } from "@mui/system";
-import './Logout.css'
+import "./Logout.css";
 
 const formReducer = (state, event) => {
   if (event.reset) {
@@ -98,16 +97,17 @@ export default function RegisterUser() {
       direction="column"
       alignItems="center"
       justifyContent="center"
-      s>
-
-      <Box component="form"
+      s
+    >
+      <Box
+        component="form"
         sx={{
           maxWidth: 600,
-          '& .MuiTextField-root': { m: 1, width: '25ch' },
-          
+          "& .MuiTextField-root": { m: 1, width: "25ch" },
         }}
         noValidate
-        autoComplete="off">
+        autoComplete="off"
+      >
         <h1>New User Registration</h1>
         {submitting && (
           <div>
@@ -123,7 +123,11 @@ export default function RegisterUser() {
         )}
         {user.id && <h2>You are Already Logged In.</h2>}
         {!user.id && (
-          <FormControl onSubmit={handleSubmit} disabled={submitting} className="no-outline">
+          <FormControl
+            onSubmit={handleSubmit}
+            disabled={submitting}
+            className="no-outline"
+          >
             <fieldset disabled={submitting}>
               <TextField
                 type="text"
@@ -199,7 +203,6 @@ export default function RegisterUser() {
               value={formData.description || ""}
             />
           </label> */}
-
 
               {error && <p>Error! Please confirm your passwords match!</p>}
               <TextField

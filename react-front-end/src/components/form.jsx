@@ -1,16 +1,15 @@
-import React, { useState, useReducer, useEffect } from "react";
+import React, { useState, useReducer } from "react";
 import TextField from "@mui/material/TextField";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { DateTimePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { useTheme } from "@mui/material/styles";
 import axiosRequest from "../helper/axios";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import userState from "./atoms";
 import {
   Grid,
   Box,
-  Button,
   FormControl,
   OutlinedInput,
   InputLabel,
@@ -19,7 +18,6 @@ import {
   Chip,
   Avatar,
 } from "@mui/material";
-const axios = require("axios").default;
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -68,9 +66,9 @@ const createNewListing = async (formData) => {
   axiosRequest("/api/listings/create", "POST", processedForm);
 };
 
-const getUpdatedUser = async (userID) => {
-  axiosRequest(`/login/${userID}`, "GET");
-};
+// const getUpdatedUser = async (userID) => {
+//   axiosRequest(`/login/${userID}`, "GET");
+// };
 
 //formats date in local time for backend - if moving globablly would update to render this on the front end instead
 const dateFormatter = (date) => {
@@ -88,7 +86,7 @@ export default function ListingForm() {
   const [formData, setFormData] = useReducer(formReducer, {});
   const [startValue, setStartValue] = React.useState(new Date());
   const [endValue, setEndValue] = React.useState(new Date());
-  const [user, setUser] = useRecoilState(userState);
+  const user = useRecoilValue(userState);
   const theme = useTheme();
   const [pets, setPets] = React.useState([]);
 

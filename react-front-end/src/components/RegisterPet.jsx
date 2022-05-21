@@ -1,7 +1,7 @@
 import React, { useState, useReducer } from "react";
-import { getSpecificDog, getDogUrl } from "../helper/fetchdog";
+import { getSpecificDog } from "../helper/fetchdog";
 import axiosRequest from "../helper/axios";
-import { useRecoilValue, useRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import userState from "../components/atoms";
 import { Grid } from "@mui/material";
 import axios from "axios";

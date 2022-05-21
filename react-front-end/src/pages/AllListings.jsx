@@ -1,14 +1,10 @@
-import userState from "../components/atoms";
 import { Grid } from "@mui/material";
-import searchState from "../components/atom-search";
-import { useRecoilState } from "recoil";
-import React, { useState, useReducer, useEffect } from "react";
+import React, { useReducer } from "react";
 import TextField from "@mui/material/TextField";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { DateTimePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import Listing from "../components/Listing";
-import { Button } from "react-scroll/modules";
 import Map from "../components/maps/Map";
 import CreateListingModal from "../components/listing-modal";
 import Box from "@mui/material/Box";
@@ -16,14 +12,6 @@ import Switch from "@mui/material/Switch";
 import Paper from "@mui/material/Paper";
 import Slide from "@mui/material/Slide";
 import FormControlLabel from "@mui/material/FormControlLabel";
-
-const axios = require("axios").default;
-
-const icon = (
-  <Paper sx={{ m: 1 }} elevation={4}>
-    <Box component="svg" sx={{ width: 100, height: 100 }}></Box>
-  </Paper>
-);
 
 const formReducer = (state, event) => {
   if (event.reset) {
@@ -45,24 +33,22 @@ const START_TIME = "start";
 const END_TIME = "end";
 
 //formats date in local time for backend - if moving globablly would update to render this on the front end instead
-const dateFormatter = (date) => {
-  //const newDate = date.toISOString();
-  const yourDate = new Date();
-  const offset = yourDate.getTimezoneOffset();
-  const tempDate = date.toDate();
-  const modDate = new Date(tempDate.getTime() - offset * 60 * 1000); //.split("T")[0];
-  const isoAgain = modDate.toISOString();
-  //return newDate;
-  return isoAgain;
-};
+// const dateFormatter = (date) => {
+//   //const newDate = date.toISOString();
+//   const yourDate = new Date();
+//   const offset = yourDate.getTimezoneOffset();
+//   const tempDate = date.toDate();
+//   const modDate = new Date(tempDate.getTime() - offset * 60 * 1000); //.split("T")[0];
+//   const isoAgain = modDate.toISOString();
+//   //return newDate;
+//   return isoAgain;
+// };
 
 export default function AllListings() {
   const [formData, setFormData] = useReducer(formReducer, {});
   const [startValue, setStartValue] = React.useState(new Date());
   const [endValue, setEndValue] = React.useState(new Date());
-  const [url, setUrl] = React.useState("/api/listing/filter");
-
-  const [submitting, setSubmitting] = useState(false);
+  const url = "/api/listing/filter";
   const [checked, setChecked] = React.useState(false);
 
   const handleHide = () => {
@@ -78,28 +64,28 @@ export default function AllListings() {
     });
   };
 
-  const handleReset = () => {
-    setFormData({
-      name: "type",
-      value: "sitter-request",
-    });
-    setFormData({
-      name: "activity",
-      value: "any-activity",
-    });
-    setFormData({
-      name: "start",
-      value: "",
-    });
-    setFormData({
-      name: "end",
-      value: "",
-    });
-    setFormData({
-      name: "postal",
-      value: "",
-    });
-  };
+  // const handleReset = () => {
+  //   setFormData({
+  //     name: "type",
+  //     value: "sitter-request",
+  //   });
+  //   setFormData({
+  //     name: "activity",
+  //     value: "any-activity",
+  //   });
+  //   setFormData({
+  //     name: "start",
+  //     value: "",
+  //   });
+  //   setFormData({
+  //     name: "end",
+  //     value: "",
+  //   });
+  //   setFormData({
+  //     name: "postal",
+  //     value: "",
+  //   });
+  // };
 
   const handleStartTimeRangePickerChange = (_value) => {
     setStartValue(_value);
@@ -130,8 +116,8 @@ export default function AllListings() {
             <Slide direction="right" in={checked} mountOnEnter unmountOnExit>
               <Paper>
                 {/* <Box elevation={4}> */}
-                <form disabled={submitting}>
-                  <fieldset disabled={submitting}>
+                <form>
+                  <fieldset>
                     <Grid
                       item
                       container
@@ -221,9 +207,6 @@ export default function AllListings() {
                           </LocalizationProvider>
                         </label>
                       </Grid>
-                      {/* <button disabled={submitting} onClick={handleReset}>
-                Reset
-              </button> */}
                     </Grid>
                   </fieldset>
                 </form>

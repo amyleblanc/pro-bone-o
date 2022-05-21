@@ -163,4 +163,4 @@ const dogList = [
   "Wolfhound/irish",
 ];
 
-module.exports = { getDogUrl, getSpecificDog, dogList };
+export { getDogUrl, getSpecificDog };

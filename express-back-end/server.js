@@ -3,7 +3,6 @@ const Pusher = require("pusher");
 const cors = require("cors");
 const app = express();
 const BodyParser = require("body-parser");
-const PORT = 8080;
 
 const Datastore = require("nedb");
 const db = new Datastore();
@@ -19,6 +18,8 @@ const path = require("path");
 require("dotenv").config({
   path: path.resolve(__dirname, "../.env"),
 });
+
+const PORT = process.env.port || 8080;
 
 const { sendMessage } = require("./services/twilio-sms");
 

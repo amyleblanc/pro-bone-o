@@ -67,6 +67,7 @@ async function main() {
       },
     });
   }
+
   await prisma.listing.createMany({
     data: activeListings,
   });

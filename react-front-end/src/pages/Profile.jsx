@@ -8,6 +8,7 @@ import {
   CardActions,
   CardContent,
   Grid,
+  Tooltip,
   Typography,
 } from "@mui/material/";
 import PetsIcon from "@mui/icons-material/Pets";
@@ -64,7 +65,7 @@ export default function Profile() {
               md={12}
               sx={{ display: "flex", flexDirection: "row" }}
             >
-              <Grid item xs={9} sm={9} md={9} sx={{ display: "flex" }}>
+              <Grid item xs={9} sm={9} md={12} sx={{ display: "flex" }}>
                 <CardContent sx={{ width: "auto", paddingRight: 0 }}>
                   <Typography gutterBottom variant="h4" component="div">
                     {user.first_name} {user.last_name}
@@ -94,13 +95,13 @@ export default function Profile() {
             </Grid>
             <Box>
               <CreateListingModal />
-              <CardContent sx={{ pt: 0 }}>
+              <CardContent sx={{ pt: 0, pb: 0 }}>
                 <Typography gutterBottom variant="h5" component="div" pb="10px">
                   My Furry Friends:
                 </Typography>
                 {user.pets.map((pet) => (
                   <>
-                    <Box sx={{ display: "flex", flexDirection: "row" }}>
+                    <Box sx={{ display: "flex", flexDirection: "row", marginBottom: 2}}>
                       <Box>
                         <Avatar
                           key={pet.id}
@@ -127,17 +128,19 @@ export default function Profile() {
             </Box>
             <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
               <CardActions>
-                <Button
-                  variant="contained"
-                  endIcon={<PetsIcon />}
-                  sx={{
-                    borderRadius: "16px",
-                    width: "100px",
-                    bgcolor: "#00A8A8",
-                  }}
-                >
-                  Edit
-                </Button>
+                <Tooltip title="Edit Profile">
+                  <Button
+                    variant="contained"
+                    endIcon={<PetsIcon />}
+                    sx={{
+                      borderRadius: "16px",
+                      width: "100px",
+                      bgcolor: "#00A8A8",
+                    }}
+                  >
+                    Edit
+                  </Button>
+                </Tooltip>
               </CardActions>
             </Box>
           </Card>

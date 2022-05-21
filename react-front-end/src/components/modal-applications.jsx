@@ -68,6 +68,7 @@ export default function ResponsiveApplications(props) {
     const getSearch = async () => {
       const id = listing.id;
       //console.log("this is id", id);
+      // eslint-disable-next-line
       const res = await axios
         .get(`/api/listings/bookings/${id}`)
         .then((res) => {
@@ -135,6 +136,8 @@ export default function ResponsiveApplications(props) {
           </Card>
         </Grid>
       );
+    } else {
+      return <></>;
     }
   });
 

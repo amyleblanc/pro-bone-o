@@ -20,11 +20,6 @@ class Chat extends Component {
 
   constructor(props) {
     super(props);
-    const AlwaysScrollToBottom = () => {
-      const elementRef = useRef();
-      useEffect(() => elementRef.current.scrollIntoView());
-      return <div ref={elementRef} />;
-    };
   }
 
   AlwaysScrollToBottom = () => {

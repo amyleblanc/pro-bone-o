@@ -1,4 +1,6 @@
-import { PrismaClient } from "@prisma/client";
+//import { PrismaClient } from "@prisma/client";
+const { PrismaClient } = require("@prisma/client");
+
 const {
   rhysArray,
   brysonArray,
@@ -67,6 +69,7 @@ async function main() {
       },
     });
   }
+
   await prisma.listing.createMany({
     data: activeListings,
   });

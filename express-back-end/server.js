@@ -19,8 +19,6 @@ require("dotenv").config({
   path: path.resolve(__dirname, "../.env"),
 });
 
-const PORT = process.env.port || 8080;
-
 const { sendMessage } = require("./services/twilio-sms");
 
 // express Configuration
@@ -349,6 +347,7 @@ app.put("/listing/status/:id", (req, res) => {
     });
 });
 
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
   console.log(

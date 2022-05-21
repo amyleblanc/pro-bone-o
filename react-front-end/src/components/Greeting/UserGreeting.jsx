@@ -1,6 +1,6 @@
 import React from 'react';
 import Box from "@mui/material/Box";
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import userState from '../atoms';
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
@@ -13,8 +13,8 @@ import Typography from "@mui/material/Typography";
 
 
 function UserGreeting() {
-    const user = useRecoilValue(userState);
-    const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [user, setUser] = useRecoilState(userState);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
       };
@@ -22,12 +22,11 @@ function UserGreeting() {
       const handleCloseUserMenu = () => {
         setAnchorElUser(null);
       };
-      const settings = [
-        { page: "My Account", link: "myaccount" },
-        { page: "Create Listing", link: "createlisting" },
-        { page: "Register Pet", link: "registerPet" },
-        { page: "Logout", link: "logout" },
-      ];
+
+      const handleLogout = ()=> {
+        setUser('')
+      }
+      
     return (
         <>
         
@@ -56,16 +55,25 @@ function UserGreeting() {
           open={Boolean(anchorElUser)}
           onClose={handleCloseUserMenu}
         >
-          {settings.map((setting) => (
+          
             <Link
               style={{ textDecoration: "none" }}
-              to={`/${setting.link}`}
+              to={`/myaccount`}
             >
-              <MenuItem key={setting.page} onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">{setting.page}</Typography>
+              <MenuItem key={"My Account"} onClick={handleCloseUserMenu}>
+                <Typography textAlign="center">{"My Account"}</Typography>
               </MenuItem>
             </Link>
-          ))}
+
+            <Link
+            style={{ textDecoration: "none" }}
+            to={`/logout`}
+          >
+            <MenuItem key={"Logout"} onClick={() => { handleCloseUserMenu(); handleLogout();}}>
+              <Typography textAlign="center">{"Logout"}</Typography>
+            </MenuItem>
+          </Link>
+    
         </Menu>
       </Box>
       </>

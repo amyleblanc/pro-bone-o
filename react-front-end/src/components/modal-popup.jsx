@@ -197,7 +197,7 @@ export default function ResponsiveDialog(props) {
               margin="dense"
               id="personal_message"
               name="personal_message"
-              label="personal_message"
+              label="Enter Personal Message Here"
               type="text"
               fullWidth
               variant="standard"

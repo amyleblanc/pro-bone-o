@@ -76,14 +76,14 @@ const createNewListing = async (formData) => {
 
 //formats date in local time for backend - if moving globablly would update to render this on the front end instead
 const dateFormatter = (date) => {
-  //const newDate = date.toISOString();
-  const yourDate = new Date();
-  const offset = yourDate.getTimezoneOffset();
-  const tempDate = date.toDate();
-  const modDate = new Date(tempDate.getTime() - offset * 60 * 1000); //.split("T")[0];
-  const isoAgain = modDate.toISOString();
-  //return newDate;
-  return isoAgain;
+  const newDate = date.toISOString();
+  // const yourDate = new Date();
+  // const offset = yourDate.getTimezoneOffset();
+  // const tempDate = date.toDate();
+  // const modDate = new Date(tempDate.getTime() - offset * 60 * 1000); //.split("T")[0];
+  // const isoAgain = modDate.toISOString();
+  return newDate;
+  //return isoAgain;
 };
 
 export default function ListingForm() {

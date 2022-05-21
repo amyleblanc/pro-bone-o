@@ -214,7 +214,7 @@ export default function ResponsiveApplications(props) {
           <Badge badgeContent={count} color="primary">
             <Button
               variant="contained"
-              endIcon={<SendIcon />}
+              endIcon={<PetsIcon />}
               onClick={handleClickOpen}
               sx={{ borderRadius: "16px", backgroundColor: "#00A8A8" }}
             >

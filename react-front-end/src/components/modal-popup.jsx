@@ -88,6 +88,7 @@ export default function ResponsiveDialog(props) {
       listing_id: id,
       personal_message: formData.personal_message,
       phone_number: phone_number,
+      name: userName.first_name,
     };
 
     const getUser = async () => {

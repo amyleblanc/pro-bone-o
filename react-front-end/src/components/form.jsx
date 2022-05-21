@@ -18,6 +18,7 @@ import {
   Select,
   Chip,
   Avatar,
+  Typography,
 } from "@mui/material";
 const axios = require("axios").default;
 
@@ -206,10 +207,12 @@ export default function ListingForm() {
       justifyContent="center"
       s
     >
-      <h1>Create a Listing</h1>
+      <Typography variant="h6" align="center">
+        Create a listing for a dog service "Wanted"<br/>or let people know what services you are available for!
+      </Typography>
       {submitting && (
         <div>
-          You are submitting the following:
+          You submitted the following:
           <ul>
             {Object.entries(formData).map(([name, value]) => (
               <li key={name}>
@@ -222,7 +225,7 @@ export default function ListingForm() {
       {!user.id && <h1>Please Login or Register to Access This Page.</h1>}
       {user.id && (
         <form onSubmit={handleSubmit} disabled={submitting}>
-          <fieldset>
+          <fieldset style={{border: "none"}}>
             <label>
               <p>Listing Type</p>
               <select
@@ -302,7 +305,7 @@ export default function ListingForm() {
               </select>
             </label>
           </fieldset>
-          <fieldset disabled={submitting}>
+          <fieldset disabled={submitting} style={{border: "none"}}>
             <label>
               <p>Start Time</p>
               <LocalizationProvider dateAdapter={AdapterDayjs}>

@@ -1,0 +1,7 @@
+CHOKIDAR_USEPOLLING=true 
+
+REACT_APP_app_id = 1409177
+REACT_APP_key = 1a18c05aca1b0b02a36e
+REACT_APP_secret = 293d0e921e09e84674b9
+REACT_APP_cluster = us3
+

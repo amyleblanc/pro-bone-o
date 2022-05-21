@@ -1,8 +1,6 @@
-import React, { Component } from 'react';
-import { Link } from "react-router-dom";
+import React, { Component, useEffect } from 'react';
+import { Link, useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
-import { useRecoilState } from "recoil";
-import userState from "./atoms";
 import "./Logout.css";
 
 
@@ -10,15 +8,20 @@ const axios = require("axios").default;
 
 
 export default function Logout() {
+    const navigate = useNavigate()
 
-const [user, setUser] = useRecoilState(userState);
+    useEffect(() => {
+        setTimeout(() => {
+          navigate('/')
+        }, 1500)
+      }, [])
 
-setUser('')
     axios.get('/logout')
     return (
         <div className="logout">
         Logged Out! 
         <div>
+            <div>Redirecting to home page...</div>
         <Link style={{textDecoration: "none", padding: "10px"}} to={'/'}>
               <Button variant="outlined">Return Home</Button>
         </Link>

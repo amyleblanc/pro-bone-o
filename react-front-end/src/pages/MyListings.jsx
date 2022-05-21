@@ -1,6 +1,9 @@
 import { useRecoilValue } from "recoil";
 import userState from "../components/atoms";
 import Listing from "../components/Listing";
+import CreateListingModal from "../components/listing-modal";
+import { Grid } from "@mui/material/";
+
 
 export default function MyListings() {
   const user = useRecoilValue(userState);
@@ -9,6 +12,20 @@ export default function MyListings() {
 
   return (
     <>
+      <Grid
+        item
+        container
+        direction="row"
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          bgcolor: "background.paper",
+        }}
+      >
+        <CreateListingModal />
+      </Grid>
       <Listing url={url} type={"GET"} direction={"row-reverse"} />
     </>
   );

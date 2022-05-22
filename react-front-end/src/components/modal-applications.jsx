@@ -7,6 +7,8 @@ import { useTheme } from "@mui/material/styles";
 import CloseIcon from "@mui/icons-material/Close";
 
 import SendIcon from "@mui/icons-material/Send";
+import PetsIcon from "@mui/icons-material/Pets";
+
 import {
   Card,
   CardActions,
@@ -202,12 +204,11 @@ export default function ResponsiveApplications(props) {
           </CardActions>
           <Button
             variant="contained"
-            color="success"
             endIcon={<SendIcon />}
             onClick={() => {
               handleAcceptance(each.id, listing.id, booking["booking"]);
             }}
-            sx={{ borderRadius: "16px" }}
+            sx={{ borderRadius: "16px", backgroundColor: "#00A8A8" }}
           >
             Accept Application
           </Button>
@@ -223,10 +224,9 @@ export default function ResponsiveApplications(props) {
           <Badge badgeContent={count} color="primary">
             <Button
               variant="contained"
-              color="success"
-              endIcon={<SendIcon />}
+              endIcon={<PetsIcon />}
               onClick={handleClickOpen}
-              sx={{ borderRadius: "16px" }}
+              sx={{ borderRadius: "16px", backgroundColor: "#00A8A8" }}
             >
               See Accepted Booking
             </Button>
@@ -236,10 +236,9 @@ export default function ResponsiveApplications(props) {
           <Badge badgeContent={count} color="primary">
             <Button
               variant="contained"
-              color="success"
-              endIcon={<SendIcon />}
+              endIcon={<PetsIcon />}
               onClick={handleClickOpen}
-              sx={{ borderRadius: "16px" }}
+              sx={{ borderRadius: "16px", backgroundColor: "#00A8A8" }}
             >
               See Applications
             </Button>

@@ -51,10 +51,10 @@ export default function PetRegisterModal() {
         open={open}
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
-        fullWidth={true}
+        fullWidth={false}
         maxWidth="md"
       >
-        <Button autoFocus onClick={handleClose}>
+        <Button autoFocus onClick={handleClose} sx={{justifyContent: "flex-end", marginTop: 2, marginRight: 2}}>
           <CloseIcon />
         </Button>
         <DialogTitle></DialogTitle>

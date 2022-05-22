@@ -271,24 +271,6 @@ export default function MyBookings(props) {
               flexWrap: "wrap",
             }}
           >
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <CardActions sx={{ width: 170 }}>
-                <Button
-                  variant="contained"
-                  color="success"
-                  sx={{ borderRadius: "16px", bgcolor: "#00A8A8" }}
-                >
-                  Leave a Review
-                </Button>
-              </CardActions>
-            </Box>
           </Box>
         </Card>
       </>

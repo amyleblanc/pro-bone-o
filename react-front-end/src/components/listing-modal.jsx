@@ -37,7 +37,7 @@ export default function CreateListingModal() {
                 borderRadius: "16px",
                 bgcolor: "#00A8A8",
                 p: "8px",
-                width: "300px",
+                width: "225px",
               }}
             >
               Create a new Listing!
@@ -51,10 +51,10 @@ export default function CreateListingModal() {
         open={open}
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
-        fullWidth={true}
+        fullWidth={false}
         maxWidth="md"
       >
-        <Button autoFocus onClick={handleClose}>
+        <Button autoFocus onClick={handleClose} sx={{justifyContent: "flex-end", marginTop: 2, marginRight: 2}}>
           <CloseIcon />
         </Button>
         <DialogTitle></DialogTitle>

@@ -10,6 +10,7 @@ import userState from "./atoms";
 import {
   Grid,
   Box,
+  Button,
   FormControl,
   OutlinedInput,
   InputLabel,
@@ -17,7 +18,10 @@ import {
   Select,
   Chip,
   Avatar,
+  Typography,
 } from "@mui/material";
+import PetsIcon from "@mui/icons-material/Pets";
+const axios = require("axios").default;
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -206,12 +210,14 @@ export default function ListingForm() {
       direction="column"
       alignItems="center"
       justifyContent="center"
-      s
+      minWidth="400px"
     >
-      <h1>Create a Listing</h1>
+      <Typography variant="h7" align="center" paddingBottom="15px">
+        Create a listing to let the<br/>Pro-Bone-O community know<br/>what you are looking for!
+      </Typography>
       {submitting && (
         <div>
-          You are submitting the following:
+          You submitted the following:
           <ul>
             {Object.entries(formData).map(([name, value]) => (
               <li key={name}>
@@ -223,8 +229,8 @@ export default function ListingForm() {
       )}
       {!user.id && <h1>Please Login or Register to Access This Page.</h1>}
       {user.id && (
-        <form onSubmit={handleSubmit} disabled={submitting}>
-          <fieldset>
+        <form onSubmit={handleSubmit} disabled={submitting} padding="20px">
+          <fieldset style={{border: "none"}}>
             <label>
               <p>Listing Type</p>
               <select
@@ -263,7 +269,7 @@ export default function ListingForm() {
                           <Avatar
                             alt={getPetPhoto(value)}
                             src={getPetPhoto(value)}
-                            sx={{ width: 100, height: 100 }}
+                            sx={{ width: 90, height: 90, margin: 1 }}
                           >
                             <Chip key={value} label={value}></Chip>{" "}
                           </Avatar>
@@ -278,7 +284,7 @@ export default function ListingForm() {
                         value={pet.name}
                         style={getStyles(pet.name, pets, theme)}
                       >
-                        <Avatar alt={pet.name} src={pet.photo_url}>
+                        <Avatar alt={pet.name} src={pet.photo_url} sx={{margin: 1, boxShadow: 3}}>
                           {pet.name}
                         </Avatar>
                         {pet.name}
@@ -304,7 +310,7 @@ export default function ListingForm() {
               </select>
             </label>
           </fieldset>
-          <fieldset disabled={submitting}>
+          <fieldset disabled={submitting} style={{border: "none"}}>
             <label>
               <p>Start Time</p>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -355,9 +361,19 @@ export default function ListingForm() {
               />
             </label>
           </fieldset>
-          <button type="submit" disabled={submitting}>
+          <Button
+            variant="contained"
+            endIcon={<PetsIcon />}
+            type="submit"
+            disabled={submitting}
+            sx={{
+              bgcolor: "#00A8A8",
+              borderRadius: "16px",
+              marginBottom: "20px",
+            }}
+          >
             Submit
-          </button>
+          </Button>
         </form>
       )}
     </Grid>

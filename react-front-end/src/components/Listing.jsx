@@ -6,6 +6,7 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Box from "@mui/material/Box";
+import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import ResponsiveDialog from "./modal-popup";
 import axios from "axios";
@@ -24,23 +25,20 @@ export default function Listing(props) {
   const { url, payload, type, direction } = props;
   const user = useRecoilValue(userState);
 
-  // useEffect(() => {
-  //   const getSearch = async () => {
-  //     // eslint-disable-next-line
-  //     const res = await axios
-  //       .post(url, payload)
-  //       .then((res) => setListing(res.data));
-  //   };
-  //   getSearch();
-  // }, [url, payload]);
+  useEffect(() => {
+    const getSearch = async () => {
+      const res = await axios
+        .post(url, payload)
+        .then((res) => setListing(res.data));
+    };
+    getSearch();
+  }, [url, payload]);
 
   useEffect(() => {
     const getSearch = async () => {
       if (type === "GET") {
-        // eslint-disable-next-line
         const res = await axios.get(url).then((res) => setListing(res.data));
       } else {
-        // eslint-disable-next-line
         const res = await axios
           .post(url, payload)
           .then((res) => setListing(res.data));
@@ -58,154 +56,160 @@ export default function Listing(props) {
   //   // getSearch();
   // }, [url, type, payload]);
 
-  let useListing = [];
-
-  if (listing) {
-    useListing = listing?.map((listing) => {
-      console.log("testing", listing);
-      // let confirmedBooking = 0;
-      // let first_name = "";
-      // let last_name = "";
-      // if (listing["booking"]) {
-      //   for (let each of listing["booking"]) {
-      //     if (each["accepted"] === true) {
-      //       confirmedBooking = each["id"];
-      //       first_name = each["users"]["first_name"];
-      //       last_name = each["users"]["last_name"];
-      //     }
-      //   }
-      // }
-      return (
-        <Grid
-          item
-          xs={12}
-          sm={4}
-          md={4}
-          direction={direction}
+  const useListing = listing?.map((listing) => {
+    console.log("testing", listing);
+    let confirmedBooking = 0;
+    let first_name = "";
+    let last_name = "";
+    if (listing["booking"]) {
+      for (let each of listing["booking"]) {
+        if (each["accepted"] === true) {
+          confirmedBooking = each["id"];
+          first_name = each["users"]["first_name"];
+          last_name = each["users"]["last_name"];
+        }
+      }
+    }
+    return (
+      <Grid
+        item
+        xs={12}
+        sm={4}
+        md={4}
+        direction={direction}
+        sx={{
+          display: "flex",
+          justifyContent: "space-around",
+        }}
+      >
+        <Card
           sx={{
-            display: "flex",
-            justifyContent: "space-around",
+            bgcolor: "#ffde5a",
+            boxShadow: 2,
+            borderRadius: 3,
+            maxWidth: 350,
+            minWidth: 350,
+            m: 1,
           }}
         >
-          <Card
-            sx={{
-              bgcolor: "#ffde5a",
-              boxShadow: 2,
-              borderRadius: 3,
-              p: 3,
-              maxWidth: 350,
-              minWidth: 350,
-              m: 1,
-            }}
-          >
-            {listing.pets !== null && (
-              <CardMedia
-                component="img"
-                height="160"
-                width="160"
-                image={listing.pets.photo_url}
-                alt="Dog"
+          {listing.pets !== null && (
+            <CardMedia
+              component="img"
+              height="320px"
+              width="auto"
+              image={listing.pets.photo_url}
+              alt="Dog"
+            />
+          )}
+          {!listing.pets && (
+            <Grid
+              item
+              container
+              direction="row"
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Avatar
+                src={listing.users.photo_url}
+                alt="user avatar"
+                sx={{ width: 0.8, height: "auto", marginTop: 5, boxShadow: 3 }}
               />
+            </Grid>
+
+
+            // <CardMedia
+            //   component="img"
+            //   height="160"
+            //   image={listing.users.photo_url}
+            //   alt="Sitter"
+            // />
+          )}
+          <CardContent sx={{m: 1, p: 3}}>
+            {listing.pets !== null && (
+              <>
+                <Typography gutterBottom variant="h5" component="div">
+                  Wanted!
+                </Typography>
+                <Typography gutterBottom variant="h6" component="div">
+                  {`${
+                    listing.activity_type.charAt(0).toUpperCase() +
+                    listing.activity_type.slice(1)
+                  } 
+                  for ${listing.pets.name}`}
+                </Typography>
+              </>
             )}
             {!listing.pets && (
-              <CardMedia
-                component="img"
-                height="160"
-                image={listing.users.photo_url}
-                alt="Sitter"
-              />
+              <>
+                <Typography gutterBottom variant="h5" component="div">
+                  Available:
+                </Typography>
+                <Typography gutterBottom variant="h6" component="div">
+                  {`${listing.users.first_name} for 
+                  ${listing.activity_type.charAt(0).toUpperCase() + listing.activity_type.slice(1)}`}
+                </Typography>
+              </>
             )}
-            <CardContent>
+            <Typography gutterBottom>
+              {moment(listing.start_time).format("dddd MMMM Do YYYY")}
+            </Typography>
+            <Typography gutterBottom>
+              {`${moment(listing.start_time).format("LT")} to ${moment(
+                listing.end_time
+              ).format("LT")}`}
+            </Typography>
+          </CardContent>
+          {listing.user_id === user.id && listing.booking.length > 0 && (
+            <CardActions sx={{padding: 0}}>
+              <ResponsiveApplications listing={listing} />
+            </CardActions>
+          )}
+          {listing.user_id === user.id &&
+            listing.booking.length === 0 &&
+            !listing.accepted && <Typography sx={{margin: 4}}>No applications yet!</Typography>}
+          {listing.user_id !== user.id && (
+            <CardActions sx={{ p: 0 }}>
               {listing.pets !== null && (
-                <>
-                  <Typography gutterBottom variant="h6" component="div">
-                    Wanted!
-                  </Typography>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {`${
-                      listing.activity_type.charAt(0).toUpperCase() +
-                      listing.activity_type.slice(1)
-                    } 
-                    for ${listing.pets.name}`}
-                  </Typography>
-                </>
+                <ResponsiveDialog
+                  id={listing.id}
+                  sitter_listing={listing.sitter_listing}
+                  user_id={listing.user_id}
+                  additional_details={listing.additional_details}
+                  postal_code={listing.postal_code}
+                  start_time={listing.start_time}
+                  end_time={listing.end_time}
+                  pet_id={listing.pet_id}
+                  activity_type={listing.activity_type}
+                  pet_name={listing.pets.name}
+                  pet_photo={listing.pets.photo_url}
+                  phone_number={listing.users.phone_number}
+                ></ResponsiveDialog>
               )}
               {!listing.pets && (
-                <>
-                  <Typography gutterBottom variant="h6" component="div">
-                    Available:
-                  </Typography>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {`${listing.users.first_name} ${listing.users.last_name} for`}
-                  </Typography>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {listing.activity_type.charAt(0).toUpperCase() +
-                      listing.activity_type.slice(1)}
-                  </Typography>
-                </>
+                <ResponsiveDialog
+                  id={listing.id}
+                  sitter_listing={listing.sitter_listing}
+                  user_id={listing.user_id}
+                  additional_details={listing.additional_details}
+                  postal_code={listing.postal_code}
+                  start_time={listing.start_time}
+                  end_time={listing.end_time}
+                  //pet_id={listing.pet_id}
+                  activity_type={listing.activity_type}
+                  pet_name={listing.users.name}
+                  pet_photo={listing.users.photo_url}
+                ></ResponsiveDialog>
               )}
-              <Typography gutterBottom>
-                {moment(listing.start_time).format("dddd MMMM Do YYYY")}
-              </Typography>
-              <Typography gutterBottom>
-                {`${moment(listing.start_time).format("LT")} to ${moment(
-                  listing.end_time
-                ).format("LT")}`}
-              </Typography>
-              {/* <Typography variant="body2" color="text.secondary">
-                {listing.additional_details}
-              </Typography> */}
-            </CardContent>
-            {listing.user_id === user.id && listing.booking.length > 0 && (
-              <CardActions>
-                <ResponsiveApplications listing={listing} />
-              </CardActions>
-            )}
-            {listing.user_id === user.id &&
-              listing.booking.length === 0 &&
-              !listing.accepted && (
-                <Typography>No Applications Yet.</Typography>
-              )}
-            {listing.user_id !== user.id && (
-              <CardActions sx={{ p: 0 }}>
-                {listing.pets !== null && (
-                  <ResponsiveDialog
-                    id={listing.id}
-                    sitter_listing={listing.sitter_listing}
-                    user_id={listing.user_id}
-                    additional_details={listing.additional_details}
-                    postal_code={listing.postal_code}
-                    start_time={listing.start_time}
-                    end_time={listing.end_time}
-                    pet_id={listing.pet_id}
-                    activity_type={listing.activity_type}
-                    pet_name={listing.pets.name}
-                    pet_photo={listing.pets.photo_url}
-                    phone_number={listing.users.phone_number}
-                  ></ResponsiveDialog>
-                )}
-                {!listing.pets && (
-                  <ResponsiveDialog
-                    id={listing.id}
-                    sitter_listing={listing.sitter_listing}
-                    user_id={listing.user_id}
-                    additional_details={listing.additional_details}
-                    postal_code={listing.postal_code}
-                    start_time={listing.start_time}
-                    end_time={listing.end_time}
-                    //pet_id={listing.pet_id}
-                    activity_type={listing.activity_type}
-                    pet_name={listing.users.name}
-                    pet_photo={listing.users.photo_url}
-                  ></ResponsiveDialog>
-                )}
-              </CardActions>
-            )}
-          </Card>
-        </Grid>
-      );
-    });
-  }
+            </CardActions>
+          )}
+        </Card>
+      </Grid>
+    );
+  });
 
   return (
     <main>

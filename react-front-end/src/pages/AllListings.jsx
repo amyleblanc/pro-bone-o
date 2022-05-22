@@ -104,27 +104,25 @@ export default function AllListings() {
         direction="column"
         alignItems="center"
         justifyContent="center"
-        maxWidth="xl"
+        maxWidth="true"
       >
-        <CreateListingModal />{" "}
         <FormControlLabel
           control={<Switch checked={checked} onChange={handleHide} />}
-          label="Show Search"
+          label="Show Listings Filter"
+          sx={{margin: 2}}
         />
         <Box>
           <Box>
             <Slide direction="right" in={checked} mountOnEnter unmountOnExit>
-              <Paper>
-                {/* <Box elevation={4}> */}
+              <Box>
                 <form>
-                  <fieldset>
+                  <fieldset style={{border: "none"}}>
                     <Grid
                       item
                       container
                       spacing={1}
                       direction="row"
                       columns={{ xs: 1, sm: 7, md: 7 }}
-                      // className="mainWrap"
                       maxWidth="xl"
                     >
                       <Grid item>
@@ -163,20 +161,6 @@ export default function AllListings() {
                           </label>
                         </Grid>
                       </Grid>
-                      <Grid item xs={6} sm={1} md={1}>
-                        <label>
-                          <span>Postal Code</span>
-                          <br></br>
-                          <input
-                            type="text"
-                            maxLength={6}
-                            name="postal"
-                            onChange={handleChange}
-                            placeholder="A1B2C3"
-                            value={formData.postal || ""}
-                          />
-                        </label>
-                      </Grid>
                       <Grid item xs={12} sm={2} md={2}>
                         <label>
                           <span>Start</span>
@@ -210,8 +194,7 @@ export default function AllListings() {
                     </Grid>
                   </fieldset>
                 </form>
-                {/* </Box> */}
-              </Paper>
+              </Box>
             </Slide>
           </Box>
         </Box>

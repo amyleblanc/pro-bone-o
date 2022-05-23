@@ -50,6 +50,7 @@ export default function ResponsiveBooking(props) {
             bgcolor: "#00A8A8",
             p: "8px",
             width: "155px",
+            boxShadow: 3,
           }}
         >
           {view}

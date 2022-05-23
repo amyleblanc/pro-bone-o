@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
@@ -10,10 +11,7 @@ import SendIcon from "@mui/icons-material/Send";
 import PetsIcon from "@mui/icons-material/Pets";
 
 import {
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
+  Box,
   Grid,
   Typography,
 } from "@mui/material/";
@@ -104,46 +102,71 @@ export default function ResponsiveApplications(props) {
         <Grid
           item
           xs={12}
-          sm={4}
-          md={4}
+          sm={12}
+          md={12}
           sx={{
             display: "flex",
-            justifyContent: "space-around",
+            flexDirection: "column",
+            justifyContent: "center",
           }}
         >
-          <Card
+          <Grid
+            item
+            container
             sx={{
-              bgcolor: "background.paper",
-              boxShadow: 1,
-              borderRadius: 2,
-              p: 2,
-              mt: 5,
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
-            <CardMedia
-              component="img"
-              height="140"
-              image={each.users.photo_url}
-              alt="Sitter"
+            <Avatar
+              src={each.users.photo_url}
+              alt="Sitter avatar"
+              sx={{
+                width: "auto",
+                height: 0.5,
+                marginTop: 5,
+                marginBottom: 2,
+                boxShadow: 3,
+              }}
             />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                {listing.activity_type} - {each.users.first_name}{" "}
-                {each.users.last_name}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                {personal_message}
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <ResponsiveBooking
-                booking_id={each.id}
-                first_name={each.users.first_name}
-                last_name={each.users.last_name}
-                view={"Chat"}
-              />
-            </CardActions>
-          </Card>
+            <Typography gutterBottom variant="h5" component="div">
+              {`${listing.activity_type} with ${each.users.first_name}
+              ${each.users.last_name}`}
+            </Typography>
+          </Grid>
+          <Grid
+            item
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              paddingLeft: 6,
+              paddingRight: 6,
+              marginBottom: 3,
+            }}
+          >
+            <Typography variant="body2" color="text.secondary" align={"center"}>
+              {personal_message}
+            </Typography>
+          </Grid>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              marginBottom: 2,
+            }}
+          >
+            <ResponsiveBooking
+              booking_id={each.id}
+              first_name={each.users.first_name}
+              last_name={each.users.last_name}
+              view={"Chat"}
+            />
+          </Box>
         </Grid>
       );
     } else {
@@ -163,56 +186,80 @@ export default function ResponsiveApplications(props) {
       <Grid
         item
         xs={12}
-        sm={4}
-        md={4}
+        sm={12}
+        md={12}
         sx={{
           display: "flex",
-          justifyContent: "space-around",
+          flexDirection: "column",
+          justifyContent: "center",
         }}
       >
-        <Card
+        <Grid
+          item
+          container
           sx={{
-            bgcolor: "background.paper",
-            boxShadow: 1,
-            borderRadius: 2,
-            p: 2,
-            mt: 5,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
-          <CardMedia
-            component="img"
-            height="140"
-            image={each.users.photo_url}
-            alt="Sitter"
+          <Avatar
+            src={each.users.photo_url}
+            alt="Sitter avatar"
+            sx={{
+              width: "auto",
+              height: 0.5,
+              marginTop: 5,
+              marginBottom: 2,
+              boxShadow: 3,
+            }}
           />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              {listing.activity_type} - {each.users.first_name}{" "}
-              {each.users.last_name}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {personal_message}
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <ResponsiveBooking
-              booking_id={each.id}
-              first_name={each.users.first_name}
-              last_name={each.users.last_name}
-              view={"Send Message"}
-            />
-          </CardActions>
+          <Typography gutterBottom variant="h5" component="div">
+            {`${listing.activity_type} with ${each.users.first_name}
+            ${each.users.last_name}`}
+          </Typography>
+        </Grid>
+        <Grid
+            item
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              paddingLeft: 6,
+              paddingRight: 6,
+              marginBottom: 3,
+            }}
+          >
+          <Typography variant="body2" color="text.secondary" align={"center"}>
+            {personal_message}
+          </Typography>
+        </Grid>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <ResponsiveBooking
+            booking_id={each.id}
+            first_name={each.users.first_name}
+            last_name={each.users.last_name}
+            view={"Send Message"}
+          />
           <Button
             variant="contained"
-            endIcon={<SendIcon />}
+            endIcon={<PetsIcon />}
             onClick={() => {
               handleAcceptance(each.id, listing.id, booking["booking"]);
             }}
-            sx={{ borderRadius: "16px", backgroundColor: "#00A8A8" }}
+            sx={{ borderRadius: "16px", backgroundColor: "#00A8A8", margin: 2 }}
           >
             Accept Application
           </Button>
-        </Card>
+        </Box>
       </Grid>
     );
   });
@@ -226,7 +273,7 @@ export default function ResponsiveApplications(props) {
               variant="contained"
               endIcon={<PetsIcon />}
               onClick={handleClickOpen}
-              sx={{ borderRadius: "16px", backgroundColor: "#00A8A8" }}
+              sx={{ borderRadius: "16px", backgroundColor: "#00A8A8", marginTop: 2 }}
             >
               See Accepted Booking
             </Button>
@@ -238,7 +285,7 @@ export default function ResponsiveApplications(props) {
               variant="contained"
               endIcon={<PetsIcon />}
               onClick={handleClickOpen}
-              sx={{ borderRadius: "16px", backgroundColor: "#00A8A8" }}
+              sx={{ borderRadius: "16px", backgroundColor: "#00A8A8", marginTop: 2 }}
             >
               See Applications
             </Button>
@@ -251,9 +298,9 @@ export default function ResponsiveApplications(props) {
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
         fullWidth={true}
-        maxWidth="md"
+        minWidth="400px"
       >
-        <Button autoFocus onClick={handleClose}>
+        <Button autoFocus onClick={handleClose} sx={{justifyContent: "flex-end", marginTop: 2, marginRight: 2}}>
           <CloseIcon />
         </Button>
         <Grid

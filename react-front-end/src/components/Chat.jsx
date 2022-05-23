@@ -1,10 +1,10 @@
 import React, { Component, useEffect, useRef } from "react";
 import Pusher from "pusher-js";
 import axios from "axios";
-import "./Chat.css";
-import { Paper } from "@mui/material";
-import { Grid } from "@mui/material";
 import axiosRequest from "../helper/axios";
+import "./Chat.css";
+import { Paper, Grid, Button } from "@mui/material";
+import SendIcon from "@mui/icons-material/Send";
 
 const updateMessageCountDB = async (bookingID) => {
   axiosRequest(
@@ -108,7 +108,14 @@ class Chat extends Component {
       <div className="Chat">
         <Grid container spacing={1}>
           <Grid item xs={12} md={12}>
-            <Paper style={{ minHeight: 400, maxHeight: 400, overflow: "auto" }}>
+            <Paper 
+              sx={{ 
+                height: 400, 
+                overflow: "auto", 
+                elevation: 3, 
+                border: 1, 
+                borderColor: "#CCC", 
+                borderRadius: "16px" }}>
               <section className="comments-section">
                 {userComments}
                 <article name="final-comment"></article>
@@ -127,7 +134,18 @@ class Chat extends Component {
                   value={newComment}
                   onChange={this.updateInput}
                 />
-                <button type="submit">send</button>
+                <Button
+                  variant="contained"
+                  endIcon={<SendIcon />}
+                  type="submit"
+                  sx={{
+                    bgcolor: "#00A8A8",
+                    borderRadius: "16px",
+                    marginBottom: "20px",
+                  }}
+                >
+                  Send
+                </Button>
               </form>
             </section>
           </Grid>

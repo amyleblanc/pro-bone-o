@@ -11,6 +11,7 @@ import userState from "./atoms";
 import Chat from "./Chat";
 import SendIcon from "@mui/icons-material/Send";
 import axiosRequest from "../helper/axios";
+import { Typography } from "@mui/material";
 
 const updateMessageCountDB = async (bookingID) => {
   axiosRequest(
@@ -65,11 +66,21 @@ export default function ResponsiveBooking(props) {
         fullWidth={true}
         maxWidth="md"
       >
-        <Button autoFocus onClick={handleClose}>
+        <Button 
+          autoFocus 
+          onClick={handleClose} 
+          sx={{
+            justifyContent: "flex-end", 
+            marginTop: 2, 
+            marginRight: 2
+          }}
+        >
           <CloseIcon />
         </Button>
         <DialogTitle>
-          Your chat with {first_name} {last_name}!
+          <Typography variant="h5" align="center" sx={{padding: "20px", margin: 2}}>
+            Your chat with {first_name} {last_name}:
+          </Typography>
         </DialogTitle>
 
         <Chat

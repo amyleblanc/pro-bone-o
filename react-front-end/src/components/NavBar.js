@@ -14,6 +14,8 @@ import MenuItem from "@mui/material/MenuItem";
 import Greeting from "./Greeting/Greeting";
 import { useMediaQuery } from 'react-responsive';
 import { useRecoilState } from 'recoil';
+import { useNavigate } from "react-router-dom";
+
 const axios = require("axios").default;
 
 const ResponsiveAppBar = () => {
@@ -48,6 +50,7 @@ const ResponsiveAppBar = () => {
     { name: "Amy McCarthy", id: 1 },
     { name: "Bryson Best", id: 3 },
   ];
+  const navigate = useNavigate();
 
   const handleSubmit = (event, id) => {
     event.preventDefault();
@@ -56,7 +59,10 @@ const ResponsiveAppBar = () => {
       setUser(res.data);
     };
     getUser(id);
-    console.log(user);
+    
+        setTimeout(() => {
+          navigate("/myaccount");
+        }, 500);
   };
 
   const HamburgerMenu = () => {

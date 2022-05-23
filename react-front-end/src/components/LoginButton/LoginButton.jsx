@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useTheme } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -30,6 +31,7 @@ const names = [
   { name: "Bryson Best", id: 3 },
 ];
 
+
 function getStyles(name, personName, theme) {
   return {
     fontWeight:
@@ -40,6 +42,7 @@ function getStyles(name, personName, theme) {
 }
 
 export default function MultipleSelect() {
+  const navigate = useNavigate();
   const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
   const [user, setUser] = useRecoilState(userState);
@@ -51,7 +54,10 @@ export default function MultipleSelect() {
       setUser(res.data);
     };
     getUser(id);
-    console.log(user);
+    
+        setTimeout(() => {
+          navigate("/myaccount");
+        }, 500);
   };
 
   const handleChange = (event) => {

@@ -16,21 +16,6 @@ import { useMediaQuery } from 'react-responsive';
 import { useRecoilState } from 'recoil';
 const axios = require("axios").default;
 
-
-const pages = [
-  { page: "Browse Listings", 
-    link: "listing" 
-  },
-  { page: "Login", 
-    link: "login" 
-  },
-  { 
-    page: "Register", 
-    link: "registerUser" 
-  },
-];
-
-
 const ResponsiveAppBar = () => {
   const [user, setUser] = useRecoilState(userState);
   const [anchorElNav, setAnchorElNav] = React.useState(null);

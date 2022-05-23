@@ -305,7 +305,7 @@ app.post("/booking/comment/:id", (req, res) => {
   const phone_number = process.env.phone_number;
   db.insert(Object.assign({ id }, req.body), (err, newComment) => {
     dataqueries.bookingID.updatebooking(id, { viewed: false });
-    // sendMessage(phone_number, fullMessage);
+    sendMessage(phone_number, fullMessage);
     if (err) {
       return res.status(500).send(err);
     }

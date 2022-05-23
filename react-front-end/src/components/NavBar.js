@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-// import { useRecoilValue } from "recoil";
-// import userState from "./atoms";
+import { useRecoilValue } from "recoil";
+import userState from "./atoms";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -14,6 +14,7 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import Greeting from "./Greeting/Greeting";
 import { useMediaQuery } from 'react-responsive';
+import { useRecoilState } from 'recoil';
 
 
 const pages = [
@@ -31,12 +32,16 @@ const pages = [
 
 
 const ResponsiveAppBar = () => {
-  // const user = useRecoilValue(userState);
+  const [user, setUser] = useRecoilState(userState);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
+
+  const handleLogout = ()=> {
+    setUser('')
+  }
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
@@ -48,6 +53,117 @@ const ResponsiveAppBar = () => {
       return(
         <>
         <Greeting />
+        </>
+      )
+    }
+  }
+
+  const HamburgerMenu = () => {
+    if(!user){
+      return (
+        <>
+        <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: { xs: "block", md: "none" },
+                }}
+              >
+                {pages.map((page) => (
+                  <Link style={{ textDecoration: "none" }} to={`/${page.link}`}>
+                    <MenuItem key={page.page} onClick={handleCloseNavMenu}>
+                      <Typography
+                        textAlign="center"
+                        // containerElement={<Link to={page} />}
+                      >
+                        {page.page}
+                      </Typography>
+                    </MenuItem>
+                  </Link>
+                ))}
+              </Menu>
+            </Box>
+        </>
+      )
+    } else {
+      return(
+        <>
+                <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: { xs: "block", md: "none" },
+                }}
+              >
+                  <Link style={{ textDecoration: "none" }} to={'/listing'}>
+                    <MenuItem key={"Browse Listings"} onClick={handleCloseNavMenu}>
+                      <Typography textAlign="center">
+                      Browse Listings
+                      </Typography>
+                    </MenuItem>
+                  </Link>
+                  <Link
+                    style={{ textDecoration: "none" }}
+                    to={`/myaccount`}
+                  >
+                    <MenuItem key={"My Account"} onClick={handleCloseNavMenu}>
+                      <Typography textAlign="center">{"My Account"}</Typography>
+                    </MenuItem>
+                  </Link>
+                  <Link
+                    style={{ textDecoration: "none" }}
+                    to={`/logout`}
+                  >
+                    <MenuItem key={"Logout"} onClick={() => { handleCloseNavMenu(); handleLogout();}}>
+                      <Typography textAlign="center">{"Logout"}</Typography>
+                    </MenuItem>
+                  </Link>
+              </Menu>
+            </Box>
         </>
       )
     }
@@ -70,50 +186,7 @@ const ResponsiveAppBar = () => {
               <img src="/images/pro-bone-o_logo.png" alt="logo" />
             </Typography>
           </Link>
-
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              {pages.map((page) => (
-                <Link style={{ textDecoration: "none" }} to={`/${page.link}`}>
-                  <MenuItem key={page.page} onClick={handleCloseNavMenu}>
-                    <Typography
-                      textAlign="center"
-                      // containerElement={<Link to={page} />}
-                    >
-                      {page.page}
-                    </Typography>
-                  </MenuItem>
-                </Link>
-              ))}
-            </Menu>
-          </Box>
+              <HamburgerMenu />
           <Typography
             variant="h5"
             noWrap

@@ -108,7 +108,14 @@ class Chat extends Component {
       <div className="Chat">
         <Grid container spacing={1}>
           <Grid item xs={12} md={12}>
-            <Paper style={{ minHeight: 400, maxHeight: 400, overflow: "auto" }}>
+            <Paper 
+              sx={{ 
+                height: 400, 
+                overflow: "auto", 
+                elevation: 3, 
+                border: 1, 
+                borderColor: "#CCC", 
+                borderRadius: "16px" }}>
               <section className="comments-section">
                 {userComments}
                 <article name="final-comment"></article>

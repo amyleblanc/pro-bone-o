@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { useRecoilValue } from "recoil";
 import userState from "./atoms";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -15,6 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Greeting from "./Greeting/Greeting";
 import { useMediaQuery } from 'react-responsive';
 import { useRecoilState } from 'recoil';
+const axios = require("axios").default;
 
 
 const pages = [
@@ -58,6 +58,22 @@ const ResponsiveAppBar = () => {
     }
   }
 
+  const names = [
+    { name: "Rhys Wood", id: 2 },
+    { name: "Amy McCarthy", id: 1 },
+    { name: "Bryson Best", id: 3 },
+  ];
+
+  const handleSubmit = (event, id) => {
+    event.preventDefault();
+    const getUser = async (id) => {
+      const res = await axios.get(`${process.env.REACT_APP_host}/login/${id}`);
+      setUser(res.data);
+    };
+    getUser(id);
+    console.log(user);
+  };
+
   const HamburgerMenu = () => {
     if(!user){
       return (
@@ -91,18 +107,30 @@ const ResponsiveAppBar = () => {
                   display: { xs: "block", md: "none" },
                 }}
               >
-                {pages.map((page) => (
-                  <Link style={{ textDecoration: "none" }} to={`/${page.link}`}>
-                    <MenuItem key={page.page} onClick={handleCloseNavMenu}>
-                      <Typography
-                        textAlign="center"
-                        // containerElement={<Link to={page} />}
-                      >
-                        {page.page}
+                  <Link style={{ textDecoration: "none"}} to={'/listing'}>
+                    <MenuItem key={"Browse Listings"} onClick={handleCloseNavMenu}>
+                      <Typography textAlign="center">
+                      Browse Listings
                       </Typography>
                     </MenuItem>
                   </Link>
-                ))}
+                  {names.map((name) => (
+                    <MenuItem
+                      style={{ textDecoration: "none", color:"blue" }}
+                      key={name.name}
+                      value={name.name}
+                      onClick={(event) => handleSubmit(event, name.id)}
+                    >
+                      {name.name}
+                    </MenuItem>
+                  ))}
+                  <Link style={{ textDecoration: "none"}} to={'/registerUser'}>
+                    <MenuItem key={"Register"} onClick={handleCloseNavMenu}>
+                      <Typography textAlign="center">
+                      Register
+                      </Typography>
+                    </MenuItem>
+                  </Link>
               </Menu>
             </Box>
         </>

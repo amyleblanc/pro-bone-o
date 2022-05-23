@@ -1,6 +1,6 @@
 import { useMemo, useEffect, useState } from "react";
 import axios from "axios";
-import { GoogleMap, useLoadScript, Marker, InfoWindow } from "@react-google-maps/api";
+import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 import React from "react";
 import Geocode from "react-geocode";
 import "./Map.css";

@@ -6,7 +6,7 @@ import DialogContent from "@mui/material/DialogContent";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import CloseIcon from "@mui/icons-material/Close";
-
+import { useNavigate } from "react-router-dom";
 import SendIcon from "@mui/icons-material/Send";
 import PetsIcon from "@mui/icons-material/Pets";
 
@@ -44,6 +44,8 @@ export default function ResponsiveApplications(props) {
   const { listing } = props;
   const [booking, setBooking] = React.useState({});
   const [count, setMessageCount] = React.useState(0);
+  const navigate = useNavigate();
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -59,6 +61,9 @@ export default function ResponsiveApplications(props) {
     }
     updateBooking(bookingID, { accepted: true, archived: false });
     updateListing(listingID, { accepted: true });
+    setTimeout(() => {
+      navigate("/myaccount");
+    }, 500);
   };
 
   useEffect(() => {

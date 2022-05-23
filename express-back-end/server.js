@@ -321,9 +321,15 @@ app.post("/booking/comment/:id", (req, res) => {
 app.put("/booking/status/:id", (req, res) => {
   const id = req.params.id;
   const payload = req.body;
+  console.log(payload);
+  const fullMessage = `An application of yours has been accepted. Visit Pro-Bone-O for details.`;
+  const phone_number = process.env.phone_number;
   dataqueries.bookingID
     .updatebooking(id, payload)
     .then((petInfo) => {
+      if (payload["accepted"] === true) {
+        sendMessage(phone_number, fullMessage);
+      }
       res.json(petInfo);
     })
     .catch((err) => {

@@ -1,9 +1,7 @@
 .login{
+    display: flexbox;
+    justify-content: center;
+    align-items: center;
     text-align: center;
-    margin: 0;
-    position: absolute;
-    top: 30%;
-    left: 20%;
-    font-size: 50px;
-    
+    margin-top: 200px;
 }

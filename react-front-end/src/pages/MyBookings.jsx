@@ -177,6 +177,7 @@ export default function MyBookings(props) {
                   first_name={booking.users.first_name}
                   last_name={booking.users.last_name}
                   profile_photo={booking.users.photo_url}
+                  view={"Send Message"}
                 />
               </CardActions>
               <CardActions sx={{ width: 170, paddingBottom: 3 }}>
@@ -232,7 +233,6 @@ export default function MyBookings(props) {
               <Grid
                 item
                 container
-                direction="row"
                 sx={{
                   display: "flex",
                   flexDirection: "column",

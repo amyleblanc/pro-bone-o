@@ -6,6 +6,7 @@ import userState from "../components/atoms";
 import { Button, Grid, Typography } from '@mui/material';
 import PetsIcon from "@mui/icons-material/Pets";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 // const getSpecificDog = require("../helper/fetchdog");
 
@@ -188,6 +189,8 @@ export default function RegisterPet() {
   const [submitting, setSubmitting] = useState(false);
   const [dogPic, setDogPic] = useState("");
   const [user, setUser] = useRecoilState(userState);
+  const navigate = useNavigate();
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -205,6 +208,7 @@ export default function RegisterPet() {
     setTimeout(() => {
       setSubmitting(false);
       setFormData({ reset: true });
+      navigate("/listing");
     }, 3000);
   };
 

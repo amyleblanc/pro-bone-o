@@ -1,7 +1,7 @@
 import React from "react";
-import { Typography, Container } from "@mui/material/";
+import { Typography, Container, Grid, Box } from "@mui/material/";
 import "./splash.css";
-import { ReactComponent as DogSvG } from "./img/undraw_good_doggy_-4-wfq.svg";
+// import { ReactComponent as DogSvG } from "./img/undraw_good_doggy_-4-wfq.svg";
 
 export default function Splash() {
   return (
@@ -27,7 +27,12 @@ export default function Splash() {
           </Typography>
         </div>
         <div>
-          <DogSvG />
+          <Grid container >
+            <Grid item xs={12} md={12}>
+              <img src="/images/gooddog.png" alt="good dog" style={{maxWidth: "100%", paddingTop: "20px"}} />
+            </Grid>
+          </Grid>
+          {/* <DogSvG sx={{maxWidth: "100%"}}/> */}
         </div>
       </Container>
     </div>

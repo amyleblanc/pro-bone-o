@@ -171,7 +171,7 @@ export default function MyBookings(props) {
                 alignItems: "center",
               }}
             >
-              <CardActions sx={{ width: 170, p: 0 }}>
+              <CardActions sx={{ width: 175, p: 0 }}>
                 <ResponsiveBooking
                   booking_id={booking["booking"][0]["id"]}
                   first_name={booking.users.first_name}
@@ -180,7 +180,7 @@ export default function MyBookings(props) {
                   view={"Send Message"}
                 />
               </CardActions>
-              <CardActions sx={{ width: 170, paddingBottom: 3 }}>
+              <CardActions sx={{ width: 175, paddingBottom: 3 }}>
                 <Button
                   variant="contained"
                   color="error"

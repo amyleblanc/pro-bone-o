@@ -215,18 +215,6 @@ export default function ListingForm() {
       <Typography variant="h7" align="center" paddingBottom="15px">
         Create a listing to let the<br/>Pro-Bone-O community know<br/>what you are looking for!
       </Typography>
-      {submitting && (
-        <div>
-          You submitted the following:
-          <ul>
-            {Object.entries(formData).map(([name, value]) => (
-              <li key={name}>
-                <strong>{name}</strong>:{value.toString()}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
       {!user.id && <h1>Please Login or Register to Access This Page.</h1>}
       {user.id && (
         <form onSubmit={handleSubmit} disabled={submitting} padding="20px">

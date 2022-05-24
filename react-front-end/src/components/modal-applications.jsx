@@ -62,7 +62,7 @@ export default function ResponsiveApplications(props) {
     updateBooking(bookingID, { accepted: true, archived: false });
     updateListing(listingID, { accepted: true });
     setTimeout(() => {
-      navigate("/myaccount");
+      navigate("/listing");
     }, 500);
   };
 

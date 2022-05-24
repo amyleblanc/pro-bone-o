@@ -247,18 +247,6 @@ export default function RegisterPet() {
       <Typography variant="h5" align="center" paddingBottom="15px">
         Add a Pet to your Profile:
       </Typography>
-      {submitting && (
-        <div>
-          You submitted the following:
-          <ul>
-            {Object.entries(formData).map(([name, value]) => (
-              <li key={name}>
-                <strong>{name}</strong>:{value.toString()}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
       {!user.id && <h1>Please Login or Register to Access This Page.</h1>}
       {user.id && (
         <form onSubmit={handleSubmit} disabled={submitting} style->

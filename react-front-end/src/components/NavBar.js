@@ -69,120 +69,122 @@ const ResponsiveAppBar = () => {
     if(!user){
       return (
         <>
-        <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleOpenNavMenu}
-                color="inherit"
-              >
-                <MenuIcon />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "left",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "left",
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
-                sx={{
-                  display: { xs: "block", md: "none" },
-                }}
-              >
-                  <Link style={{ textDecoration: "none"}} to={'/listing'}>
-                    <MenuItem key={"Browse Listings"} onClick={handleCloseNavMenu}>
-                      <Typography textAlign="center">
-                      Browse Listings
-                      </Typography>
-                    </MenuItem>
-                  </Link>
-                  {names.map((name) => (
-                    <MenuItem
-                      style={{ textDecoration: "none", color:"blue" }}
-                      key={name.name}
-                      value={name.name}
-                      onClick={(event) => handleSubmit(event, name.id)}
-                    >
-                      {name.name}
-                    </MenuItem>
-                  ))}
-                  <Link style={{ textDecoration: "none"}} to={'/registerUser'}>
-                    <MenuItem key={"Register"} onClick={handleCloseNavMenu}>
-                      <Typography textAlign="center">
-                      Register
-                      </Typography>
-                    </MenuItem>
-                  </Link>
-              </Menu>
-            </Box>
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" }, flexDirection: "row-reverse" }}>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+              sx={{paddingTop: "35px"}}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{
+                display: { xs: "block", md: "none" },
+              }}
+            >
+                <Link style={{ textDecoration: "none"}} to={'/listing'}>
+                  <MenuItem key={"Browse Listings"} onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">
+                    Browse Listings
+                    </Typography>
+                  </MenuItem>
+                </Link>
+                {names.map((name) => (
+                  <MenuItem
+                    style={{ textDecoration: "none", color:"blue" }}
+                    key={name.name}
+                    value={name.name}
+                    onClick={(event) => handleSubmit(event, name.id)}
+                  >
+                    {name.name}
+                  </MenuItem>
+                ))}
+                <Link style={{ textDecoration: "none"}} to={'/registerUser'}>
+                  <MenuItem key={"Register"} onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">
+                    Register
+                    </Typography>
+                  </MenuItem>
+                </Link>
+            </Menu>
+          </Box>
         </>
       )
     } else {
       return(
         <>
-                <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleOpenNavMenu}
-                color="inherit"
-              >
-                <MenuIcon />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "left",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "left",
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
-                sx={{
-                  display: { xs: "block", md: "none" },
-                }}
-              >
-                  <Link style={{ textDecoration: "none" }} to={'/listing'}>
-                    <MenuItem key={"Browse Listings"} onClick={handleCloseNavMenu}>
-                      <Typography textAlign="center">
-                      Browse Listings
-                      </Typography>
-                    </MenuItem>
-                  </Link>
-                  <Link
-                    style={{ textDecoration: "none" }}
-                    to={`/myaccount`}
-                  >
-                    <MenuItem key={"My Account"} onClick={handleCloseNavMenu}>
-                      <Typography textAlign="center">{"My Account"}</Typography>
-                    </MenuItem>
-                  </Link>
-                  <Link
-                    style={{ textDecoration: "none" }}
-                    to={`/logout`}
-                  >
-                    <MenuItem key={"Logout"} onClick={() => { handleCloseNavMenu(); handleLogout();}}>
-                      <Typography textAlign="center">{"Logout"}</Typography>
-                    </MenuItem>
-                  </Link>
-              </Menu>
-            </Box>
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" }, flexDirection: "row-reverse" }}>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+              sx={{paddingTop: "35px"}}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{
+                display: { xs: "block", md: "none" },
+              }}
+            >
+                <Link style={{ textDecoration: "none" }} to={'/listing'}>
+                  <MenuItem key={"Browse Listings"} onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">
+                    Browse Listings
+                    </Typography>
+                  </MenuItem>
+                </Link>
+                <Link
+                  style={{ textDecoration: "none" }}
+                  to={`/myaccount`}
+                >
+                  <MenuItem key={"My Account"} onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">{"My Account"}</Typography>
+                  </MenuItem>
+                </Link>
+                <Link
+                  style={{ textDecoration: "none" }}
+                  to={`/logout`}
+                >
+                  <MenuItem key={"Logout"} onClick={() => { handleCloseNavMenu(); handleLogout();}}>
+                    <Typography textAlign="center">{"Logout"}</Typography>
+                  </MenuItem>
+                </Link>
+            </Menu>
+          </Box>
         </>
       )
     }
@@ -205,36 +207,36 @@ const ResponsiveAppBar = () => {
               <img src="/images/pro-bone-o_logo.png" alt="logo" />
             </Typography>
           </Link>
-              <HamburgerMenu />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-              height: "3em",
-            }}
-          >
-            <img src="/images/pro-bone-o_logo.png" alt="logo" />
-          </Typography>
+          <Box sx={{display: "flex", flexDirection: "row"}}>
+            <HamburgerMenu />
+            <Box sx={{ display: { xs: "flex", md: "none" }, paddingLeft: "85px", width: "300px", alignContent: "center" }}>
+              <Typography
+                variant="h5"
+                noWrap
+                component="a"
+                href="/"
+                align={"center"}
+                sx={{
+                  mr: 2,
+                  display: { xs: "flex", md: "none" },
+                  textDecoration: "none",
+                  height: "3.3em",
+                }}
+              >
+                  <img src="/images/pro-bone-o_logo.png" alt="logo" />
+              </Typography>
+            </Box>
+          </Box>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-              <Link style={{ textDecoration: "none" }} to={'/listing'}>
-                <Button
-                  key={"Browse Listings"}
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "black", display: "block" }}
-                >
-                  {"Browse Listings"}
-                </Button>
-              </Link>
+            <Link style={{ textDecoration: "none" }} to={'/listing'}>
+              <Button
+                key={"Browse Listings"}
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: "black", display: "block" }}
+              >
+                {"Browse Listings"}
+              </Button>
+            </Link>
           </Box>
           <Conditional />
         </Toolbar>

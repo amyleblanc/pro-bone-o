@@ -17,10 +17,7 @@ export default function Map(props) {
 
   const [listing, setListing] = useState([]);
   const { url, payload } = props;
-  const center = useMemo(
-    () => ({ lat: 449.27325986893359, lng: -123.10084859829038 }),
-    []
-  );
+  const center = useMemo(() => ({ lat: 49.273259, lng: -123.100848 }), []);
 
   const containerStyle = {
     width: "100%",

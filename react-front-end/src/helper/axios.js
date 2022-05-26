@@ -3,7 +3,7 @@ import axios from "axios";
 /**
  *
  * @param {String} url location for api request
- * @param {String} type type of api request (GET, POST, PUT, DELETE)
+ * @param {String} type type of api request (GET, POST, PUT, DELETE) /
  * @param {Object} formData formdata object payload for action
  * @param {Function} helperFunction functino to act on data returned by api
  * @returns data from api request as object
